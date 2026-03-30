@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
 interface DownloadButtonProps {
@@ -17,13 +18,15 @@ export function DownloadButton({
   type,
 }: DownloadButtonProps) {
   const [clicked, setClicked] = useState(false);
+  const router = useRouter();
 
   const handleClick = () => {
     setClicked(true);
     setTimeout(() => setClicked(false), 1500);
 
     if (type === "html") {
-      window.open(file, "_blank");
+      const viewerPath = file.replace("/entregables/", "/viewer/");
+      router.push(viewerPath);
     } else {
       const link = document.createElement("a");
       link.href = file;
@@ -55,15 +58,33 @@ export function DownloadButton({
       {clicked ? (
         <>
           <CheckIcon />
-          Descargado
+          {type === "html" ? "Abriendo..." : "Descargado"}
         </>
       ) : (
         <>
-          <DownloadIcon />
+          {type === "html" ? <ViewIcon /> : <DownloadIcon />}
           {label}
         </>
       )}
     </motion.button>
+  );
+}
+
+function ViewIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="8" cy="8" r="3" />
+      <path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5" />
+    </svg>
   );
 }
 

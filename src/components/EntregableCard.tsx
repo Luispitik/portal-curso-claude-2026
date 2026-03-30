@@ -30,7 +30,7 @@ export function EntregableCard({ entregable, section }: EntregableCardProps) {
       <DownloadButton
         file={`/entregables/${entregable.file}`}
         section={section}
-        label="Descargar"
+        label={entregable.type === "html" ? "Ver" : "Descargar"}
         type={entregable.type}
       />
     </div>
