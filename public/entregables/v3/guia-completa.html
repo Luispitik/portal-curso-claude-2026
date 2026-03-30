@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V3 — Guia Completa: Introduccion a Claude Code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d1a;--bg2:#16162a;--card:#1e1e38;--accent:#e94560;--accent2:#0f3460;--success:#2ecc71;--warning:#f39c12;--text:#e0e0e0;--text2:#a0a0b8;--border:#2a2a4a;--r:12px;--mw:900px}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}.container{max-width:var(--mw);margin:0 auto;padding:2rem 1.5rem}.hero{text-align:center;padding:3rem 2rem;background:linear-gradient(135deg,var(--accent2) 0%,var(--bg) 100%);border-bottom:3px solid var(--accent)}.badge{display:inline-block;background:var(--accent);color:#fff;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.3rem 1rem;border-radius:20px;margin-bottom:1rem}.section-number{font-size:5rem;font-weight:800;color:var(--accent);opacity:.2;line-height:1}.hero h1{font-size:2rem;font-weight:700;margin:.5rem 0}.hero .subtitle{color:var(--text2);font-size:1.1rem}.meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1rem;font-size:.85rem;color:var(--text2)}.toc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;margin:2rem 0}.toc h3{font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text2);margin-bottom:1rem}.toc ol{list-style:none;counter-reset:toc}.toc li{counter-increment:toc;margin-bottom:.5rem}.toc li::before{content:counter(toc) ".";color:var(--accent);font-weight:600;margin-right:.5rem}.toc a{color:var(--text);text-decoration:none;transition:color .2s}.toc a:hover{color:var(--accent)}.step{margin:2.5rem 0;padding:2rem;background:var(--bg2);border-radius:var(--r);border-left:4px solid var(--accent)}.step-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}.step-num{width:36px;height:36px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0}.step h2{font-size:1.3rem;font-weight:700}.step p{margin:.8rem 0;color:var(--text2)}.step ul,.step ol{margin:.8rem 0 .8rem 1.5rem;color:var(--text2)}.step li{margin-bottom:.4rem}.step strong{color:var(--text)}.callout{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.5rem;margin:1rem 0}.callout.tip{border-left:4px solid var(--success)}.callout.warning{border-left:4px solid var(--warning)}.callout.important{border-left:4px solid var(--accent)}.ct{font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}.callout.tip .ct{color:var(--success)}.callout.warning .ct{color:var(--warning)}.callout.important .ct{color:var(--accent)}.prompt-box{background:#0a0a14;border:1px solid var(--border);border-radius:var(--r);margin:1rem 0;overflow:hidden}.prompt-header{display:flex;justify-content:space-between;align-items:center;padding:.6rem 1rem;background:var(--card);border-bottom:1px solid var(--border);font-size:.8rem;color:var(--text2)}.prompt-header .label{font-weight:600;text-transform:uppercase;letter-spacing:.05em}.btn-copy{background:var(--accent2);color:var(--text);border:none;padding:.3rem .8rem;border-radius:6px;cursor:pointer;font-size:.75rem;font-family:inherit;transition:background .2s}.btn-copy:hover{background:var(--accent)}.btn-copy.copied{background:var(--success)}.prompt-body{padding:1rem;font-size:.9rem;line-height:1.6;white-space:pre-wrap;color:var(--text2)}.task-box{background:linear-gradient(135deg,rgba(233,69,96,.1) 0%,rgba(15,52,96,.1) 100%);border:2px solid var(--accent);border-radius:var(--r);padding:1.5rem;margin:2rem 0}.task-box h3{color:var(--accent);font-size:1rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.8rem}.task-box ol{margin-left:1.2rem}.task-box li{margin-bottom:.5rem;color:var(--text2)}table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}th{background:var(--card);color:var(--text);text-align:left;padding:.8rem 1rem;border-bottom:2px solid var(--accent);font-weight:600}td{padding:.7rem 1rem;border-bottom:1px solid var(--border);color:var(--text2)}tr:hover td{background:var(--card)}.takeaways{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;margin:2rem 0}.takeaways h3{font-size:1rem;margin-bottom:1rem;color:var(--accent)}.takeaways li{margin-bottom:.6rem;padding-left:.5rem;color:var(--text2)}.takeaways li::marker{color:var(--accent)}.section-nav{display:flex;justify-content:space-between;margin:3rem 0 1rem;padding-top:2rem;border-top:1px solid var(--border)}.nav-btn{color:var(--text2);text-decoration:none;padding:.6rem 1.2rem;border:1px solid var(--border);border-radius:8px;font-size:.9rem;transition:all .2s}.nav-btn:hover{border-color:var(--accent);color:var(--accent)}footer{text-align:center;padding:2rem;color:var(--text2);font-size:.8rem;border-top:1px solid var(--border);margin-top:2rem}@media print{body{background:#fff;color:#1a1a2e}.hero{background:none;border-bottom:2px solid #1a1a2e}.step{border-left-color:#1a1a2e;background:#f5f5f5}.btn-copy{display:none}.prompt-body{background:#f0f0f0;border:1px solid #ccc;color:#333}}@media(max-width:640px){.hero h1{font-size:1.5rem}.section-number{font-size:3rem}.step{padding:1.2rem}.meta{flex-direction:column;gap:.5rem}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <span class="badge">Video 3 - Practico</span>
+  <div class="section-number">03</div>
+  <h1>Introduccion a Claude Code</h1>
+  <p class="subtitle">Tu becario brillante con acceso total</p>
+  <div class="meta"><span>~30 min</span><span>3 entregables</span><span>Modulo 3 de 6</span></div>
+</div>
+<div class="container">
+
+<nav class="toc"><h3>En esta guia</h3><ol>
+  <li><a href="#paso1">Que es Claude Code y por que es diferente</a></li>
+  <li><a href="#paso2">Los 5 pilares de Claude Code</a></li>
+  <li><a href="#paso3">El archivo CLAUDE.md</a></li>
+  <li><a href="#paso4">La entrevista de 7 ambitos</a></li>
+  <li><a href="#paso5">Pipeline de despliegue: GitHub + Vercel</a></li>
+  <li><a href="#paso6">La IA no sustituye aprender</a></li>
+  <li><a href="#prompts">Prompts de esta seccion</a></li>
+  <li><a href="#tarea">Tarea practica</a></li>
+</ol></nav>
+
+<div class="step" id="paso1">
+  <div class="step-header"><div class="step-num">1</div><h2>Que es Claude Code y por que es diferente</h2></div>
+  <p>Claude Code <strong>no es un chatbot</strong>. Es un agente de software con acceso completo a tu terminal, sistema de archivos y herramientas de desarrollo.</p>
+  <ul>
+    <li><strong>Es proactivo</strong>: no espera instrucciones paso a paso, resuelve problemas</li>
+    <li><strong>Tiene acceso total</strong>: lee y escribe archivos, ejecuta comandos, navega tu proyecto</li>
+    <li><strong>La clave es el contexto</strong>: dale informacion, no direccion rigida</li>
+  </ul>
+  <div class="callout important"><div class="ct">Cambio de mentalidad</div><p>Con Claude Chat le dices <em>que hacer</em>. Con Claude Code le dices <em>que quieres lograr</em> y el decide como hacerlo.</p></div>
+</div>
+
+<div class="step" id="paso2">
+  <div class="step-header"><div class="step-num">2</div><h2>Los 5 pilares de Claude Code</h2></div>
+  <table>
+    <tr><th>Pilar</th><th>Que es</th><th>Para que sirve</th></tr>
+    <tr><td><strong>CLAUDE.md</strong></td><td>Manual de instrucciones del proyecto</td><td>Contexto persistente entre sesiones</td></tr>
+    <tr><td><strong>Permisos</strong></td><td>Que puede y no puede hacer</td><td>Control de seguridad y alcance</td></tr>
+    <tr><td><strong>Hooks</strong></td><td>Reglas automaticas por eventos</td><td>Automatizar flujos repetitivos</td></tr>
+    <tr><td><strong>Servidores MCP</strong></td><td>Conectores a herramientas externas</td><td>Extender capacidades (APIs, DBs, docs)</td></tr>
+    <tr><td><strong>Subagentes</strong></td><td>Agentes especializados delegados</td><td>Tareas paralelas y especializacion</td></tr>
+  </table>
+</div>
+
+<div class="step" id="paso3">
+  <div class="step-header"><div class="step-num">3</div><h2>El archivo CLAUDE.md: tu manual de instrucciones</h2></div>
+  <p>El CLAUDE.md es el archivo mas importante de cualquier proyecto con Claude Code. Tiene <strong>4 niveles</strong>:</p>
+  <table>
+    <tr><th>Nivel</th><th>Ubicacion</th><th>Alcance</th></tr>
+    <tr><td><strong>Global</strong></td><td>~/.claude/CLAUDE.md</td><td>Aplica a TODO lo que hagas</td></tr>
+    <tr><td><strong>Proyecto</strong></td><td>CLAUDE.md en la raiz</td><td>Solo este proyecto</td></tr>
+    <tr><td><strong>Subcarpeta</strong></td><td>CLAUDE.md en una carpeta</td><td>Solo esa carpeta</td></tr>
+    <tr><td><strong>Temporal</strong></td><td>Instrucciones en el chat</td><td>Solo esta conversacion</td></tr>
+  </table>
+  <div class="callout warning"><div class="ct">Error comun</div><p>No metas 500 lineas en el CLAUDE.md. Debe ser un <strong>diseminador</strong> (50 lineas maximo) que apunte a donde buscar mas informacion. Si contiene todo, consume tokens innecesariamente.</p></div>
+</div>
+
+<div class="step" id="paso4">
+  <div class="step-header"><div class="step-num">4</div><h2>La entrevista de 7 ambitos</h2></div>
+  <p>Antes de empezar cualquier proyecto, haz que Claude te <strong>interrogue</strong> sobre 7 areas clave:</p>
+  <ol>
+    <li><strong>Identidad profesional</strong>: que haces, para quien, experiencia</li>
+    <li><strong>Equipo y contexto</strong>: trabajo solo, en equipo, jerarquia</li>
+    <li><strong>Proyectos activos</strong>: en que estas trabajando ahora</li>
+    <li><strong>Casos de uso con IA</strong>: para que usas o quieres usar la IA</li>
+    <li><strong>Preferencias de comunicacion</strong>: directo, detallado, tecnico, simple</li>
+    <li><strong>Mundo personal</strong>: hobbies, intereses que influyen en tu trabajo</li>
+    <li><strong>Limites</strong>: que NO quieres que haga, temas sensibles</li>
+  </ol>
+  <div class="callout tip"><div class="ct">Por que funciona</div><p>Cuanto mas te conozca Claude, mejor seran sus respuestas. La entrevista de 7 ambitos construye un perfil completo que persiste en tu CLAUDE.md global.</p></div>
+</div>
+
+<div class="step" id="paso5">
+  <div class="step-header"><div class="step-num">5</div><h2>Pipeline de despliegue: GitHub + Vercel</h2></div>
+  <p>El flujo para tener una web en produccion sin saber programar:</p>
+  <ol>
+    <li><strong>Escribes codigo con Claude Code</strong> (el lo genera, tu lo diriges)</li>
+    <li><strong>Subes a GitHub</strong> con git push</li>
+    <li><strong>Conectas con Vercel</strong> (una sola vez)</li>
+    <li><strong>Deploy automatico</strong> con cada push</li>
+  </ol>
+  <div class="callout tip"><div class="ct">Resultado</div><p>Cada vez que haces git push, tu web se actualiza automaticamente. Sin servidores, sin configuracion manual, sin saber DevOps.</p></div>
+</div>
+
+<div class="step" id="paso6">
+  <div class="step-header"><div class="step-num">6</div><h2>La IA no sustituye aprender</h2></div>
+  <p>Uno de los hallazgos mas importantes del curso: la IA <strong>no sustituye aprender, te ayuda a aprender mejor</strong>.</p>
+  <p>El ejemplo de AIM (diagnostico medico):</p>
+  <ul>
+    <li><strong>IA sola</strong>: diagnostica mejor que medicos solos</li>
+    <li><strong>Medicos + IA</strong>: ligeramente mejor que IA sola</li>
+    <li><strong>Conclusion</strong>: el humano aporta criterio, no velocidad</li>
+  </ul>
+  <div class="callout important"><div class="ct">La leccion</div><p>Si no aprendes el dominio, te conviertes en el lastre del sistema. La IA te hace mas rapido, pero tu criterio es lo que la hace util.</p></div>
+</div>
+
+<div class="step" id="prompts" style="border-left-color:var(--accent2)">
+  <div class="step-header"><div class="step-num" style="background:var(--accent2)">P</div><h2>Prompts de esta seccion</h2></div>
+
+  <p><strong>Prompt 1: Entrevista de 7 ambitos</strong></p>
+  <div class="prompt-box">
+    <div class="prompt-header"><span class="label">Prompt copiable</span><button class="btn-copy" onclick="copyPrompt(this)">Copiar</button></div>
+    <div class="prompt-body">Quiero que me hagas una entrevista exhaustiva para conocerme y poder trabajar conmigo de forma efectiva. Cubre estos 7 ambitos uno por uno:
+
+1. Identidad profesional (que hago, para quien, experiencia)
+2. Equipo y contexto (trabajo solo, en equipo, jerarquia)
+3. Proyectos activos (en que estoy trabajando ahora)
+4. Casos de uso con IA (para que uso o quiero usar la IA)
+5. Preferencias de comunicacion (directo, detallado, tecnico, simple)
+6. Mundo personal (hobbies, intereses que influyen en mi trabajo)
+7. Limites (que NO quiero que hagas, temas sensibles)
+
+Hazme las preguntas una por una. Al final, genera un perfil profesional completo.</div>
+  </div>
+
+  <p><strong>Prompt 2: Crear CLAUDE.md</strong></p>
+  <div class="prompt-box">
+    <div class="prompt-header"><span class="label">Prompt copiable</span><button class="btn-copy" onclick="copyPrompt(this)">Copiar</button></div>
+    <div class="prompt-body">Analiza este proyecto y genera un archivo CLAUDE.md conciso (maximo 50 lineas) que incluya:
+- What: que es este proyecto en 2 frases
+- Stack: tecnologias usadas
+- Structure: carpetas clave y su proposito
+- Rules: reglas no negociables del proyecto
+- Conventions: convenciones de codigo
+
+No metas contenido que pueda encontrarse en otros archivos. El CLAUDE.md es un diseminador que apunta a donde buscar, no un contenedor de todo.</div>
+  </div>
+
+  <p><strong>Prompt 3: Delegar con criterio</strong></p>
+  <div class="prompt-box">
+    <div class="prompt-header"><span class="label">Prompt copiable</span><button class="btn-copy" onclick="copyPrompt(this)">Copiar</button></div>
+    <div class="prompt-body">Para esta tarea: [describe la tarea]
+
+Disena el equipo de agentes que consideres necesario. Dame 3 opciones:
+1) La mas economica (menos tokens, mas rapida)
+2) La mas funcional (mejor resultado)
+3) La mas segura (con mas verificaciones)
+
+Para cada opcion indica: agentes necesarios, flujo de trabajo, tokens estimados, riesgos.</div>
+  </div>
+</div>
+
+<div class="takeaways"><h3>Resumen: lo que debes recordar</h3><ol>
+  <li><strong>Claude Code es un agente</strong> con acceso total a tu sistema — no un chat</li>
+  <li><strong>5 pilares</strong>: CLAUDE.md, permisos, hooks, MCPs, subagentes</li>
+  <li><strong>CLAUDE.md conciso</strong> (50 lineas) — apunta a donde buscar, no contiene todo</li>
+  <li><strong>Entrevista de 7 ambitos</strong> obligatoria antes de empezar cualquier proyecto</li>
+  <li><strong>GitHub + Vercel</strong> = deploy automatico con cada git push</li>
+  <li><strong>La IA no sustituye aprender</strong> — amplifica tu capacidad de aprendizaje</li>
+</ol></div>
+
+<div class="task-box" id="tarea"><h3>Tarea practica del modulo</h3><ol>
+  <li>Instala Claude Code siguiendo el checklist de setup</li>
+  <li>Ejecuta la entrevista de 7 ambitos con el <strong>Prompt 1</strong></li>
+  <li>Crea tu primer CLAUDE.md global en ~/.claude/CLAUDE.md con el <strong>Prompt 2</strong></li>
+  <li>Conecta un proyecto a GitHub y Vercel para deploy automatico</li>
+  <li>Prueba a pedirle a Claude Code que audite un proyecto existente tuyo</li>
+</ol></div>
+
+<nav class="section-nav">
+  <a href="/secciones/v2-framework-mental" class="nav-btn">&larr; V2: Framework Mental</a>
+  <a href="/secciones/v4-skills-hooks-plugins" class="nav-btn">V4: Skills, Hooks y Plugins &rarr;</a>
+</nav>
+</div>
+<footer>Curso Claude 2026 — De 0 a Sistema &middot; Next Gen AI Institute &middot; Luis Salgado &amp; Angel Aparicio</footer>
+<script>function copyPrompt(btn){var t=btn.closest('.prompt-box').querySelector('.prompt-body').textContent;navigator.clipboard.writeText(t).then(function(){btn.textContent='Copiado!';btn.classList.add('copied');setTimeout(function(){btn.textContent='Copiar';btn.classList.remove('copied')},2000)})}</script>
+</body>
+</html>

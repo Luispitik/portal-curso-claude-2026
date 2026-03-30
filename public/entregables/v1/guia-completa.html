@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V1 — Guia Completa: Bienvenida al Curso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d1a;--bg2:#16162a;--card:#1e1e38;--accent:#e94560;--accent2:#0f3460;--success:#2ecc71;--warning:#f39c12;--text:#e0e0e0;--text2:#a0a0b8;--border:#2a2a4a;--r:12px;--mw:900px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.container{max-width:var(--mw);margin:0 auto;padding:2rem 1.5rem}
+.hero{text-align:center;padding:3rem 2rem;background:linear-gradient(135deg,var(--accent2) 0%,var(--bg) 100%);border-bottom:3px solid var(--accent)}
+.badge{display:inline-block;background:var(--accent);color:#fff;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.3rem 1rem;border-radius:20px;margin-bottom:1rem}
+.section-number{font-size:5rem;font-weight:800;color:var(--accent);opacity:.2;line-height:1}
+.hero h1{font-size:2rem;font-weight:700;margin:.5rem 0}
+.hero .subtitle{color:var(--text2);font-size:1.1rem}
+.meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1rem;font-size:.85rem;color:var(--text2)}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;margin:2rem 0}
+.toc h3{font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text2);margin-bottom:1rem}
+.toc ol{list-style:none;counter-reset:toc}
+.toc li{counter-increment:toc;margin-bottom:.5rem}
+.toc li::before{content:counter(toc) ".";color:var(--accent);font-weight:600;margin-right:.5rem}
+.toc a{color:var(--text);text-decoration:none;transition:color .2s}
+.toc a:hover{color:var(--accent)}
+.step{margin:2.5rem 0;padding:2rem;background:var(--bg2);border-radius:var(--r);border-left:4px solid var(--accent)}
+.step-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.step-num{width:36px;height:36px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0}
+.step h2{font-size:1.3rem;font-weight:700}
+.step p{margin:.8rem 0;color:var(--text2)}
+.step ul,.step ol{margin:.8rem 0 .8rem 1.5rem;color:var(--text2)}
+.step li{margin-bottom:.4rem}
+.step strong{color:var(--text)}
+.callout{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.5rem;margin:1rem 0}
+.callout.tip{border-left:4px solid var(--success)}
+.callout.warning{border-left:4px solid var(--warning)}
+.callout.important{border-left:4px solid var(--accent)}
+.ct{font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}
+.callout.tip .ct{color:var(--success)}
+.callout.warning .ct{color:var(--warning)}
+.callout.important .ct{color:var(--accent)}
+.prompt-box{background:#0a0a14;border:1px solid var(--border);border-radius:var(--r);margin:1rem 0;overflow:hidden}
+.prompt-header{display:flex;justify-content:space-between;align-items:center;padding:.6rem 1rem;background:var(--card);border-bottom:1px solid var(--border);font-size:.8rem;color:var(--text2)}
+.prompt-header .label{font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.btn-copy{background:var(--accent2);color:var(--text);border:none;padding:.3rem .8rem;border-radius:6px;cursor:pointer;font-size:.75rem;font-family:inherit;transition:background .2s}
+.btn-copy:hover{background:var(--accent)}
+.btn-copy.copied{background:var(--success)}
+.prompt-body{padding:1rem;font-size:.9rem;line-height:1.6;white-space:pre-wrap;color:var(--text2)}
+.task-box{background:linear-gradient(135deg,rgba(233,69,96,.1) 0%,rgba(15,52,96,.1) 100%);border:2px solid var(--accent);border-radius:var(--r);padding:1.5rem;margin:2rem 0}
+.task-box h3{color:var(--accent);font-size:1rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.8rem}
+.task-box ol{margin-left:1.2rem}
+.task-box li{margin-bottom:.5rem;color:var(--text2)}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
+th{background:var(--card);color:var(--text);text-align:left;padding:.8rem 1rem;border-bottom:2px solid var(--accent);font-weight:600}
+td{padding:.7rem 1rem;border-bottom:1px solid var(--border);color:var(--text2)}
+tr:hover td{background:var(--card)}
+.takeaways{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;margin:2rem 0}
+.takeaways h3{font-size:1rem;margin-bottom:1rem;color:var(--accent)}
+.takeaways li{margin-bottom:.6rem;padding-left:.5rem;color:var(--text2)}
+.takeaways li::marker{color:var(--accent)}
+.section-nav{display:flex;justify-content:space-between;margin:3rem 0 1rem;padding-top:2rem;border-top:1px solid var(--border)}
+.nav-btn{color:var(--text2);text-decoration:none;padding:.6rem 1.2rem;border:1px solid var(--border);border-radius:8px;font-size:.9rem;transition:all .2s}
+.nav-btn:hover{border-color:var(--accent);color:var(--accent)}
+footer{text-align:center;padding:2rem;color:var(--text2);font-size:.8rem;border-top:1px solid var(--border);margin-top:2rem}
+@media print{body{background:#fff;color:#1a1a2e}.hero{background:none;border-bottom:2px solid #1a1a2e}.step{border-left-color:#1a1a2e;background:#f5f5f5}.btn-copy{display:none}.prompt-body{background:#f0f0f0;border:1px solid #ccc;color:#333}}
+@media(max-width:640px){.hero h1{font-size:1.5rem}.section-number{font-size:3rem}.step{padding:1.2rem}.meta{flex-direction:column;gap:.5rem}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <span class="badge">Video 1 - Conceptual</span>
+  <div class="section-number">01</div>
+  <h1>Bienvenida al Curso</h1>
+  <p class="subtitle">Planes, modelos y configuracion inicial de Claude</p>
+  <div class="meta"><span>~30 min</span><span>4 entregables</span><span>Modulo 1 de 6</span></div>
+</div>
+<div class="container">
+
+<nav class="toc">
+  <h3>En esta guia</h3>
+  <ol>
+    <li><a href="#paso1">El ecosistema Claude: Chat, Code y Cowork</a></li>
+    <li><a href="#paso2">Planes y precios: cual elegir</a></li>
+    <li><a href="#paso3">Modelos: Opus, Sonnet y Haiku</a></li>
+    <li><a href="#paso4">Ventana de contexto: el millon de tokens</a></li>
+    <li><a href="#paso5">Configuracion inicial de privacidad</a></li>
+    <li><a href="#paso6">Conectores y MCPs</a></li>
+    <li><a href="#paso7">Proyectos y Artifacts</a></li>
+    <li><a href="#prompts">Prompts de esta seccion</a></li>
+    <li><a href="#tarea">Tarea practica</a></li>
+  </ol>
+</nav>
+
+<div class="step" id="paso1">
+  <div class="step-header"><div class="step-num">1</div><h2>El ecosistema Claude: Chat, Code y Cowork</h2></div>
+  <p>Claude no es solo un chatbot. Es un <strong>ecosistema con tres productos</strong> distintos que trabajan juntos:</p>
+  <table>
+    <tr><th>Producto</th><th>Que es</th><th>Para quien</th></tr>
+    <tr><td><strong>Claude Chat</strong></td><td>Interfaz web y movil. Conversaciones, proyectos, artifacts.</td><td>Todos: es el punto de entrada</td></tr>
+    <tr><td><strong>Claude Code</strong></td><td>Agente en terminal con acceso total a tu sistema de archivos</td><td>Developers, consultores, power users</td></tr>
+    <tr><td><strong>Claude Cowork</strong></td><td>App de escritorio con Computer Use, Dispatch y plugins</td><td>Automatizacion avanzada</td></tr>
+  </table>
+  <div class="callout tip"><div class="ct">Tip del curso</div><p>No necesitas dominar los tres desde el dia 1. Empezamos por Chat, pasamos a Code, y Cowork lo veremos como referencia avanzada.</p></div>
+</div>
+
+<div class="step" id="paso2">
+  <div class="step-header"><div class="step-num">2</div><h2>Planes y precios: cual elegir</h2></div>
+  <p>Claude tiene 5 tiers. Para este curso, el <strong>minimo recomendado es Pro ($20/mes)</strong>.</p>
+  <table>
+    <tr><th>Plan</th><th>Precio</th><th>Contexto</th><th>Modelos</th><th>Incluye</th></tr>
+    <tr><td>Free</td><td>$0</td><td>200K</td><td>Sonnet, Haiku</td><td>Basico, sin Opus</td></tr>
+    <tr><td><strong>Pro</strong></td><td><strong>$20/mes</strong></td><td><strong>200K</strong></td><td><strong>Todos</strong></td><td><strong>Opus, Projects, mayor cupo</strong></td></tr>
+    <tr><td>Max 5x</td><td>$100/mes</td><td>1M</td><td>Todos</td><td>5x uso + Claude Code</td></tr>
+    <tr><td>Max 20x</td><td>$200/mes</td><td>1M</td><td>Todos</td><td>20x uso, contexto maximo</td></tr>
+    <tr><td>Team</td><td>$25/usr</td><td>200K</td><td>Todos</td><td>Equipos, admin central</td></tr>
+  </table>
+  <div class="callout important"><div class="ct">Importante</div><p>Los ciclos de uso de Pro son <strong>45 mensajes cada 5 horas</strong> con cupo semanal que se reinicia desde tu primera sesion de la semana. Si llegas al limite, esperas 5h o subes a Max.</p></div>
+</div>
+
+<div class="step" id="paso3">
+  <div class="step-header"><div class="step-num">3</div><h2>Modelos: Opus, Sonnet y Haiku</h2></div>
+  <p>Cada modelo tiene un rol distinto. La <strong>estrategia inteligente</strong> es combinarlos:</p>
+  <table>
+    <tr><th>Modelo</th><th>Rol</th><th>Cuando usarlo</th></tr>
+    <tr><td><strong>Opus 4.6</strong></td><td>Maximo poder</td><td>Planificar, estructurar, decisiones complejas</td></tr>
+    <tr><td><strong>Sonnet 4.6</strong></td><td>Mejor balance</td><td>Ejecutar tareas, desarrollo, escritura</td></tr>
+    <tr><td><strong>Haiku 4.5</strong></td><td>Rapido y barato</td><td>Tareas simples, clasificacion, borradores</td></tr>
+  </table>
+  <div class="callout tip"><div class="ct">Estrategia de cambio de modelo</div><p>Planifica con Opus (estructura y vision), ejecuta con Sonnet (el trabajo pesado), y usa Haiku para tareas rapidas. Asi optimizas tokens y dinero.</p></div>
+</div>
+
+<div class="step" id="paso4">
+  <div class="step-header"><div class="step-num">4</div><h2>Ventana de contexto: el millon de tokens</h2></div>
+  <p>La ventana de contexto es el <strong>espacio de trabajo</strong> de Claude. Cuanto mas grande, mas informacion puede procesar de una sola vez.</p>
+  <ul>
+    <li><strong>200K tokens</strong> (Pro): ~150.000 palabras, suficiente para la mayoria de tareas</li>
+    <li><strong>1M tokens</strong> (Max): ~750.000 palabras, puedes darle un libro entero como contexto</li>
+  </ul>
+  <div class="callout tip"><div class="ct">Por que importa</div><p>Con 1M de tokens, puedes darle a Claude toda la documentacion de un proyecto, un codebase completo, o 10 PDFs de referencia y que trabaje con todo el contexto a la vez.</p></div>
+</div>
+
+<div class="step" id="paso5">
+  <div class="step-header"><div class="step-num">5</div><h2>Configuracion inicial de privacidad</h2></div>
+  <p>Antes de empezar a trabajar, hay <strong>3 ajustes criticos</strong>:</p>
+  <ol>
+    <li><strong>Desactiva "Ayudar a mejorar Claude"</strong>: Configuracion &gt; Privacidad. Si no, tus conversaciones se usan para entrenar el modelo.</li>
+    <li><strong>Configura la carga de herramientas</strong>: Pon "Cargar cuando sea necesario" en vez de siempre activas. Ahorra contexto.</li>
+    <li><strong>Importa tu memoria de ChatGPT</strong> (opcional): Si vienes de GPT, puedes importar tu historial.</li>
+  </ol>
+  <div class="callout warning"><div class="ct">Atencion</div><p>Si no desactivas el entrenamiento, todo lo que escribas (incluidos datos de clientes) puede usarse para mejorar el modelo. <strong>Hazlo ahora.</strong></p></div>
+</div>
+
+<div class="step" id="paso6">
+  <div class="step-header"><div class="step-num">6</div><h2>Conectores y MCPs</h2></div>
+  <p>Claude puede conectarse a herramientas externas mediante <strong>conectores nativos y MCPs</strong> (Model Context Protocol):</p>
+  <ul>
+    <li><strong>Conectores nativos</strong>: Google Workspace, Microsoft 365, Zoho CRM, Spotify, Apify</li>
+    <li><strong>MCPs</strong>: Protocolo abierto para crear conectores personalizados (Context7, Excalidraw, tu CRM)</li>
+    <li><strong>Claude in Chrome</strong>: Extension beta que integra Claude en el navegador</li>
+    <li><strong>Dispatch</strong>: Conecta tu movil con los archivos de tu ordenador</li>
+  </ul>
+  <div class="callout tip"><div class="ct">No necesitas todo ahora</div><p>Instala los conectores a medida que los necesites. En el modulo V4 veremos como configurar MCPs paso a paso.</p></div>
+</div>
+
+<div class="step" id="paso7">
+  <div class="step-header"><div class="step-num">7</div><h2>Proyectos y Artifacts</h2></div>
+  <p>Los <strong>Proyectos</strong> de Claude Chat son espacios de trabajo persistentes (similares a los GPTs). Puedes subir documentos como base de conocimiento, configurar instrucciones especificas y compartirlos con tu equipo.</p>
+  <p>Los <strong>Artifacts</strong> son contenido generado que puedes ver, editar y exportar:</p>
+  <ul>
+    <li>Codigo ejecutable (HTML, React, Python)</li>
+    <li>Dashboards y visualizaciones interactivas</li>
+    <li>Documentos, tablas, formularios</li>
+    <li>Generadores de QR, calculadoras, herramientas</li>
+  </ul>
+</div>
+
+<div class="step" id="prompts" style="border-left-color:var(--accent2)">
+  <div class="step-header"><div class="step-num" style="background:var(--accent2)">P</div><h2>Prompts de esta seccion</h2></div>
+
+  <p><strong>Prompt 1: Que Claude te conozca</strong></p>
+  <div class="prompt-box">
+    <div class="prompt-header"><span class="label">Prompt copiable</span><button class="btn-copy" onclick="copyPrompt(this)">Copiar</button></div>
+    <div class="prompt-body">Quiero que me conozcas para poder trabajar juntos de forma eficiente. Hazme preguntas sobre:
+1. Mi trabajo y rol profesional
+2. Mis herramientas y stack tecnologico
+3. Mis proyectos activos
+4. Mi estilo de comunicacion preferido
+5. Lo que NO quiero que hagas
+
+Hazme las preguntas una por una. Cuando termines, genera un resumen de mi perfil.</div>
+  </div>
+
+  <p><strong>Prompt 2: Auditar tu configuracion</strong></p>
+  <div class="prompt-box">
+    <div class="prompt-header"><span class="label">Prompt copiable</span><button class="btn-copy" onclick="copyPrompt(this)">Copiar</button></div>
+    <div class="prompt-body">Actua como auditor de configuracion de Claude. Hazme preguntas para verificar que tengo bien configurado:
+- Privacidad (entrenamiento desactivado)
+- Plan adecuado a mi uso
+- Conectores necesarios instalados
+- Modelo por defecto correcto para mi tipo de trabajo
+
+Si detectas algo mal configurado, dame los pasos exactos para corregirlo.</div>
+  </div>
+
+  <p><strong>Prompt 3: Comparar planes</strong></p>
+  <div class="prompt-box">
+    <div class="prompt-header"><span class="label">Prompt copiable</span><button class="btn-copy" onclick="copyPrompt(this)">Copiar</button></div>
+    <div class="prompt-body">Soy [describe tu rol]. Uso Claude para [tus casos de uso principales]. Mi presupuesto mensual para herramientas IA es de [cantidad].
+
+Basandote en esto, recomiendame el plan de Claude mas adecuado. Explica que ganaria y que perderia con cada opcion.</div>
+  </div>
+</div>
+
+<div class="takeaways">
+  <h3>Resumen: lo que debes recordar</h3>
+  <ol>
+    <li><strong>Claude es un ecosistema</strong>, no solo un chatbot. Chat + Code + Cowork.</li>
+    <li><strong>Plan Pro ($20)</strong> es el minimo para aprovechar el curso (acceso a Opus).</li>
+    <li><strong>Desactiva el entrenamiento</strong> inmediatamente en Configuracion &gt; Privacidad.</li>
+    <li><strong>Opus planifica, Sonnet ejecuta, Haiku resuelve rapido</strong> — combinalos.</li>
+    <li><strong>1M de tokens</strong> de contexto cambia las reglas del juego para proyectos complejos.</li>
+    <li><strong>Los conectores y MCPs</strong> extienden Claude a cualquier herramienta externa.</li>
+  </ol>
+</div>
+
+<div class="task-box" id="tarea">
+  <h3>Tarea practica del modulo</h3>
+  <ol>
+    <li>Verifica que tu plan es Pro o superior</li>
+    <li>Ve a Configuracion &gt; Privacidad y desactiva "Ayudar a mejorar Claude"</li>
+    <li>Configura la carga de herramientas como "cuando sea necesario"</li>
+    <li>Abre un Proyecto nuevo en Claude y sube un documento de trabajo real</li>
+    <li>Usa el <strong>Prompt 1</strong> de esta guia para que Claude te conozca</li>
+    <li>Prueba a cambiar de modelo (Opus, Sonnet, Haiku) y observa la diferencia</li>
+  </ol>
+</div>
+
+<nav class="section-nav">
+  <span></span>
+  <a href="/secciones/v2-framework-mental" class="nav-btn">V2: Framework Mental &rarr;</a>
+</nav>
+
+</div>
+<footer>Curso Claude 2026 — De 0 a Sistema &middot; Next Gen AI Institute &middot; Luis Salgado &amp; Angel Aparicio</footer>
+<script>
+function copyPrompt(btn){var t=btn.closest('.prompt-box').querySelector('.prompt-body').textContent;navigator.clipboard.writeText(t).then(function(){btn.textContent='Copiado!';btn.classList.add('copied');setTimeout(function(){btn.textContent='Copiar';btn.classList.remove('copied')},2000)})}
+</script>
+</body>
+</html>

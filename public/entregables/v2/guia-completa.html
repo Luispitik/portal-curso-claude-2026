@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V2 — Guia Completa: Framework Mental</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d1a;--bg2:#16162a;--card:#1e1e38;--accent:#e94560;--accent2:#0f3460;--success:#2ecc71;--warning:#f39c12;--text:#e0e0e0;--text2:#a0a0b8;--border:#2a2a4a;--r:12px;--mw:900px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.container{max-width:var(--mw);margin:0 auto;padding:2rem 1.5rem}
+.hero{text-align:center;padding:3rem 2rem;background:linear-gradient(135deg,var(--accent2) 0%,var(--bg) 100%);border-bottom:3px solid var(--accent)}
+.badge{display:inline-block;background:var(--accent);color:#fff;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.3rem 1rem;border-radius:20px;margin-bottom:1rem}
+.section-number{font-size:5rem;font-weight:800;color:var(--accent);opacity:.2;line-height:1}
+.hero h1{font-size:2rem;font-weight:700;margin:.5rem 0}
+.hero .subtitle{color:var(--text2);font-size:1.1rem}
+.meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1rem;font-size:.85rem;color:var(--text2)}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;margin:2rem 0}
+.toc h3{font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text2);margin-bottom:1rem}
+.toc ol{list-style:none;counter-reset:toc}
+.toc li{counter-increment:toc;margin-bottom:.5rem}
+.toc li::before{content:counter(toc) ".";color:var(--accent);font-weight:600;margin-right:.5rem}
+.toc a{color:var(--text);text-decoration:none;transition:color .2s}
+.toc a:hover{color:var(--accent)}
+.step{margin:2.5rem 0;padding:2rem;background:var(--bg2);border-radius:var(--r);border-left:4px solid var(--accent)}
+.step-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.step-num{width:36px;height:36px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0}
+.step h2{font-size:1.3rem;font-weight:700}
+.step p{margin:.8rem 0;color:var(--text2)}
+.step ul,.step ol{margin:.8rem 0 .8rem 1.5rem;color:var(--text2)}
+.step li{margin-bottom:.4rem}
+.step strong{color:var(--text)}
+.callout{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.5rem;margin:1rem 0}
+.callout.tip{border-left:4px solid var(--success)}
+.callout.warning{border-left:4px solid var(--warning)}
+.callout.important{border-left:4px solid var(--accent)}
+.ct{font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}
+.callout.tip .ct{color:var(--success)}
+.callout.warning .ct{color:var(--warning)}
+.callout.important .ct{color:var(--accent)}
+.prompt-box{background:#0a0a14;border:1px solid var(--border);border-radius:var(--r);margin:1rem 0;overflow:hidden}
+.prompt-header{display:flex;justify-content:space-between;align-items:center;padding:.6rem 1rem;background:var(--card);border-bottom:1px solid var(--border);font-size:.8rem;color:var(--text2)}
+.prompt-header .label{font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.btn-copy{background:var(--accent2);color:var(--text);border:none;padding:.3rem .8rem;border-radius:6px;cursor:pointer;font-size:.75rem;font-family:inherit;transition:background .2s}
+.btn-copy:hover{background:var(--accent)}
+.btn-copy.copied{background:var(--success)}
+.prompt-body{padding:1rem;font-size:.9rem;line-height:1.6;white-space:pre-wrap;color:var(--text2)}
+.task-box{background:linear-gradient(135deg,rgba(233,69,96,.1) 0%,rgba(15,52,96,.1) 100%);border:2px solid var(--accent);border-radius:var(--r);padding:1.5rem;margin:2rem 0}
+.task-box h3{color:var(--accent);font-size:1rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.8rem}
+.task-box ol{margin-left:1.2rem}
+.task-box li{margin-bottom:.5rem;color:var(--text2)}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
+th{background:var(--card);color:var(--text);text-align:left;padding:.8rem 1rem;border-bottom:2px solid var(--accent);font-weight:600}
+td{padding:.7rem 1rem;border-bottom:1px solid var(--border);color:var(--text2)}
+tr:hover td{background:var(--card)}
+.takeaways{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;margin:2rem 0}
+.takeaways h3{font-size:1rem;margin-bottom:1rem;color:var(--accent)}
+.takeaways li{margin-bottom:.6rem;padding-left:.5rem;color:var(--text2)}
+.takeaways li::marker{color:var(--accent)}
+.section-nav{display:flex;justify-content:space-between;margin:3rem 0 1rem;padding-top:2rem;border-top:1px solid var(--border)}
+.nav-btn{color:var(--text2);text-decoration:none;padding:.6rem 1.2rem;border:1px solid var(--border);border-radius:8px;font-size:.9rem;transition:all .2s}
+.nav-btn:hover{border-color:var(--accent);color:var(--accent)}
+footer{text-align:center;padding:2rem;color:var(--text2);font-size:.8rem;border-top:1px solid var(--border);margin-top:2rem}
+@media print{body{background:#fff;color:#1a1a2e}.hero{background:none;border-bottom:2px solid #1a1a2e}.step{border-left-color:#1a1a2e;background:#f5f5f5}.btn-copy{display:none}.prompt-body{background:#f0f0f0;border:1px solid #ccc;color:#333}}
+@media(max-width:640px){.hero h1{font-size:1.5rem}.section-number{font-size:3rem}.step{padding:1.2rem}.meta{flex-direction:column;gap:.5rem}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <span class="badge">Video 2 - Framework</span>
+  <div class="section-number">02</div>
+  <h1>Framework Mental</h1>
+  <p class="subtitle">Tu cabeza importa mas que la herramienta</p>
+  <div class="meta"><span>~30 min</span><span>3 entregables</span><span>Modulo 2 de 6</span></div>
+</div>
+<div class="container">
+
+<nav class="toc">
+  <h3>En esta guia</h3>
+  <ol>
+    <li><a href="#paso1">Por que tu cabeza importa mas que la herramienta</a></li>
+    <li><a href="#paso2">Los 8 sesgos cognitivos al trabajar con IA</a></li>
+    <li><a href="#paso3">La tarjeta anti-sesgos</a></li>
+    <li><a href="#paso4">Pensamiento critico vs criterio</a></li>
+    <li><a href="#paso5">Iterar vs insistir</a></li>
+    <li><a href="#prompts">Prompts de esta seccion</a></li>
+    <li><a href="#tarea">Tarea practica</a></li>
+  </ol>
+</nav>
+
+<div class="step" id="paso1">
+  <div class="step-header"><div class="step-num">1</div><h2>Por que tu cabeza importa mas que la herramienta</h2></div>
+  <p>La IA <strong>amplifica lo que ya eres</strong>. Si tienes buen criterio, te hace imparable. Si no lo tienes, te hace peligrosamente eficiente haciendo cosas mal.</p>
+  <p>Kahneman distingue dos sistemas de pensamiento:</p>
+  <table>
+    <tr><th>Sistema</th><th>Como funciona</th><th>Riesgo con IA</th></tr>
+    <tr><td><strong>Sistema 1</strong></td><td>Rapido, automatico, intuitivo</td><td>Aceptas la respuesta de Claude sin cuestionar</td></tr>
+    <tr><td><strong>Sistema 2</strong></td><td>Lento, deliberado, analitico</td><td>Verificas, contrastas, aplicas criterio</td></tr>
+  </table>
+  <div class="callout important"><div class="ct">Clave del modulo</div><p>La IA es <strong>probabilistica, no determinista</strong>. Cada respuesta es la mas probable, no necesariamente la correcta. Tu trabajo es activar el Sistema 2 antes de aceptar cualquier output.</p></div>
+</div>
+
+<div class="step" id="paso2">
+  <div class="step-header"><div class="step-num">2</div><h2>Los 8 sesgos cognitivos al trabajar con IA</h2></div>
+  <p>Estos son los 8 sesgos que te sabotean sin que te des cuenta:</p>
+  <table>
+    <tr><th>Sesgo</th><th>Que es</th><th>Dato real</th></tr>
+    <tr><td><strong>Automatizacion</strong></td><td>Aceptar sin cuestionar</td><td>78% de usuarios lo hacen (estudio 2024)</td></tr>
+    <tr><td><strong>Confirmacion</strong></td><td>Buscar lo que ya crees</td><td>Preguntas sesgadas = respuestas sesgadas</td></tr>
+    <tr><td><strong>Efecto Ancla</strong></td><td>La primera respuesta te fija</td><td>Como ir a Primark a por vaqueros y salir con toda la tienda</td></tr>
+    <tr><td><strong>Autoridad</strong></td><td>La IA suena experta</td><td>Pero se equivoca con total seguridad</td></tr>
+    <tr><td><strong>Dunning-Kruger Inverso</strong></td><td>Sobreestimar tu competencia</td><td>+4 puntos sobre la media (U. de Aalto)</td></tr>
+    <tr><td><strong>Descarga Cognitiva</strong></td><td>Dejar de pensar por ti</td><td>Menos del 50% de acierto si la IA falla</td></tr>
+    <tr><td><strong>Disponibilidad</strong></td><td>Lo reciente pesa mas</td><td>Un cliente enfadado distorsiona toda tu percepcion</td></tr>
+    <tr><td><strong>Aversion a la Perdida</strong></td><td>No soltar lo que ya no sirve</td><td>Ej: seguir con n8n por coste hundido</td></tr>
+  </table>
+</div>
+
+<div class="step" id="paso3">
+  <div class="step-header"><div class="step-num">3</div><h2>La tarjeta anti-sesgos</h2></div>
+  <p>Estas <strong>8 preguntas</strong> deben estar junto a tu pantalla cada vez que trabajes con IA:</p>
+  <ol>
+    <li><strong>He verificado esto</strong> con una fuente independiente?</li>
+    <li><strong>Podria defender esto</strong> en una reunion sin IA delante?</li>
+    <li><strong>Estoy preguntando para descubrir</strong> la verdad o para confirmar lo que ya creo?</li>
+    <li><strong>La primera respuesta me anclo</strong>? He pedido alternativas?</li>
+    <li><strong>Aceptaria esta respuesta</strong> si viniera de un becario en vez de una IA?</li>
+    <li><strong>Sigo pensando por mi</strong> o estoy delegando el razonamiento?</li>
+    <li><strong>Mi percepcion se basa en datos</strong> o en lo mas reciente que recuerdo?</li>
+    <li><strong>Estoy manteniendo esto</strong> porque funciona o porque ya lo tengo?</li>
+  </ol>
+  <div class="callout tip"><div class="ct">Consejo practico</div><p>Imprime estas 8 preguntas y ponlas junto a tu monitor. Con el tiempo las internalizaras, pero al principio necesitas el recordatorio fisico.</p></div>
+</div>
+
+<div class="step" id="paso4">
+  <div class="step-header"><div class="step-num">4</div><h2>Pensamiento critico vs criterio</h2></div>
+  <p><strong>No son lo mismo</strong>, aunque se confunden constantemente:</p>
+  <table>
+    <tr><th>Concepto</th><th>Que es</th><th>Quien lo tiene</th></tr>
+    <tr><td><strong>Pensamiento critico</strong></td><td>Analizar evidencia, detectar falacias, evaluar argumentos</td><td>La IA lo hace muy bien</td></tr>
+    <tr><td><strong>Criterio</strong></td><td>Saber cuando aplicar que, leer el contexto, decidir con matices</td><td>Solo tu lo tienes</td></tr>
+  </table>
+  <div class="callout important"><div class="ct">La formula</div><p>La IA te da pensamiento critico. <strong>Tu pones el criterio.</strong> Sin criterio, el pensamiento critico es un bisturi en manos de alguien que no sabe anatomia.</p></div>
+</div>
+
+<div class="step" id="paso5">
+  <div class="step-header"><div class="step-num">5</div><h2>Iterar vs insistir</h2></div>
+  <p>Hay una diferencia clave entre <strong>iterar</strong> (mejorar progresivamente) e <strong>insistir</strong> (repetir esperando resultados diferentes).</p>
+  <ul>
+    <li>Si llevas 5+ mensajes corrigiendo lo mismo, <strong>empieza de cero</strong></li>
+    <li>Usa la <strong>version web y la de escritorio</strong> en paralelo: al no compartir contexto, obtienes perspectivas diferentes</li>
+    <li>Cambia de modelo: si Sonnet no te da lo que buscas, prueba con Opus</li>
+  </ul>
+  <div class="callout tip"><div class="ct">Truco avanzado</div><p>Abre el mismo problema en dos ventanas de Claude (web + desktop). Cada una tiene contexto independiente, asi obtienes dos aproximaciones diferentes que puedes comparar.</p></div>
+</div>
+
+<div class="step" id="prompts" style="border-left-color:var(--accent2)">
+  <div class="step-header"><div class="step-num" style="background:var(--accent2)">P</div><h2>Prompts de esta seccion</h2></div>
+
+  <p><strong>Prompt 1: Desafiar tu sesgo</strong></p>
+  <div class="prompt-box">
+    <div class="prompt-header"><span class="label">Prompt copiable</span><button class="btn-copy" onclick="copyPrompt(this)">Copiar</button></div>
+    <div class="prompt-body">Acabo de tomar esta decision: [describe tu decision].
+
+Actua como abogado del diablo. Dame:
+1. 3 razones por las que podria estar equivocado
+2. 3 preguntas que deberia hacerme antes de avanzar
+3. 1 perspectiva que probablemente no he considerado</div>
+  </div>
+
+  <p><strong>Prompt 2: Configurar Claude como critico</strong></p>
+  <div class="prompt-box">
+    <div class="prompt-header"><span class="label">Prompt copiable</span><button class="btn-copy" onclick="copyPrompt(this)">Copiar</button></div>
+    <div class="prompt-body">A partir de ahora, cuando me des una respuesta sobre [tema], anade siempre al final una seccion llamada "Verificacion critica" con:
+1. Que deberia comprobar antes de aceptar esto
+2. Donde podria estar equivocado este analisis
+3. Fuentes que deberia consultar para verificar</div>
+  </div>
+
+  <p><strong>Prompt 3: Test de independencia</strong></p>
+  <div class="prompt-box">
+    <div class="prompt-header"><span class="label">Prompt copiable</span><button class="btn-copy" onclick="copyPrompt(this)">Copiar</button></div>
+    <div class="prompt-body">Voy a describir un problema y mi solucion actual. Quiero que:
+1. Analices si mi solucion es la mejor o si estoy anclado a la primera idea
+2. Propongas al menos 2 alternativas radicalmente diferentes
+3. Me digas cual elegirias tu y por que
+
+Problema: [describe]
+Mi solucion: [describe]</div>
+  </div>
+</div>
+
+<div class="takeaways">
+  <h3>Resumen: lo que debes recordar</h3>
+  <ol>
+    <li><strong>La IA amplifica lo que ya eres</strong> — con buen criterio te hace imparable, sin el te hace peligrosamente eficiente</li>
+    <li><strong>8 sesgos cognitivos</strong> que debes conocer y vigilar activamente</li>
+    <li><strong>Preguntate siempre</strong>: "Podria defender esto en una reunion sin IA delante?"</li>
+    <li><strong>Iterar no es insistir</strong> — a veces es mejor empezar de cero</li>
+    <li><strong>Usa Claude como critico</strong>, no como validador de tus ideas</li>
+  </ol>
+</div>
+
+<div class="task-box" id="tarea">
+  <h3>Tarea practica del modulo</h3>
+  <ol>
+    <li>Descarga la tarjeta anti-sesgos y ponla junto a tu pantalla</li>
+    <li>Identifica cual de los 8 sesgos te afecta mas en tu trabajo</li>
+    <li>Usa el <strong>Prompt 1</strong> con una decision reciente que hayas tomado con IA</li>
+    <li>Configura Claude como critico usando el <strong>Prompt 2</strong></li>
+    <li>Prueba a abrir la misma conversacion en web y escritorio para comparar respuestas</li>
+  </ol>
+</div>
+
+<nav class="section-nav">
+  <a href="/secciones/v1-bienvenida" class="nav-btn">&larr; V1: Bienvenida</a>
+  <a href="/secciones/v3-intro-claude-code" class="nav-btn">V3: Intro Claude Code &rarr;</a>
+</nav>
+</div>
+<footer>Curso Claude 2026 — De 0 a Sistema &middot; Next Gen AI Institute &middot; Luis Salgado &amp; Angel Aparicio</footer>
+<script>function copyPrompt(btn){var t=btn.closest('.prompt-box').querySelector('.prompt-body').textContent;navigator.clipboard.writeText(t).then(function(){btn.textContent='Copiado!';btn.classList.add('copied');setTimeout(function(){btn.textContent='Copiar';btn.classList.remove('copied')},2000)})}</script>
+</body>
+</html>
