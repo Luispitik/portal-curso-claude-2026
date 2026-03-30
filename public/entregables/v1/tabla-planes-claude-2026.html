@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planes Claude 2026 — Comparativa Completa</title>
+<style>
+  :root {
+    --primary: #1a1a2e;
+    --accent: #e94560;
+    --accent2: #0f3460;
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #2d3436;
+    --text-light: #636e72;
+    --success: #00b894;
+    --warning: #fdcb6e;
+    --danger: #d63031;
+    --border: #dfe6e9;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+  .hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: white; padding: 50px 30px; text-align: center;
+  }
+  .hero h1 { font-size: 2.4em; font-weight: 800; margin-bottom: 8px; }
+  .hero p { opacity: 0.8; font-size: 1.1em; }
+  .hero .date { display: inline-block; background: var(--accent); padding: 4px 16px; border-radius: 16px; font-size: 0.85em; margin-top: 12px; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 30px 16px; }
+
+  /* PRICING CARDS */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .price-card {
+    background: white; border-radius: 14px; padding: 24px 16px; text-align: center;
+    border: 2px solid var(--border); transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .price-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .price-card.popular { border-color: var(--accent); }
+  .price-card.popular::before {
+    content: 'RECOMENDADO'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: white; padding: 3px 14px; border-radius: 10px;
+    font-size: 0.7em; font-weight: 700; letter-spacing: 0.5px;
+  }
+  .price-card .plan-name { font-size: 1.1em; font-weight: 700; color: var(--accent2); }
+  .price-card .price { font-size: 2.2em; font-weight: 800; color: var(--primary); margin: 8px 0 4px; }
+  .price-card .price span { font-size: 0.4em; font-weight: 400; color: var(--text-light); }
+  .price-card .target { font-size: 0.85em; color: var(--text-light); margin-bottom: 12px; }
+  .price-card ul { list-style: none; text-align: left; font-size: 0.85em; }
+  .price-card li { padding: 4px 0; border-bottom: 1px solid #f1f3f5; }
+  .price-card li::before { content: '\2713 '; color: var(--success); font-weight: bold; }
+  .price-card li.no::before { content: '\2717 '; color: var(--danger); }
+
+  /* TABLES */
+  h2 { font-size: 1.5em; color: var(--primary); margin: 30px 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--accent); display: inline-block; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 30px; font-size: 0.9em; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+  th { background: var(--primary); color: white; padding: 12px 14px; text-align: center; font-weight: 600; font-size: 0.85em; }
+  th:first-child { text-align: left; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); text-align: center; }
+  td:first-child { text-align: left; font-weight: 500; }
+  tr:nth-child(even) { background: #f8f9fa; }
+  tr:hover { background: #eef1f5; }
+
+  .yes { color: var(--success); font-weight: 700; }
+  .no { color: var(--danger); font-weight: 700; }
+  .partial { color: #e17055; font-weight: 600; }
+  .highlight { background: rgba(233,69,96,0.06) !important; }
+
+  /* CALLOUTS */
+  .callout {
+    border-left: 4px solid var(--accent); background: rgba(233,69,96,0.04);
+    padding: 16px 20px; margin: 20px 0; border-radius: 0 10px 10px 0;
+  }
+  .callout.success { border-left-color: var(--success); background: rgba(0,184,148,0.04); }
+  .callout.warning { border-left-color: var(--warning); background: rgba(253,203,110,0.06); }
+  .callout strong { color: var(--primary); }
+
+  /* MODELS COMPARISON */
+  .model-cards {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px; margin: 20px 0 30px;
+  }
+  .model-card {
+    background: white; border-radius: 12px; padding: 24px; border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .model-card h3 { color: var(--accent2); margin-bottom: 8px; font-size: 1.2em; }
+  .model-card .tagline { color: var(--accent); font-weight: 600; margin-bottom: 10px; font-size: 0.95em; }
+  .model-card table { box-shadow: none; margin: 0; }
+  .model-card td, .model-card th { padding: 6px 10px; font-size: 0.85em; }
+
+  /* KEY INSIGHTS */
+  .insight-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px; margin: 20px 0;
+  }
+  .insight {
+    background: white; border-radius: 12px; padding: 20px; border-left: 4px solid var(--accent2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .insight h4 { color: var(--accent2); margin-bottom: 6px; }
+  .insight p { font-size: 0.9em; color: var(--text-light); }
+
+  footer { text-align: center; padding: 30px; color: var(--text-light); font-size: 0.85em; margin-top: 30px; border-top: 1px solid var(--border); }
+
+  @media print { .hero { padding: 20px; } body { font-size: 11px; } }
+  @media (max-width: 768px) { .hero h1 { font-size: 1.6em; } .pricing-grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Planes y Modelos de Claude</h1>
+  <p>Comparativa completa para elegir lo que necesitas</p>
+  <div class="date">Actualizado: Marzo 2026</div>
+</div>
+
+<div class="container">
+
+<!-- ==================== PRICING CARDS ==================== -->
+
+<div class="pricing-grid">
+  <div class="price-card">
+    <div class="plan-name">Free</div>
+    <div class="price">$0</div>
+    <div class="target">Para probar</div>
+    <ul>
+      <li>Sonnet 4.6 + Haiku 4.5</li>
+      <li class="no">Sin Opus</li>
+      <li class="no">Sin Claude Code</li>
+      <li class="no">Sin Cowork</li>
+      <li>~30-100 msgs/dia</li>
+    </ul>
+  </div>
+
+  <div class="price-card popular">
+    <div class="plan-name">Pro</div>
+    <div class="price">$20<span>/mes</span></div>
+    <div class="target">Uso personal serio</div>
+    <ul>
+      <li>Opus + Sonnet + Haiku</li>
+      <li>Claude Code incluido</li>
+      <li>Cowork (preview)</li>
+      <li>Extended Thinking</li>
+      <li>~45 msgs / 5h</li>
+    </ul>
+  </div>
+
+  <div class="price-card">
+    <div class="plan-name">Max 5x</div>
+    <div class="price">$100<span>/mes</span></div>
+    <div class="target">Profesional diario</div>
+    <ul>
+      <li>Todo lo de Pro</li>
+      <li>5x mas uso que Pro</li>
+      <li>1M contexto automatico</li>
+      <li>Acceso prioritario</li>
+      <li>Early access features</li>
+    </ul>
+  </div>
+
+  <div class="price-card">
+    <div class="plan-name">Max 20x</div>
+    <div class="price">$200<span>/mes</span></div>
+    <div class="target">Uso intensivo</div>
+    <ul>
+      <li>Todo lo de Max 5x</li>
+      <li>20x mas uso que Pro</li>
+      <li>~900 msgs / 5h</li>
+      <li>Prioridad maxima</li>
+      <li>Para quienes queman tokens</li>
+    </ul>
+  </div>
+
+  <div class="price-card">
+    <div class="plan-name">Team</div>
+    <div class="price">$25<span>/persona/mes</span></div>
+    <div class="target">Equipos (min 5)</div>
+    <ul>
+      <li>Opus + Sonnet + Haiku</li>
+      <li>Claude Code + Cowork</li>
+      <li>SSO + Admin Controls</li>
+      <li>Slack / M365 integrations</li>
+      <li>Facturacion centralizada</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ==================== MODELOS ==================== -->
+
+<h2>Los 3 modelos: cual usar y cuando</h2>
+
+<div class="model-cards">
+  <div class="model-card">
+    <h3>Opus 4.6</h3>
+    <div class="tagline">El mas inteligente</div>
+    <table>
+      <tr><td>Contexto</td><td><strong>200K (1M disponible)</strong></td></tr>
+      <tr><td>Output max</td><td>128K tokens</td></tr>
+      <tr><td>API input</td><td>$5 / 1M tokens</td></tr>
+      <tr><td>API output</td><td>$25 / 1M tokens</td></tr>
+      <tr><td>Disponible en</td><td>Pro, Max, Team</td></tr>
+    </table>
+    <p style="margin-top:10px;font-size:0.85em;color:var(--text-light)"><strong>Usar para:</strong> Tareas complejas, razonamiento largo, proyectos grandes, analisis profundo, codigo complejo</p>
+  </div>
+
+  <div class="model-card">
+    <h3>Sonnet 4.6</h3>
+    <div class="tagline">El workhorse diario</div>
+    <table>
+      <tr><td>Contexto</td><td><strong>200K (1M disponible)</strong></td></tr>
+      <tr><td>Output max</td><td>128K tokens</td></tr>
+      <tr><td>API input</td><td>$3 / 1M tokens</td></tr>
+      <tr><td>API output</td><td>$15 / 1M tokens</td></tr>
+      <tr><td>Disponible en</td><td>Todos los planes</td></tr>
+    </table>
+    <p style="margin-top:10px;font-size:0.85em;color:var(--text-light)"><strong>Usar para:</strong> Trabajo diario, coding, el 80% de tareas. Mejor balance inteligencia/velocidad</p>
+  </div>
+
+  <div class="model-card">
+    <h3>Haiku 4.5</h3>
+    <div class="tagline">Rapido y barato</div>
+    <table>
+      <tr><td>Contexto</td><td><strong>200K</strong></td></tr>
+      <tr><td>Output max</td><td>64K tokens</td></tr>
+      <tr><td>API input</td><td>$1 / 1M tokens</td></tr>
+      <tr><td>API output</td><td>$5 / 1M tokens</td></tr>
+      <tr><td>Disponible en</td><td>Todos los planes</td></tr>
+    </table>
+    <p style="margin-top:10px;font-size:0.85em;color:var(--text-light)"><strong>Usar para:</strong> Tareas simples, clasificacion, alto volumen, subtareas delegadas</p>
+  </div>
+</div>
+
+<!-- ==================== TABLA FUNCIONALIDADES ==================== -->
+
+<h2>Funcionalidades por plan</h2>
+
+<table>
+  <tr>
+    <th style="width:30%">Funcionalidad</th>
+    <th>Free</th>
+    <th>Pro $20</th>
+    <th>Max 5x $100</th>
+    <th>Max 20x $200</th>
+    <th>Team $25</th>
+  </tr>
+  <tr>
+    <td><strong>Modelos disponibles</strong></td>
+    <td>Sonnet + Haiku</td>
+    <td>Opus + Sonnet + Haiku</td>
+    <td>Opus + Sonnet + Haiku</td>
+    <td>Opus + Sonnet + Haiku</td>
+    <td>Opus + Sonnet + Haiku</td>
+  </tr>
+  <tr class="highlight">
+    <td><strong>Contexto base</strong></td>
+    <td>200K</td>
+    <td>200K</td>
+    <td>200K</td>
+    <td>200K</td>
+    <td>200K</td>
+  </tr>
+  <tr class="highlight">
+    <td><strong>Contexto 1M tokens</strong></td>
+    <td class="no">No (sin Opus)</td>
+    <td class="partial">Si (opt-in)</td>
+    <td class="yes">Si (automatico)</td>
+    <td class="yes">Si (automatico)</td>
+    <td class="yes">Si (automatico)</td>
+  </tr>
+  <tr>
+    <td><strong>Extended Thinking</strong></td>
+    <td class="no">No</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+  </tr>
+  <tr>
+    <td><strong>Claude Code</strong></td>
+    <td class="no">No</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+  </tr>
+  <tr>
+    <td><strong>Claude Cowork</strong></td>
+    <td class="no">No</td>
+    <td class="partial">Preview</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+  </tr>
+  <tr class="highlight">
+    <td><strong>Computer Use / Dispatch</strong></td>
+    <td class="no">No</td>
+    <td class="partial">Preview (macOS)</td>
+    <td class="yes">Si (macOS)</td>
+    <td class="yes">Si (macOS)</td>
+    <td class="no">No (durante preview)</td>
+  </tr>
+  <tr>
+    <td><strong>Subagentes</strong></td>
+    <td class="no">No</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+  </tr>
+  <tr>
+    <td><strong>Background Agents</strong></td>
+    <td class="no">No</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+  </tr>
+  <tr>
+    <td><strong>Agent Teams</strong></td>
+    <td class="no">No</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+  </tr>
+  <tr>
+    <td><strong>Tareas programadas (/loop)</strong></td>
+    <td class="no">No</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+  </tr>
+  <tr>
+    <td><strong>MCP Support</strong></td>
+    <td class="no">No</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+  </tr>
+  <tr>
+    <td><strong>Skills / Commands</strong></td>
+    <td class="no">No</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+  </tr>
+  <tr>
+    <td><strong>Memory</strong></td>
+    <td class="yes">Si (basica)</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+  </tr>
+  <tr>
+    <td><strong>Projects</strong></td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+  </tr>
+  <tr>
+    <td><strong>Artifacts</strong></td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+  </tr>
+  <tr class="highlight">
+    <td><strong>Acceso prioritario</strong></td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="no">No</td>
+  </tr>
+  <tr class="highlight">
+    <td><strong>Early access a features</strong></td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+    <td class="yes">Si</td>
+    <td class="yes">Si</td>
+    <td class="no">No</td>
+  </tr>
+  <tr>
+    <td><strong>SSO / Admin controls</strong></td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+    <td class="yes">Si</td>
+  </tr>
+  <tr>
+    <td><strong>Datos NO usados para entrenar</strong></td>
+    <td class="no">Opt-out manual</td>
+    <td class="no">Opt-out manual</td>
+    <td class="no">Opt-out manual</td>
+    <td class="no">Opt-out manual</td>
+    <td class="yes">Automatico</td>
+  </tr>
+</table>
+
+<!-- ==================== LIMITES DE USO ==================== -->
+
+<h2>Limites de uso (ventana de 5 horas)</h2>
+
+<table>
+  <tr>
+    <th>Metrica</th>
+    <th>Free</th>
+    <th>Pro</th>
+    <th>Max 5x</th>
+    <th>Max 20x</th>
+    <th>Team</th>
+  </tr>
+  <tr>
+    <td><strong>Mensajes en web/app (aprox)</strong></td>
+    <td>~30-100/dia</td>
+    <td>~45 / 5h</td>
+    <td>~225 / 5h</td>
+    <td>~900 / 5h</td>
+    <td>Similar a Pro</td>
+  </tr>
+  <tr>
+    <td><strong>Tokens en Claude Code (aprox)</strong></td>
+    <td>N/A</td>
+    <td>~44K / 5h</td>
+    <td>~88K / 5h</td>
+    <td>~220K / 5h</td>
+    <td>Similar a Pro</td>
+  </tr>
+  <tr>
+    <td><strong>Prompts en Claude Code (aprox)</strong></td>
+    <td>N/A</td>
+    <td>~10-40 / 5h</td>
+    <td>~50-200 / 5h</td>
+    <td>~200-800 / 5h</td>
+    <td>Similar a Pro</td>
+  </tr>
+  <tr>
+    <td><strong>Ventana rolling</strong></td>
+    <td>Reset cada 4-8h</td>
+    <td>5 horas</td>
+    <td>5 horas</td>
+    <td>5 horas</td>
+    <td>5 horas</td>
+  </tr>
+</table>
+
+<div class="callout warning">
+  <strong>Importante:</strong> Los limites de uso son COMPARTIDOS entre Claude web/desktop y Claude Code. No son presupuestos separados. Si gastas tokens en la web, tienes menos disponibles en Code.
+</div>
+
+<!-- ==================== CONTEXTO 1M ==================== -->
+
+<h2>Contexto de 1 millon de tokens: la gran diferencia</h2>
+
+<table>
+  <tr>
+    <th>Aspecto</th>
+    <th>200K tokens (estandar)</th>
+    <th>1M tokens (extendido)</th>
+  </tr>
+  <tr>
+    <td><strong>Equivale a...</strong></td>
+    <td>~500 paginas de texto</td>
+    <td>~2.500 paginas de texto</td>
+  </tr>
+  <tr>
+    <td><strong>Codigo fuente</strong></td>
+    <td>~80 archivos medianos</td>
+    <td>~400 archivos medianos</td>
+  </tr>
+  <tr>
+    <td><strong>Sesion de trabajo</strong></td>
+    <td>Se comprime despues de ~2-3h</td>
+    <td>Mantiene contexto ~8-14h</td>
+  </tr>
+  <tr>
+    <td><strong>Disponible en</strong></td>
+    <td>Todos los planes</td>
+    <td>Pro (opt-in) / Max y Team (auto)</td>
+  </tr>
+  <tr>
+    <td><strong>Modelos con 1M</strong></td>
+    <td>—</td>
+    <td>Opus 4.6 y Sonnet 4.6</td>
+  </tr>
+  <tr>
+    <td><strong>Coste adicional</strong></td>
+    <td>—</td>
+    <td>Ninguno (desde marzo 2026)</td>
+  </tr>
+</table>
+
+<div class="callout success">
+  <strong>Novedad marzo 2026:</strong> El contexto de 1M ya no tiene coste adicional (eliminaron el "long-context premium"). En Max y Team se activa automaticamente. En Pro requiere activar el modo extra-usage.
+</div>
+
+<!-- ==================== INSIGHTS ==================== -->
+
+<h2>Las 5 diferencias que importan de verdad</h2>
+
+<div class="insight-grid">
+  <div class="insight">
+    <h4>1. Free vs Pro: el salto fundamental</h4>
+    <p>Free no tiene Claude Code, ni Cowork, ni Opus, ni Extended Thinking. Pro lo tiene TODO. Por $20/mes tienes acceso al ecosistema completo. Este es el unico upgrade realmente imprescindible.</p>
+  </div>
+  <div class="insight">
+    <h4>2. Pro vs Max: solo cantidad, no features</h4>
+    <p>Pro y Max tienen las MISMAS funcionalidades. La diferencia es: cuantos tokens puedes gastar (5x o 20x mas), acceso prioritario en horas pico, early access a features nuevas, y 1M de contexto automatico vs opt-in.</p>
+  </div>
+  <div class="insight">
+    <h4>3. Max 5x vs Max 20x: solo volumen</h4>
+    <p>Mismas features exactas. Max 20x tiene 4x mas capacidad de uso que Max 5x. Para quien quema tokens agresivamente (Fernando: "90 EUR en menos de 5 horas").</p>
+  </div>
+  <div class="insight">
+    <h4>4. Team: control de equipo, no volumen</h4>
+    <p>Team no da mas tokens que Pro. Aporta: SSO, admin controls, facturacion centralizada, integraciones Slack/M365, y datos que NO se usan para entrenar por defecto.</p>
+  </div>
+  <div class="insight">
+    <h4>5. El contexto de 1M cambia el juego</h4>
+    <p>Con 200K, Claude "olvida" despues de 2-3h de trabajo intenso. Con 1M, mantiene contexto durante 8-14h. Para proyectos grandes, esto significa no tener que re-explicar contexto constantemente.</p>
+  </div>
+</div>
+
+<!-- ==================== RECOMENDACION ==================== -->
+
+<h2>Que plan elegir segun tu perfil</h2>
+
+<table>
+  <tr>
+    <th>Tu perfil</th>
+    <th>Plan recomendado</th>
+    <th>Por que</th>
+  </tr>
+  <tr>
+    <td>Quiero probar Claude por primera vez</td>
+    <td><strong>Free</strong></td>
+    <td>Para ver si te convence antes de pagar</td>
+  </tr>
+  <tr>
+    <td>Profesional que usa IA a diario (moderado)</td>
+    <td><strong>Pro ($20)</strong></td>
+    <td>Todo el ecosistema a precio de un cafe/dia</td>
+  </tr>
+  <tr>
+    <td>Profesional que vive en Claude (3-5h/dia)</td>
+    <td><strong>Max 5x ($100)</strong></td>
+    <td>Sin ansiedad de limites + 1M automatico + prioridad</td>
+  </tr>
+  <tr>
+    <td>Desarrollador/agencia que no para (5-8h/dia)</td>
+    <td><strong>Max 20x ($200)</strong></td>
+    <td>Tokens para un dia entero de trabajo intenso</td>
+  </tr>
+  <tr>
+    <td>Equipo de 5+ personas</td>
+    <td><strong>Team ($25/pers)</strong></td>
+    <td>Admin, SSO, datos protegidos, factura unica</td>
+  </tr>
+  <tr>
+    <td>Equipo con usuarios power</td>
+    <td><strong>Team + Max individual</strong></td>
+    <td>Team para el equipo, Max para los power users</td>
+  </tr>
+</table>
+
+<div class="callout">
+  <strong>La regla practica:</strong> Empieza con Pro ($20). Si llegas al limite de tokens antes de las 3 horas, sube a Max 5x. Si llegas al limite de Max 5x, sube a 20x. No empieces por arriba "por si acaso".
+</div>
+
+</div>
+
+<footer>
+  Curso Claude 2026 — Comunidad Skool | Angel Aparicio &amp; Luis Miguel Salgado Alonso<br>
+  Datos actualizados a marzo 2026. Los limites exactos pueden variar — Anthropic los ajusta dinamicamente.
+</footer>
+
+</body>
+</html>

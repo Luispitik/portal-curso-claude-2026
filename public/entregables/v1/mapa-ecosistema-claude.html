@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa del Ecosistema Claude 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #1a1a2e;
+    background: #f8f9fa;
+    line-height: 1.4;
+    padding: 40px;
+  }
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 36px 40px;
+    border-radius: 12px;
+    box-shadow: 0 2px 20px rgba(26,26,46,0.08);
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .badge {
+    display: inline-block;
+    background: #e94560; color: white;
+    font-size: 10px; font-weight: 700;
+    padding: 3px 10px; border-radius: 20px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .header h1 { font-size: 26px; color: #1a1a2e; margin-bottom: 4px; }
+  .header p { font-size: 13px; color: #666; }
+
+  /* Central Hub */
+  .ecosystem {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .hub {
+    width: 120px; height: 120px;
+    background: linear-gradient(135deg, #1a1a2e, #0f3460);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    color: white;
+    font-weight: 800;
+    font-size: 22px;
+    z-index: 2;
+    box-shadow: 0 4px 24px rgba(26,26,46,0.3);
+    margin-bottom: -10px;
+  }
+  .hub small { font-size: 10px; font-weight: 400; opacity: 0.7; letter-spacing: 1px; }
+
+  /* Branches Grid */
+  .branches {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    width: 100%;
+    margin-top: 14px;
+  }
+  .branch {
+    border-radius: 12px;
+    padding: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .branch::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 5px; height: 100%;
+  }
+  .branch-chat { background: #f0f4f8; border: 1px solid #ccd9e8; }
+  .branch-chat::before { background: #0f3460; }
+  .branch-code { background: #fef0f3; border: 1px solid #f5c6ce; }
+  .branch-code::before { background: #e94560; }
+  .branch-cowork { background: #f0faf4; border: 1px solid #b8e6c8; }
+  .branch-cowork::before { background: #27ae60; }
+  .branch-api { background: #fef9ee; border: 1px solid #f0deb0; }
+  .branch-api::before { background: #f39c12; }
+
+  .branch-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .branch-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 800; color: white;
+  }
+  .icon-chat { background: #0f3460; }
+  .icon-code { background: #e94560; }
+  .icon-cowork { background: #27ae60; }
+  .icon-api { background: #f39c12; }
+
+  .branch-name {
+    font-size: 15px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .branch-sub {
+    font-size: 11px;
+    color: #888;
+    font-weight: 400;
+  }
+
+  .feature-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .tag {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(0,0,0,0.1);
+    color: #333;
+  }
+  .tag-highlight {
+    background: #1a1a2e;
+    color: white;
+    border-color: #1a1a2e;
+  }
+
+  /* Connector lines */
+  .connectors {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    margin: 4px 0;
+  }
+  .conn-line {
+    width: 2px;
+    height: 12px;
+    background: #1a1a2e;
+  }
+
+  /* Bottom bars */
+  .info-bars {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .bar {
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .bar-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: white;
+    background: #1a1a2e;
+    padding: 4px 10px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .bar-models {
+    background: #f0f4f8;
+    border: 1px solid #ccd9e8;
+  }
+  .bar-plans {
+    background: #fef0f3;
+    border: 1px solid #f5c6ce;
+  }
+  .model-chips, .plan-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex: 1;
+  }
+  .chip {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background: white;
+    border: 1px solid #ddd;
+    color: #1a1a2e;
+    text-align: center;
+  }
+  .chip-active {
+    background: #0f3460;
+    color: white;
+    border-color: #0f3460;
+  }
+  .chip-coming {
+    background: transparent;
+    border: 2px dashed #e94560;
+    color: #e94560;
+    font-style: italic;
+  }
+  .chip-price {
+    font-size: 10px;
+    display: block;
+    opacity: 0.8;
+    font-weight: 400;
+  }
+
+  .footer {
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 2px solid #1a1a2e;
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+  }
+
+  @media print {
+    body { padding: 0; background: white; }
+    .page { box-shadow: none; padding: 20px; border-radius: 0; }
+    .hub { box-shadow: none; border: 3px solid #1a1a2e; }
+    .branch { break-inside: avoid; }
+    @page { margin: 1cm; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <span class="badge">Mapa Visual</span>
+    <h1>Ecosistema Claude 2026</h1>
+    <p>Todo lo que necesitas saber de un vistazo</p>
+  </div>
+
+  <div class="ecosystem">
+    <!-- Central Hub -->
+    <div class="hub">
+      Claude
+      <small>ANTHROPIC</small>
+    </div>
+
+    <!-- Connector Lines -->
+    <div class="connectors">
+      <div class="conn-line"></div>
+      <div class="conn-line"></div>
+      <div class="conn-line"></div>
+      <div class="conn-line"></div>
+    </div>
+
+    <!-- 4 Branches -->
+    <div class="branches">
+      <!-- CHAT -->
+      <div class="branch branch-chat">
+        <div class="branch-title">
+          <div class="branch-icon icon-chat">C</div>
+          <div>
+            <div class="branch-name">Chat</div>
+            <div class="branch-sub">Web &amp; Desktop</div>
+          </div>
+        </div>
+        <div class="feature-tags">
+          <span class="tag tag-highlight">Projects</span>
+          <span class="tag">Artifacts</span>
+          <span class="tag">Styles</span>
+          <span class="tag">Memory</span>
+        </div>
+      </div>
+
+      <!-- CODE -->
+      <div class="branch branch-code">
+        <div class="branch-title">
+          <div class="branch-icon icon-code">&gt;_</div>
+          <div>
+            <div class="branch-name">Code</div>
+            <div class="branch-sub">Terminal CLI</div>
+          </div>
+        </div>
+        <div class="feature-tags">
+          <span class="tag tag-highlight">Skills</span>
+          <span class="tag tag-highlight">MCP</span>
+          <span class="tag">Commands</span>
+          <span class="tag">Subagents</span>
+          <span class="tag">Hooks</span>
+          <span class="tag">/loop</span>
+          <span class="tag">Agent Teams</span>
+          <span class="tag">Worktrees</span>
+          <span class="tag">Background Agents</span>
+          <span class="tag tag-highlight">SYNAPSIS</span>
+        </div>
+      </div>
+
+      <!-- COWORK -->
+      <div class="branch branch-cowork">
+        <div class="branch-title">
+          <div class="branch-icon icon-cowork">D</div>
+          <div>
+            <div class="branch-name">Cowork</div>
+            <div class="branch-sub">Desktop App</div>
+          </div>
+        </div>
+        <div class="feature-tags">
+          <span class="tag tag-highlight">Computer Use</span>
+          <span class="tag">Dispatch</span>
+          <span class="tag">Plugins</span>
+        </div>
+      </div>
+
+      <!-- API -->
+      <div class="branch branch-api">
+        <div class="branch-title">
+          <div class="branch-icon icon-api">{}</div>
+          <div>
+            <div class="branch-name">API</div>
+            <div class="branch-sub">Para Developers</div>
+          </div>
+        </div>
+        <div class="feature-tags">
+          <span class="tag tag-highlight">Anthropic SDK</span>
+          <span class="tag">Vercel AI SDK</span>
+          <span class="tag">Agent SDK</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Info Bars -->
+  <div class="info-bars">
+    <div class="bar bar-models">
+      <div class="bar-label">Modelos</div>
+      <div class="model-chips">
+        <div class="chip chip-active">Opus 4.6<span class="chip-price">Maximo poder</span></div>
+        <div class="chip chip-active">Sonnet 4.6<span class="chip-price">Mejor balance</span></div>
+        <div class="chip">Haiku 4.5<span class="chip-price">Rapido y barato</span></div>
+        <div class="chip chip-coming">Mythos<span class="chip-price">Proximamente</span></div>
+      </div>
+    </div>
+
+    <div class="bar bar-plans">
+      <div class="bar-label">Planes</div>
+      <div class="plan-chips">
+        <div class="chip">Free<span class="chip-price">$0/mes</span></div>
+        <div class="chip chip-active">Pro<span class="chip-price">$20/mes</span></div>
+        <div class="chip">Max<span class="chip-price">$100-200/mes</span></div>
+        <div class="chip">Team<span class="chip-price">$25/usuario</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <strong>Curso Claude 2026</strong> &mdash; Next Gen AI Institute &middot; Actualizado Marzo 2026
+  </div>
+</div>
+</body>
+</html>

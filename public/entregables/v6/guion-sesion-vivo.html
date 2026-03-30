@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V6 — Sesion en Vivo: Guion Completo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d0d1a;--card:#16162a;--card2:#1e1e38;--text:#e0e0e0;--text2:#a0a0b8;--border:#2a2a4a;--accent:#e94560;--accent2:#0f3460;--green:#2ecc71;--warning:#f39c12;--purple:#a855f7;--cyan:#06b6d4}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.header{background:linear-gradient(135deg,#1a1a2e,#0a2e1a,#1a1a2e);padding:2.5rem 2rem;text-align:center;border-bottom:3px solid var(--green)}
+.header .badge{display:inline-block;background:var(--green);color:#fff;padding:0.25rem 0.8rem;border-radius:12px;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.75rem}
+.header h1{font-size:2rem;font-weight:800;color:#fff;margin-bottom:0.3rem}
+.header p{color:var(--text2);font-size:0.95rem;max-width:600px;margin:0 auto}
+.container{max-width:900px;margin:0 auto;padding:2rem 1.5rem}
+
+/* Phase blocks */
+.phase{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:1.5rem;overflow:hidden}
+.phase-head{display:flex;align-items:center;gap:1rem;padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);cursor:pointer}
+.phase-num{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;color:#fff;flex-shrink:0}
+.phase-meta{flex:1}
+.phase-meta h2{color:#fff;font-size:1.1rem;margin-bottom:0.1rem}
+.phase-meta .sub{font-size:0.78rem;color:var(--text2)}
+.phase-time{background:var(--card2);padding:0.2rem 0.7rem;border-radius:8px;font-size:0.75rem;font-weight:700;color:var(--text2)}
+.phase-body{padding:1.5rem}
+.phase-body h3{font-size:0.92rem;color:var(--accent);margin:1rem 0 0.4rem}
+.phase-body h3:first-child{margin-top:0}
+.phase-body p{color:var(--text2);font-size:0.88rem;margin-bottom:0.4rem}
+.phase-body ul{list-style:none;padding:0;margin:0.4rem 0}
+.phase-body li{padding:0.2rem 0 0.2rem 1.1rem;position:relative;color:var(--text2);font-size:0.85rem}
+.phase-body li::before{content:'▸';position:absolute;left:0;color:var(--accent);font-size:0.75rem}
+
+.say{background:rgba(168,85,247,0.08);border-left:3px solid var(--purple);padding:0.5rem 0.9rem;border-radius:0 6px 6px 0;margin:0.5rem 0;font-size:0.85rem;color:var(--text);font-style:italic}
+.say::before{content:'🎤 ';font-style:normal}
+
+.do{background:rgba(16,185,129,0.08);border-left:3px solid var(--green);padding:0.5rem 0.9rem;border-radius:0 6px 6px 0;margin:0.5rem 0;font-size:0.85rem;color:var(--text)}
+.do::before{content:'⌨️ ';font-style:normal}
+
+.warn{background:rgba(233,69,96,0.08);border-left:3px solid var(--accent);padding:0.5rem 0.9rem;border-radius:0 6px 6px 0;margin:0.5rem 0;font-size:0.85rem;color:var(--text)}
+.warn::before{content:'⚠️ ';font-style:normal}
+
+.connect{display:inline-block;background:var(--accent2);color:#6ea8fe;padding:0.1rem 0.5rem;border-radius:6px;font-size:0.68rem;font-weight:700;margin-left:0.3rem}
+
+.prompt-box{background:#0a0a18;border:1px solid var(--border);border-radius:8px;padding:0.9rem 1rem;margin:0.6rem 0;font-family:'Cascadia Code','Fira Code',monospace;font-size:0.8rem;color:#c8d6e5;white-space:pre-wrap;line-height:1.5;position:relative}
+.prompt-box .copy-btn{position:absolute;top:0.4rem;right:0.4rem;background:var(--green);color:#fff;border:none;padding:0.2rem 0.6rem;border-radius:5px;font-size:0.7rem;cursor:pointer;opacity:0.8}
+.prompt-box .copy-btn:hover{opacity:1}
+.prompt-box .copy-btn.copied{background:var(--green)}
+
+.callout{background:rgba(15,52,96,0.2);border-left:4px solid var(--accent2);border-radius:0 8px 8px 0;padding:0.8rem 1.1rem;margin:0.8rem 0}
+.callout.ok{border-left-color:var(--green);background:rgba(16,185,129,0.08)}
+.callout.purple{border-left-color:var(--purple);background:rgba(168,85,247,0.08)}
+.callout strong{color:#fff}
+.callout p{color:var(--text2);font-size:0.85rem;margin:0}
+
+.timeline-bar{display:flex;margin:1.5rem 0;border-radius:8px;overflow:hidden;height:28px;font-size:0.68rem;font-weight:700}
+.timeline-bar div{display:flex;align-items:center;justify-content:center;color:#fff}
+
+.objectives{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin:1rem 0}
+.obj{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:0.75rem;display:flex;gap:0.6rem;align-items:flex-start}
+.obj-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0}
+.obj-text{font-size:0.82rem;color:var(--text2)}
+.obj-text strong{color:#fff;display:block;font-size:0.85rem;margin-bottom:0.15rem}
+
+.footer{text-align:center;padding:2rem;color:var(--text2);font-size:0.85rem;border-top:1px solid var(--border);margin-top:2rem}
+.footer strong{color:var(--green)}
+@media(max-width:768px){.container{padding:1rem}.phase-body{padding:1rem}.objectives{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="badge">V6 — Sesion en Vivo</span>
+  <h1>Construir el Portal de Entregables en Directo</h1>
+  <p>Guion secuencial con lo que decir, lo que hacer, y lo que conecta con cada video anterior</p>
+</div>
+
+<div class="container">
+
+<!-- OVERVIEW -->
+<div class="phase" style="border-color:var(--green)">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--green)">★</div>
+    <div class="phase-meta">
+      <h2>Vision general de la sesion</h2>
+      <div class="sub">Que van a ver, por que importa, que se llevan</div>
+    </div>
+    <div class="phase-time">~65 min</div>
+  </div>
+  <div class="phase-body">
+    <h3>Objetivos de la sesion</h3>
+    <div class="objectives">
+      <div class="obj">
+        <div class="obj-icon" style="background:rgba(233,69,96,0.15);color:var(--accent)">1</div>
+        <div class="obj-text"><strong>Configurar MCP</strong>Primera vez que lo ven en practica. Conectar Claude al mundo real.</div>
+      </div>
+      <div class="obj">
+        <div class="obj-icon" style="background:rgba(16,185,129,0.15);color:var(--green)">2</div>
+        <div class="obj-text"><strong>Vibecoding real</strong>Construir una web funcional desde cero con Claude Code.</div>
+      </div>
+      <div class="obj">
+        <div class="obj-icon" style="background:rgba(168,85,247,0.15);color:var(--purple)">3</div>
+        <div class="obj-text"><strong>Deploy a Vercel</strong>De carpeta vacia a URL publica en minutos.</div>
+      </div>
+      <div class="obj">
+        <div class="obj-icon" style="background:rgba(6,182,212,0.15);color:var(--cyan)">4</div>
+        <div class="obj-text"><strong>Auto-publicacion</strong>Push un archivo → aparece solo en la web.</div>
+      </div>
+      <div class="obj">
+        <div class="obj-icon" style="background:rgba(243,156,18,0.15);color:var(--warning)">5</div>
+        <div class="obj-text"><strong>Seguridad rapida</strong>Auditoria de seguridad + semaforo de datos.</div>
+      </div>
+      <div class="obj">
+        <div class="obj-icon" style="background:rgba(168,85,247,0.15);color:var(--purple)">6</div>
+        <div class="obj-text"><strong>Proyecto → Skill</strong>Cerrar el ciclo: convertir patrones en skill reutilizable.</div>
+      </div>
+    </div>
+
+    <h3>Timeline visual</h3>
+    <div class="timeline-bar">
+      <div style="width:5%;background:var(--purple)">0</div>
+      <div style="width:5%;background:var(--accent2)">1</div>
+      <div style="width:8%;background:var(--warning)">2</div>
+      <div style="width:8%;background:var(--accent)">3</div>
+      <div style="width:23%;background:var(--green)">4</div>
+      <div style="width:12%;background:#0f3460">5</div>
+      <div style="width:12%;background:var(--cyan)">6</div>
+      <div style="width:8%;background:var(--accent)">7</div>
+      <div style="width:5%;background:var(--green)">8</div>
+      <div style="width:14%;background:var(--purple)">9</div>
+    </div>
+    <p style="font-size:0.75rem;color:var(--text2);text-align:center">0=Pensar | 1=CLAUDE.md | 2=Entrevista | 3=MCP | 4=Build | 5=Blog | 6=APIs | 7=Deploy | 8=Auto-pub | 9=Skill</p>
+
+    <h3>El proyecto</h3>
+    <p><strong>Portal de entregables del curso.</strong> Una web donde los alumnos acceden a todo el material organizado por seccion. Cuando anado contenido y hago push, aparece solo. Es META: construyo delante de ellos la herramienta que van a usar.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FASE 0: PENSAR -->
+<!-- ═══════════════════════════════════════ -->
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--purple)">0</div>
+    <div class="phase-meta">
+      <h2>Antes de abrir Claude: piensa tu</h2>
+      <div class="sub">Anti-sesgo: descarga cognitiva <span class="connect">Conecta con V2</span></div>
+    </div>
+    <div class="phase-time">3 min</div>
+  </div>
+  <div class="phase-body">
+    <div class="say">"Recordais lo de los sesgos? La pregunta 6: he pensado yo antes de preguntar? Pues vamos a hacerlo. Antes de abrir Claude, pienso yo."</div>
+
+    <h3>Las 4 preguntas que respondo en voz alta</h3>
+    <ul>
+      <li><strong>Que problema resuelve:</strong> Los entregables del curso estan sueltos en carpetas. Los alumnos no saben donde esta cada cosa.</li>
+      <li><strong>Quien lo usa:</strong> Vosotros. Los alumnos de este curso.</li>
+      <li><strong>Que es lo minimo util:</strong> Un indice por seccion con los HTMLs descargables. Nada mas.</li>
+      <li><strong>Como se que ha salido bien:</strong> Si vosotros podeis entrar a una URL y descargaros el material de cada video.</li>
+    </ul>
+
+    <div class="say">"Veis? Tres minutos pensando y ya se exactamente que quiero. Esa es la diferencia entre el Sistema 1 y el Sistema 2 que veiamos en el video 2."</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FASE 1: CLAUDE.MD -->
+<!-- ═══════════════════════════════════════ -->
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--accent2)">1</div>
+    <div class="phase-meta">
+      <h2>Crear CLAUDE.md del proyecto</h2>
+      <div class="sub">Lo primero SIEMPRE <span class="connect">Conecta con V3+V4</span></div>
+    </div>
+    <div class="phase-time">3 min</div>
+  </div>
+  <div class="phase-body">
+    <div class="say">"Recordais los 5 pilares de Claude Code? El primero era el CLAUDE.md. Son 50 lineas que le dicen donde buscar y como trabajar. No paja."</div>
+
+    <div class="do">Abrir Claude Code en la carpeta nueva del proyecto. Carpeta: portal-curso-claude-2026</div>
+
+    <div class="prompt-box">Voy a crear el portal de entregables para mi curso de Claude 2026.
+
+Es una web donde los alumnos acceden a material organizado por seccion:
+HTMLs descargables, infografias, autoevaluaciones.
+
+Stack: Next.js 16 + Tailwind v4 + MDX para contenido.
+Deploy: Vercel. Tema oscuro. Colores: #e94560 (rojo), #0f3460 (azul).
+Sin base de datos, sin auth. Todo estatico.
+
+Crea el CLAUDE.md del proyecto con: descripcion, stack,
+estructura esperada, y lo que NO debe hacer
+(no DB, no auth, no overengineering).
+
+Guardalo en .claude/CLAUDE.md<button class="copy-btn" onclick="copyPrompt(this)">Copiar</button></div>
+
+    <div class="say">"Veis? Ya tiene el contexto. A partir de ahora, cada vez que abra Claude en esta carpeta, sabe que proyecto es y como trabajar."</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FASE 2: ENTREVISTA -->
+<!-- ═══════════════════════════════════════ -->
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--warning)">2</div>
+    <div class="phase-meta">
+      <h2>Entrevista: que Claude pregunte</h2>
+      <div class="sub">El pide, yo respondo <span class="connect">Conecta con V4</span></div>
+    </div>
+    <div class="phase-time">5 min</div>
+  </div>
+  <div class="phase-body">
+    <div class="say">"Como veiamos en el video 4: antes de construir, entrevista. Le dejo que me pregunte lo que necesite."</div>
+
+    <div class="prompt-box">Ahora quiero que me hagas las preguntas que necesites
+antes de empezar a construir. No asumas nada.
+
+El portal tiene 5 secciones (una por video grabado) + seccion
+para la sesion en vivo. Cada seccion tiene: titulo, descripcion,
+lista de entregables descargables, y una autoevaluacion.
+
+Cuando tengas toda la info, proponme el plan por fases
+y espera mi aprobacion.<button class="copy-btn" onclick="copyPrompt(this)">Copiar</button></div>
+
+    <h3>Preguntas tipicas que hara Claude</h3>
+    <ul>
+      <li>Navegacion: solo indice o pagina por seccion? → Pagina por seccion</li>
+      <li>Los entregables se descargan o se abren en nueva pestana? → Los HTML en nueva pestana, los MD se descargan</li>
+      <li>Newsletter o formulario de contacto? → Newsletter simple (Resend)</li>
+      <li>Tiene logo o solo texto? → Solo texto, el nombre del curso</li>
+    </ul>
+
+    <div class="warn">Si Claude propone algo complicado (auth, DB, CMS): "No, mantenlo simple. Todo estatico. El contenido son archivos MDX."</div>
+
+    <div class="say">"Veis como Claude me hace las preguntas que yo no sabia que tenia que responder? Esto es exactamente el flujo del video 4: entrevista antes de construir."</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FASE 3: MCP -->
+<!-- ═══════════════════════════════════════ -->
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--accent)">3</div>
+    <div class="phase-meta">
+      <h2>Configurar MCP: Context7</h2>
+      <div class="sub">Primera vez que lo ven en practica <span class="connect">Conecta con V3 pilar 4</span></div>
+    </div>
+    <div class="phase-time">5 min</div>
+  </div>
+  <div class="phase-body">
+    <div class="say">"En el video 3 os explique que los MCPs son los ojos y las manos de Claude. Ahora lo vamos a configurar de verdad. Es un archivo JSON y tres minutos."</div>
+
+    <div class="do">Crear .mcp.json en la raiz del proyecto</div>
+
+    <div class="prompt-box">{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    }
+  }
+}<button class="copy-btn" onclick="copyPrompt(this)">Copiar</button></div>
+
+    <div class="do">Reiniciar Claude Code para que cargue el MCP</div>
+
+    <h3>Demo rapida: con MCP vs sin MCP</h3>
+    <div class="say">"Vamos a preguntarle algo sobre Next.js 16 para ver la diferencia."</div>
+
+    <div class="prompt-box">Como funcionan los async params en Next.js 16?
+Usa Context7 para consultar la documentacion actual.<button class="copy-btn" onclick="copyPrompt(this)">Copiar</button></div>
+
+    <div class="say">"Veis? Con Context7, Claude consulta la documentacion en tiempo real. Sin el, responde con su conocimiento de entrenamiento que puede estar desactualizado. Esto es el pilar 4 en accion."</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FASE 4: BUILD -->
+<!-- ═══════════════════════════════════════ -->
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--green)">4</div>
+    <div class="phase-meta">
+      <h2>Construir la web</h2>
+      <div class="sub">Vibecoding real: los 3 modos en accion <span class="connect">Conecta con V3+V4</span></div>
+    </div>
+    <div class="phase-time">15 min</div>
+  </div>
+  <div class="phase-body">
+    <div class="say">"Ahora Claude va a construir. Yo tomo decisiones, el ejecuta. Esto es vibecoding real: tu eres el director, Claude es el equipo."</div>
+
+    <h3>Minuto 0-3: Estructura + dependencias</h3>
+    <div class="do">Claude crea proyecto Next.js, instala dependencias, estructura de carpetas. MODO AGENTE.</div>
+    <div class="say">"Fijaos que no le digo archivo por archivo. Le doy el objetivo y el decide como estructurarlo."</div>
+
+    <h3>Minuto 3-6: Layout y navegacion</h3>
+    <div class="do">Header, footer, navegacion entre secciones. Design tokens del curso.</div>
+
+    <div class="do">PRIMER COMMIT: "feat: initial project structure and layout"</div>
+    <div class="say">"Cada hito, un commit. Conventional commits en ingles. Esto es lo que Synapsis detecta como patron."</div>
+
+    <h3>Minuto 6-12: Pagina home + paginas de seccion</h3>
+    <div class="do">Home con grid de secciones. Cada seccion clickable. Pagina de detalle con entregables.</div>
+
+    <p>Si algo no se ve bien:</p>
+    <div class="prompt-box">El grid de secciones esta muy apretado. Dale mas
+espacio entre cards y que sean mas altas para que
+se vea bien el titulo y la descripcion.<button class="copy-btn" onclick="copyPrompt(this)">Copiar</button></div>
+    <div class="say">"Esto es MODO MANUAL. Cuando algo concreto no me gusta, le digo exactamente que cambiar."</div>
+
+    <h3>Minuto 12-15: Estilos y polish</h3>
+    <div class="do">Animaciones sutiles con Framer Motion. Responsive.</div>
+    <div class="do">SEGUNDO COMMIT: "feat: home page and section detail pages"</div>
+
+    <div class="warn">Si Claude se lia o se va por otro camino: "Para. Vuelve al plan que aprobamos. Esto que estas haciendo no estaba en el plan."</div>
+    <div class="say">"Veis? Esto pasa. Claude se va. Nuestro rol es product manager. Lo traemos de vuelta al plan."</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FASE 5: BLOG MDX -->
+<!-- ═══════════════════════════════════════ -->
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--accent2)">5</div>
+    <div class="phase-meta">
+      <h2>Sistema de contenido MDX</h2>
+      <div class="sub">El motor de auto-publicacion</div>
+    </div>
+    <div class="phase-time">8 min</div>
+  </div>
+  <div class="phase-body">
+    <div class="say">"Ahora viene lo interesante. Vamos a hacer que el contenido se publique solo. Sin tocar codigo. Solo creando un archivo."</div>
+
+    <div class="prompt-box">Ahora crea el sistema de contenido MDX:
+
+1. Un loader en src/lib/sections.ts que lea archivos .mdx
+   de src/content/secciones/, parsee frontmatter con
+   gray-matter, y retorne la lista de secciones
+
+2. Los archivos .mdx con este frontmatter:
+   title, slug, number, subtitle, description, status,
+   duration, entregables (array), keyTakeaways (array), tarea
+
+3. Crea los 5 archivos MDX para los 5 videos:
+   V1 Bienvenida, V2 Framework Mental, V3 Claude Code,
+   V4 Skills/Hooks/Plugins, V5 Synapsis
+
+4. Conecta el loader con las paginas (home + detalle)
+
+5. Los entregables de cada seccion deben enlazar a
+   archivos en public/entregables/v1/, v2/, etc.<button class="copy-btn" onclick="copyPrompt(this)">Copiar</button></div>
+
+    <h3>Explicar mientras Claude construye</h3>
+    <div class="say">"Lo que esta haciendo ahora es crear archivos .mdx que son como Markdown con superpoderes. Tienen un frontmatter arriba con los datos y abajo el contenido. Cuando yo anada un archivo nuevo aqui y haga push, aparece en la web automaticamente. Sin tocar nada de codigo."</div>
+
+    <div class="do">TERCER COMMIT: "feat: MDX content system with 5 sections"</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FASE 6: API TRACKING + SEGURIDAD -->
+<!-- ═══════════════════════════════════════ -->
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--cyan)">6</div>
+    <div class="phase-meta">
+      <h2>API tracking de descargas + Supabase</h2>
+      <div class="sub">Registro de quien descarga que + seguridad <span class="connect">Conecta con V1+V3+V4</span></div>
+    </div>
+    <div class="phase-time">8 min</div>
+  </div>
+  <div class="phase-body">
+    <div class="say">"Los materiales se descargan directamente, sin barreras. Pero quiero saber que se descarga y cuanto. Vamos a conectar Supabase para registrar cada descarga — sin bloquear nada."</div>
+
+    <h3>Paso 1: Crear tabla en Supabase</h3>
+    <div class="say">"Abro Supabase, creo una tabla 'downloads' con cuatro campos: file, section, downloaded_at y user_agent. Tarda 30 segundos."</div>
+
+    <div class="prompt-box">Crea el sistema de tracking de descargas:
+
+1. src/lib/supabase.ts — client singleton (SUPABASE_URL + SERVICE_ROLE_KEY)
+
+2. /api/track-download (POST):
+   - Recibe: { file, section }
+   - Guarda en Supabase tabla "downloads": file, section, downloaded_at (now), user_agent
+   - Rate limit: 10/IP/min
+   - Si falla, responde 200 igual (no bloquear la descarga)
+
+3. Componente DownloadButton:
+   - Abre el archivo directamente (nueva pestana para HTML, descarga para MD)
+   - En paralelo, fetch a /api/track-download (fire-and-forget)
+   - Iconos diferentes segun tipo (HTML/MD/JSON)
+   - Animacion sutil al click
+
+4. .env.example con SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY<button class="copy-btn" onclick="copyPrompt(this)">Copiar</button></div>
+
+    <h3>Explicar mientras se construye</h3>
+    <div class="say">"Fijaos: el boton abre el archivo directamente. No hay barrera. Pero en paralelo, en background, registra la descarga en Supabase. Si Supabase se cae, no pasa nada — la descarga ya se hizo. Es tracking sin friccion."</div>
+
+    <div class="say">"Esto es exactamente lo que hacia con N8N pero nativo. Sin servidor externo, sin webhook, sin nada. Una API route de 20 lineas conectada a Supabase."</div>
+
+    <div class="do">CUARTO COMMIT: "feat: download tracking with Supabase"</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FASE 7: DEPLOY -->
+<!-- ═══════════════════════════════════════ -->
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--accent)">7</div>
+    <div class="phase-meta">
+      <h2>Deploy a Vercel</h2>
+      <div class="sub">De carpeta a URL publica <span class="connect">Conecta con V1</span></div>
+    </div>
+    <div class="phase-time">5 min</div>
+  </div>
+  <div class="phase-body">
+    <div class="prompt-box">Despliega a Vercel:
+1. Verifica que compila (npm run build)
+2. Verifica .gitignore tiene .env.local
+3. Push a GitHub
+4. Dame la URL cuando este online<button class="copy-btn" onclick="copyPrompt(this)">Copiar</button></div>
+
+    <div class="do">Claude hace build, push, Vercel auto-deploy.</div>
+
+    <div class="say">"30 minutos. De carpeta vacia a URL publica. No he escrito ni una linea de codigo. He tomado decisiones. Eso es vibecoding real."</div>
+
+    <div class="do">Abrir la URL en el navegador. Mostrar la web funcionando.</div>
+
+    <div class="callout ok">
+      <p><strong>MOMENTO WOW #1:</strong> La web del portal esta online. Los alumnos la ven en su navegador. Lo que van a usar para acceder al material acaba de ser construido delante de ellos.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FASE 8: AUTO-PUBLICACION -->
+<!-- ═══════════════════════════════════════ -->
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--green)">8</div>
+    <div class="phase-meta">
+      <h2>Demo auto-publicacion</h2>
+      <div class="sub">EL momento wow definitivo</div>
+    </div>
+    <div class="phase-time">3 min</div>
+  </div>
+  <div class="phase-body">
+    <div class="say">"Ahora viene lo bueno. Voy a crear una seccion nueva — la de esta sesion en vivo — y vais a ver como aparece sola en la web."</div>
+
+    <div class="do">Crear archivo src/content/secciones/v6-sesion-en-vivo.mdx con frontmatter</div>
+
+    <div class="prompt-box">Crea un nuevo archivo MDX para la seccion V6:
+
+---
+title: "V6 — Sesion en Vivo"
+slug: "v6-sesion-en-vivo"
+number: "06"
+subtitle: "Construir el Portal de Entregables en Directo"
+description: "Sesion en vivo donde construimos una web real con Claude Code"
+status: "completo"
+duration: "65 min"
+entregables:
+  - title: "Prompt del proyecto"
+    type: "md"
+    file: "PROMPT-PORTAL-ENTREGABLES-VIVO.md"
+---
+
+Esta sesion se construyo en directo durante el curso.<button class="copy-btn" onclick="copyPrompt(this)">Copiar</button></div>
+
+    <div class="do">git add . && git commit -m "feat: add V6 live session section" && git push</div>
+
+    <div class="do">Esperar 30-60 segundos. Refrescar la web. La seccion V6 aparece.</div>
+
+    <div class="callout ok">
+      <p><strong>MOMENTO WOW #2:</strong> "No he tocado nada de codigo. He creado un archivo de texto, he hecho push, y ha aparecido solo en la web. Asi funciona el blog de mi web real. Cada vez que anado contenido y hago push, se publica solo."</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FASE 9: CREAR SKILL -->
+<!-- ═══════════════════════════════════════ -->
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--purple)">9</div>
+    <div class="phase-meta">
+      <h2>Convertir el proyecto en Skill</h2>
+      <div class="sub">Cerrar el ciclo <span class="connect">Conecta con V4+V5</span></div>
+    </div>
+    <div class="phase-time">8 min</div>
+  </div>
+  <div class="phase-body">
+    <div class="say">"Recordais la maxima de Synapsis? No repetir lo mismo dos veces. Acabamos de construir un portal. Si manana quiero hacer otro portal similar para otro curso, no quiero repetir todo esto. Voy a crear una skill."</div>
+
+    <h3>Paso 1: Analizar patrones</h3>
+    <div class="prompt-box">Analiza lo que acabamos de construir y dime:
+1. Que patrones se repitieron (stack, estructura, decisiones)
+2. Que preguntas de la entrevista serian utiles para cualquier
+   portal de contenido similar
+3. Que partes se podrian reutilizar como template<button class="copy-btn" onclick="copyPrompt(this)">Copiar</button></div>
+
+    <h3>Paso 2: Crear la skill</h3>
+    <div class="prompt-box">Crea una skill reutilizable:
+
+Nombre: portal-contenido-mdx
+Proposito: Crear portales web de contenido organizado con MDX
+auto-publicable para cursos, comunidades o documentacion.
+
+Incluye:
+1. Stack fijo y dependencias
+2. Preguntas de entrevista al usuario
+3. Estructura de proyecto estandar
+4. Proceso paso a paso
+5. Los gotchas que encontramos durante el build
+
+Guardala en ~/.claude/skills/_library/salgadoia-portal-contenido/SKILL.md<button class="copy-btn" onclick="copyPrompt(this)">Copiar</button></div>
+
+    <div class="say">"Veis? Lo que nos llevo 30 minutos ahora esta documentado como skill. La proxima vez que alguien diga 'quiero un portal de contenido', invoco esta skill y el proceso esta sistematizado. Esto es el ciclo completo: proyecto → patrones → skill → sistema."</div>
+
+    <div class="callout purple">
+      <p><strong>CIERRE:</strong> "En el video 4 os dije que vuestro rol es product manager. En el video 5, que la maxima de Synapsis es no repetir lo mismo dos veces. Lo que acabais de ver es las dos cosas juntas: yo he dirigido, Claude ha ejecutado, y el resultado se ha convertido en un sistema reutilizable. Esto es de lo que va este curso."</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CIERRE -->
+<!-- ═══════════════════════════════════════ -->
+<div class="phase" style="border-color:var(--green)">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--green)">✓</div>
+    <div class="phase-meta">
+      <h2>Cierre de la sesion</h2>
+      <div class="sub">Recapitular + proximos pasos + tarea</div>
+    </div>
+    <div class="phase-time">5 min</div>
+  </div>
+  <div class="phase-body">
+    <h3>Recapitular lo que vieron</h3>
+    <div class="say">"En 65 minutos habeis visto en practica TODO lo que aprendisteis en los 5 videos: pensar antes de abrir Claude, CLAUDE.md, entrevista, MCP, vibecoding con los 3 modos, deploy, auto-publicacion, seguridad, y crear una skill. Y os llevais una herramienta real que vais a usar."</div>
+
+    <h3>Conexion con cada video</h3>
+    <ul>
+      <li><strong>V1:</strong> Hemos usado la configuracion que os ensene (privacidad, conectores)</li>
+      <li><strong>V2:</strong> Hemos aplicado System 2 — pensar antes, no aceptar sin cuestionar</li>
+      <li><strong>V3:</strong> Los 5 pilares de Claude Code en accion (CLAUDE.md, permisos, hooks, MCP, subagentes)</li>
+      <li><strong>V4:</strong> Skill/hook/plugin en contexto real. Entrevista antes de build. Flujo seguro.</li>
+      <li><strong>V5:</strong> El ciclo Synapsis: proyecto → patrones → skill → no repetir</li>
+    </ul>
+
+    <h3>Tarea para la comunidad</h3>
+    <div class="say">"Vuestra tarea: elegid un mini-proyecto util para vosotros. Seguid las 9 fases. Desplegad a Vercel. Cread la skill. Y compartid la URL y la skill en la comunidad."</div>
+
+    <h3>Proximo paso</h3>
+    <div class="say">"En la sesion de cierre veremos Cowork, el roadmap de 4 semanas, y resolveremos todas las dudas que tengais. Pero lo gordo ya lo habeis visto. Ahora es cuestion de practicar y dejar que el sistema crezca con vosotros."</div>
+  </div>
+</div>
+
+<!-- CHECKLIST PRE-SESION -->
+<div class="phase" style="border-color:var(--warning)">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--warning);color:#000">!</div>
+    <div class="phase-meta">
+      <h2>Checklist PRE-sesion (para Luis)</h2>
+      <div class="sub">Verificar antes de grabar/emitir</div>
+    </div>
+  </div>
+  <div class="phase-body">
+    <ul>
+      <li><strong>Terminal limpia</strong>, letra grande (14-16px), tema oscuro</li>
+      <li><strong>Carpeta vacia</strong> preparada: portal-curso-claude-2026</li>
+      <li><strong>Claude Code abierto</strong> con CLAUDE.md global cargado</li>
+      <li><strong>Navegador abierto</strong> con Vercel dashboard logueado</li>
+      <li><strong>Prompt del portal</strong> copiado y listo (PROMPT-PORTAL-ENTREGABLES-VIVO.md)</li>
+      <li><strong>Entregables listos</strong> para copiar a public/ despues del deploy</li>
+      <li><strong>GitHub</strong> con repo creado o listo para crear</li>
+      <li><strong>Privacidad</strong> de Claude verificada (entrenamiento OFF)</li>
+      <li><strong>Segunda pantalla</strong> con este guion abierto para consultar</li>
+      <li><strong>Agua</strong> — 65 min seguidos</li>
+    </ul>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <strong>Curso Claude AI 2026</strong> &mdash; V6 Sesion en Vivo &mdash; Next Gen AI Institute
+</div>
+
+<script>
+function copyPrompt(btn){
+  const box=btn.parentElement;
+  const text=box.textContent.replace('Copiar','').replace('Copiado','').trim();
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='Copiado';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='Copiar';btn.classList.remove('copied')},2000);
+  });
+}
+</script>
+</body>
+</html>

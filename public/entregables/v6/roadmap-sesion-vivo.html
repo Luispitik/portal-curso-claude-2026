@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sesion en Vivo — Roadmap | Curso Claude 2026</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d0d1a;--card:#16162a;--card2:#1e1e38;--text:#e0e0e0;--text2:#a0a0b8;--border:#2a2a4a;--accent:#e94560;--accent2:#0f3460;--green:#2ecc71;--warning:#f39c12;--purple:#a855f7;--cyan:#06b6d4}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+
+.hero{text-align:center;padding:4rem 2rem 3rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(16,185,129,0.08) 0%,transparent 70%);pointer-events:none}
+.hero .badge{display:inline-block;background:var(--green);color:#fff;padding:0.3rem 1rem;border-radius:14px;font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem;position:relative}
+.hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:#fff;margin-bottom:0.5rem;position:relative}
+.hero p{color:var(--text2);font-size:1.05rem;max-width:550px;margin:0 auto;position:relative}
+.hero .meta{display:flex;gap:2rem;justify-content:center;margin-top:1.5rem;position:relative}
+.hero .meta-item{text-align:center}
+.hero .meta-item strong{display:block;font-size:1.6rem;color:#fff}
+.hero .meta-item span{font-size:0.78rem;color:var(--text2)}
+
+.container{max-width:800px;margin:0 auto;padding:0 1.5rem 3rem}
+
+/* Steps */
+.step{position:relative;padding-left:4.5rem;margin-bottom:0}
+
+.step::before{content:'';position:absolute;left:22px;top:52px;bottom:0;width:2px;background:var(--border)}
+.step:last-of-type::before{display:none}
+
+.step-dot{position:absolute;left:0;top:0;width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:#fff;z-index:2}
+
+.step-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;transition:border-color 0.3s}
+.step-card:hover{border-color:var(--green)}
+
+.step-card .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem}
+.step-card h2{font-size:1.15rem;color:#fff;margin:0}
+.step-card .time{background:var(--card2);padding:0.15rem 0.6rem;border-radius:6px;font-size:0.72rem;font-weight:700;color:var(--text2);white-space:nowrap}
+.step-card .desc{color:var(--text2);font-size:0.9rem;margin-bottom:0.75rem}
+
+.step-card .what{display:flex;flex-wrap:wrap;gap:0.4rem}
+.step-card .what-tag{background:var(--card2);border:1px solid var(--border);padding:0.2rem 0.6rem;border-radius:6px;font-size:0.75rem;color:var(--text2)}
+.step-card .what-tag.highlight{border-color:rgba(16,185,129,0.3);color:var(--green);background:rgba(16,185,129,0.08)}
+
+.step-card .connect{margin-top:0.75rem;font-size:0.75rem;color:var(--accent2);display:flex;align-items:center;gap:0.3rem}
+.step-card .connect::before{content:'';width:16px;height:2px;background:var(--accent2);border-radius:1px}
+
+.wow{background:linear-gradient(135deg,rgba(16,185,129,0.1),rgba(168,85,247,0.1));border:1px solid rgba(16,185,129,0.25);border-radius:12px;padding:1rem 1.25rem;margin:0.75rem 0;text-align:center}
+.wow p{color:var(--green);font-weight:700;font-size:0.92rem;margin:0}
+.wow span{color:var(--text2);font-size:0.8rem}
+
+.result{background:var(--card);border:2px solid var(--green);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.result h2{color:#fff;font-size:1.4rem;margin-bottom:1rem}
+.result .items{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.75rem;margin:1.25rem 0}
+.result .item{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:0.75rem;text-align:center}
+.result .item .icon{font-size:1.5rem;margin-bottom:0.3rem}
+.result .item strong{display:block;color:#fff;font-size:0.85rem;margin-bottom:0.15rem}
+.result .item span{font-size:0.72rem;color:var(--text2)}
+.result .cta{margin-top:1.25rem;font-size:0.95rem;color:var(--text)}
+.result .cta strong{color:var(--green)}
+
+.footer{text-align:center;padding:2rem;color:var(--text2);font-size:0.82rem;border-top:1px solid var(--border);margin-top:2rem}
+
+@media(max-width:768px){
+  .container{padding:0 1rem 2rem}
+  .step{padding-left:3.5rem}
+  .step-dot{width:36px;height:36px;font-size:0.85rem;border-radius:10px}
+  .step::before{left:17px}
+  .hero .meta{gap:1rem}
+  .result .items{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="badge">Sesion en Vivo</span>
+  <h1>Lo que vamos a construir hoy</h1>
+  <p>De carpeta vacia a web en produccion + skill reutilizable. En directo, paso a paso, sin trampa.</p>
+  <div class="meta">
+    <div class="meta-item">
+      <strong>8</strong>
+      <span>fases</span>
+    </div>
+    <div class="meta-item">
+      <strong>~55</strong>
+      <span>minutos</span>
+    </div>
+    <div class="meta-item">
+      <strong>1</strong>
+      <span>web online</span>
+    </div>
+    <div class="meta-item">
+      <strong>1</strong>
+      <span>skill nueva</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- PASO 0 -->
+<div class="step">
+  <div class="step-dot" style="background:var(--purple)">0</div>
+  <div class="step-card">
+    <div class="top">
+      <h2>Pensar antes de abrir Claude</h2>
+      <span class="time">3 min</span>
+    </div>
+    <p class="desc">Antes de tocar la herramienta, pienso yo. Que problema resuelvo, para quien, que es lo minimo util y como se si ha salido bien.</p>
+    <div class="what">
+      <span class="what-tag">4 preguntas en voz alta</span>
+      <span class="what-tag">Sistema 2 activado</span>
+    </div>
+    <div class="connect">Conecta con V2 — Framework Mental (sesgos, descarga cognitiva)</div>
+  </div>
+</div>
+
+<!-- PASO 1 -->
+<div class="step">
+  <div class="step-dot" style="background:var(--accent2)">1</div>
+  <div class="step-card">
+    <div class="top">
+      <h2>Crear el CLAUDE.md del proyecto</h2>
+      <span class="time">3 min</span>
+    </div>
+    <p class="desc">Lo primero siempre. 50 lineas que le dicen a Claude que es este proyecto, como trabajar y que NO hacer. El manual de instrucciones.</p>
+    <div class="what">
+      <span class="what-tag">Carpeta nueva</span>
+      <span class="what-tag">Abrir Claude Code</span>
+      <span class="what-tag highlight">Generar .claude/CLAUDE.md</span>
+    </div>
+    <div class="connect">Conecta con V3 — Pilar 1 (CLAUDE.md) + V4 — Jerarquia</div>
+  </div>
+</div>
+
+<!-- PASO 2 -->
+<div class="step">
+  <div class="step-dot" style="background:var(--warning)">2</div>
+  <div class="step-card">
+    <div class="top">
+      <h2>Entrevista: Claude pregunta, yo respondo</h2>
+      <span class="time">5 min</span>
+    </div>
+    <p class="desc">En vez de darle instrucciones rigidas, le pido que me haga las preguntas que necesite. El descubre cosas que yo no habia pensado.</p>
+    <div class="what">
+      <span class="what-tag">Claude me entrevista</span>
+      <span class="what-tag">Propone plan por fases</span>
+      <span class="what-tag highlight">Yo apruebo el plan</span>
+    </div>
+    <div class="connect">Conecta con V4 — Empezar proyecto desde cero</div>
+  </div>
+</div>
+
+<!-- PASO 3 -->
+<div class="step">
+  <div class="step-dot" style="background:var(--accent)">3</div>
+  <div class="step-card">
+    <div class="top">
+      <h2>Configurar MCP: conectar Claude al mundo</h2>
+      <span class="time">5 min</span>
+    </div>
+    <p class="desc">Primera vez que lo veis en practica. Un archivo JSON de 5 lineas y Claude consulta documentacion en tiempo real. Es darle ojos.</p>
+    <div class="what">
+      <span class="what-tag highlight">Crear .mcp.json</span>
+      <span class="what-tag">Context7 MCP</span>
+      <span class="what-tag">Demo: con vs sin MCP</span>
+    </div>
+    <div class="connect">Conecta con V3 — Pilar 4 (MCPs)</div>
+  </div>
+</div>
+
+<!-- PASO 4 -->
+<div class="step">
+  <div class="step-dot" style="background:var(--green)">4</div>
+  <div class="step-card" style="border-color:rgba(16,185,129,0.25)">
+    <div class="top">
+      <h2>Construir la web con Claude Code</h2>
+      <span class="time">15 min</span>
+    </div>
+    <p class="desc">La fase mas larga. Claude crea la estructura, componentes, paginas y estilos. Yo tomo decisiones. Tres modos en accion: agente, manual y plan.</p>
+    <div class="what">
+      <span class="what-tag">Next.js 16 + Tailwind</span>
+      <span class="what-tag">Modo agente: estructura</span>
+      <span class="what-tag">Modo manual: ajustes</span>
+      <span class="what-tag highlight">2 commits</span>
+    </div>
+    <div class="connect">Conecta con V3 — 3 modos + V4 — Vibecoding real</div>
+  </div>
+</div>
+
+<!-- PASO 5 -->
+<div class="step">
+  <div class="step-dot" style="background:var(--cyan)">5</div>
+  <div class="step-card">
+    <div class="top">
+      <h2>Tracking de descargas + Supabase</h2>
+      <span class="time">8 min</span>
+    </div>
+    <p class="desc">Conectar Supabase para registrar cada descarga sin bloquear nada. Descargas directas + tracking en background. Lo que haciamos con N8N pero nativo.</p>
+    <div class="what">
+      <span class="what-tag">/api/track-download</span>
+      <span class="what-tag">Supabase</span>
+      <span class="what-tag">Fire-and-forget</span>
+      <span class="what-tag highlight">DownloadButton</span>
+    </div>
+    <div class="connect">Conecta con V3 — Pilar 4 (MCPs/integraciones) + V4 — Hook = campana</div>
+  </div>
+</div>
+
+<!-- PASO 6 -->
+<div class="step">
+  <div class="step-dot" style="background:var(--accent)">6</div>
+  <div class="step-card">
+    <div class="top">
+      <h2>Deploy a Vercel</h2>
+      <span class="time">5 min</span>
+    </div>
+    <p class="desc">Build, push, auto-deploy. De carpeta vacia a URL publica. Sin escribir una linea de codigo. Solo decisiones.</p>
+    <div class="what">
+      <span class="what-tag">npm run build</span>
+      <span class="what-tag">git push</span>
+      <span class="what-tag highlight">URL publica</span>
+    </div>
+    <div class="connect">Conecta con V1 — Deploy</div>
+    <div class="wow">
+      <p>MOMENTO WOW #1</p>
+      <span>La web esta online. Los alumnos la abren en su navegador.</span>
+    </div>
+  </div>
+</div>
+
+<!-- PASO 7 -->
+<div class="step">
+  <div class="step-dot" style="background:var(--purple)">7</div>
+  <div class="step-card" style="border-color:rgba(168,85,247,0.3)">
+    <div class="top">
+      <h2>Convertir el proyecto en Skill</h2>
+      <span class="time">8 min</span>
+    </div>
+    <p class="desc">El ciclo completo. Analizo los patrones del build, creo una skill reutilizable. La proxima vez que haga un portal similar, tarda 5 minutos en vez de 30.</p>
+    <div class="what">
+      <span class="what-tag">Analizar patrones</span>
+      <span class="what-tag">Crear SKILL.md</span>
+      <span class="what-tag highlight">No repetir lo mismo dos veces</span>
+    </div>
+    <div class="connect">Conecta con V4 — Skill = receta + V5 — Synapsis "no repetir"</div>
+  </div>
+</div>
+
+<!-- RESULTADO -->
+<div class="result">
+  <h2>Lo que os llevais hoy</h2>
+  <div class="items">
+    <div class="item">
+      <div class="icon">🌐</div>
+      <strong>Web online</strong>
+      <span>Portal del curso funcionando en Vercel</span>
+    </div>
+    <div class="item">
+      <div class="icon">📥</div>
+      <strong>Entregables descargables</strong>
+      <span>Material del curso accesible desde la web</span>
+    </div>
+    <div class="item">
+      <div class="icon">📊</div>
+      <strong>Tracking en Supabase</strong>
+      <span>Registro de descargas sin friccion</span>
+    </div>
+    <div class="item">
+      <div class="icon">🔌</div>
+      <strong>MCP configurado</strong>
+      <span>Claude conectado a docs en tiempo real</span>
+    </div>
+    <div class="item">
+      <div class="icon">🧠</div>
+      <strong>Skill reutilizable</strong>
+      <span>Template para replicar portales en minutos</span>
+    </div>
+    <div class="item">
+      <div class="icon">🎯</div>
+      <strong>El ciclo completo</strong>
+      <span>Pensar → build → deploy → skill → sistema</span>
+    </div>
+  </div>
+  <p class="cta">Todo lo que aprendisteis en los 5 videos, <strong>aplicado en 65 minutos a un proyecto real.</strong></p>
+</div>
+
+</div>
+
+<div class="footer">
+  Curso Claude AI 2026 — Next Gen AI Institute — Luis & Angel
+</div>
+
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checklist de Setup - Curso Claude 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #1a1a2e;
+    background: #f8f9fa;
+    line-height: 1.5;
+    padding: 40px;
+  }
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 48px;
+    border-radius: 12px;
+    box-shadow: 0 2px 20px rgba(26,26,46,0.08);
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 3px solid #e94560;
+  }
+  .header h1 {
+    font-size: 28px;
+    color: #1a1a2e;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+  }
+  .header p {
+    font-size: 14px;
+    color: #666;
+  }
+  .badge {
+    display: inline-block;
+    background: #e94560;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .section {
+    margin-bottom: 28px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .section-number {
+    width: 32px;
+    height: 32px;
+    background: #0f3460;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a2e;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .section-subtitle {
+    font-size: 12px;
+    color: #e94560;
+    font-weight: 600;
+  }
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px dashed #e8e8e8;
+  }
+  .checklist-item:last-child { border-bottom: none; }
+  .checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #0f3460;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .item-content {
+    flex: 1;
+  }
+  .item-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a2e;
+  }
+  .item-notes {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #999;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 2px;
+    min-height: 18px;
+  }
+  .item-hint {
+    font-size: 12px;
+    color: #888;
+    font-style: italic;
+    margin-top: 2px;
+  }
+  .footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 2px solid #1a1a2e;
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+  }
+  .progress-bar {
+    display: flex;
+    gap: 4px;
+    margin-top: 12px;
+    justify-content: center;
+  }
+  .progress-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid #0f3460;
+  }
+  @media print {
+    body { padding: 0; background: white; }
+    .page { box-shadow: none; padding: 24px; border-radius: 0; }
+    .header { margin-bottom: 24px; padding-bottom: 16px; }
+    .header h1 { font-size: 24px; }
+    .section { margin-bottom: 20px; }
+    .checklist-item { padding: 8px 0; }
+    .checkbox { border-color: #333; }
+    .item-notes { border-bottom-color: #ccc; }
+    @page { margin: 1.5cm; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <span class="badge">Entregable del Curso</span>
+    <h1>Checklist de Setup Completo</h1>
+    <p>Curso Claude 2026 &mdash; Verifica cada paso antes de avanzar</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div>
+        <div class="section-title">Antes de Empezar</div>
+        <div class="section-subtitle">Requisitos previos</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div class="item-content">
+        <div class="item-label">Account de Anthropic creada</div>
+        <div class="item-hint">claude.ai &rarr; Sign Up</div>
+        <div class="item-notes">Notas: </div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div class="item-content">
+        <div class="item-label">Plan elegido (Free / Pro / Max)</div>
+        <div class="item-hint">Recomendado: Pro ($20/mes) para el curso</div>
+        <div class="item-notes">Plan elegido: </div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div class="item-content">
+        <div class="item-label">Node.js instalado (v18+)</div>
+        <div class="item-hint">node --version para verificar</div>
+        <div class="item-notes">Version: </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div>
+        <div class="section-title">Instalacion</div>
+        <div class="section-subtitle">Software necesario</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div class="item-content">
+        <div class="item-label">Claude Code CLI instalado</div>
+        <div class="item-hint">npm install -g @anthropic-ai/claude-code</div>
+        <div class="item-notes">Notas: </div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div class="item-content">
+        <div class="item-label">Claude Desktop instalado</div>
+        <div class="item-hint">claude.ai/download</div>
+        <div class="item-notes">Notas: </div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div class="item-content">
+        <div class="item-label">Login completado en ambos</div>
+        <div class="item-hint">claude login en terminal + sign in en Desktop</div>
+        <div class="item-notes">Notas: </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div>
+        <div class="section-title">Configuracion</div>
+        <div class="section-subtitle">Personalizar tu entorno</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div class="item-content">
+        <div class="item-label">CLAUDE.md global creado</div>
+        <div class="item-hint">~/.claude/CLAUDE.md con tu contexto personal</div>
+        <div class="item-notes">Notas: </div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div class="item-content">
+        <div class="item-label">Estructura ~/.claude/ verificada</div>
+        <div class="item-hint">Carpetas: commands/, skills/ creadas</div>
+        <div class="item-notes">Notas: </div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div class="item-content">
+        <div class="item-label">Primer MCP instalado (Context7)</div>
+        <div class="item-hint">Verificar con /mcp en Claude Code</div>
+        <div class="item-notes">Notas: </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <div>
+        <div class="section-title">Primera Sesion</div>
+        <div class="section-subtitle">Validar que todo funciona</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div class="item-content">
+        <div class="item-label">Preguntado &laquo;Que sabes de mi?&raquo;</div>
+        <div class="item-hint">Claude debe leer tu CLAUDE.md y responder con contexto</div>
+        <div class="item-notes">Notas: </div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div class="item-content">
+        <div class="item-label">Probado framework CREA</div>
+        <div class="item-hint">Contexto + Rol + Especificaciones + Accion</div>
+        <div class="item-notes">Notas: </div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div class="item-content">
+        <div class="item-label">Ritual de cierre ejecutado</div>
+        <div class="item-hint">Resumen de sesion + aprendizajes guardados</div>
+        <div class="item-notes">Notas: </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <div>
+        <div class="section-title">Primera Semana</div>
+        <div class="section-subtitle">Primeros pasos avanzados</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div class="item-content">
+        <div class="item-label">Primera skill creada</div>
+        <div class="item-hint">Un archivo .md en commands/ con instrucciones para Claude</div>
+        <div class="item-notes">Skill creada: </div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div class="item-content">
+        <div class="item-label">Segundo MCP anadido</div>
+        <div class="item-hint">Ej: Google Calendar, Vercel, Excalidraw...</div>
+        <div class="item-notes">MCP elegido: </div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div class="item-content">
+        <div class="item-label">Project en claude.ai configurado</div>
+        <div class="item-hint">Con contexto de negocio en las instrucciones del proyecto</div>
+        <div class="item-notes">Notas: </div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox"></div>
+      <div class="item-content">
+        <div class="item-label">/instinct-status ejecutado</div>
+        <div class="item-hint">Verificar que el sistema de aprendizaje funciona</div>
+        <div class="item-notes">Notas: </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <strong>Curso Claude 2026</strong> &mdash; Next Gen AI Institute<br>
+    <div class="progress-bar">
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+    </div>
+    <div style="margin-top:6px;">17 items &middot; Completa todos para tener tu setup al 100%</div>
+  </div>
+</div>
+</body>
+</html>

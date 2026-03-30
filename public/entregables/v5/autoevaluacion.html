@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V5 — Synapsis: Autoevaluacion</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--accent:#e94560;--accent2:#0f3460;--bg:#0d0d1a;--card:#16162a;--text:#e0e0e0;--correct:#2ecc71;--incorrect:#e74c3c;--border:#2a2a4a}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.container{max-width:800px;margin:0 auto;padding:20px}
+header{text-align:center;padding:40px 20px;border-bottom:3px solid var(--accent);margin-bottom:30px}
+header .video-badge{display:inline-block;background:var(--accent);color:#fff;padding:6px 18px;border-radius:20px;font-size:.85rem;font-weight:700;letter-spacing:1px;margin-bottom:12px}
+header h1{font-size:1.8rem;margin-bottom:6px}
+header p{color:#999;font-size:.95rem}
+.progress-container{background:var(--card);border-radius:12px;padding:20px;margin-bottom:30px;border:1px solid var(--border)}
+.progress-bar-bg{background:#1a1a3e;border-radius:8px;height:24px;overflow:hidden;margin-top:10px}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:8px;transition:width .5s ease;width:0%}
+.progress-text{display:flex;justify-content:space-between;margin-top:8px;font-size:.85rem;color:#999}
+.question-card{background:var(--card);border-radius:12px;padding:24px;margin-bottom:20px;border:1px solid var(--border);transition:border-color .3s}
+.question-card.correct{border-color:var(--correct)}
+.question-card.incorrect{border-color:var(--incorrect)}
+.question-number{display:inline-block;background:var(--accent2);color:#fff;width:32px;height:32px;border-radius:50%;text-align:center;line-height:32px;font-weight:700;font-size:.85rem;margin-right:10px}
+.question-text{display:inline;font-weight:600;font-size:1.05rem}
+.options{margin-top:16px;display:flex;flex-direction:column;gap:10px}
+.option{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#1a1a3e;border-radius:8px;cursor:pointer;border:2px solid transparent;transition:all .2s}
+.option:hover{border-color:var(--accent2)}
+.option input{accent-color:var(--accent);width:18px;height:18px;cursor:pointer}
+.option label{cursor:pointer;flex:1;font-size:.95rem}
+.feedback{margin-top:12px;padding:12px 16px;border-radius:8px;font-size:.9rem;display:none}
+.feedback.show{display:block}
+.feedback.correct{background:rgba(46,204,113,.12);border-left:4px solid var(--correct);color:var(--correct)}
+.feedback.incorrect{background:rgba(231,76,60,.12);border-left:4px solid var(--incorrect);color:var(--incorrect)}
+.btn-check{display:block;width:100%;max-width:320px;margin:30px auto;padding:16px;background:linear-gradient(135deg,var(--accent),#c0392b);color:#fff;border:none;border-radius:10px;font-size:1.1rem;font-weight:700;cursor:pointer;transition:transform .2s,box-shadow .2s;text-transform:uppercase;letter-spacing:1px}
+.btn-check:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(233,69,96,.3)}
+.btn-check:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.result-box{text-align:center;padding:30px;background:var(--card);border-radius:12px;margin-top:20px;display:none;border:1px solid var(--border)}
+.result-box h2{font-size:1.5rem;margin-bottom:10px}
+.result-box .score{font-size:3rem;font-weight:800;color:var(--accent)}
+.result-box .message{color:#999;margin-top:8px}
+footer{text-align:center;padding:30px 20px;color:#666;font-size:.85rem;border-top:1px solid var(--border);margin-top:40px}
+@media(max-width:600px){header h1{font-size:1.4rem}.container{padding:12px}.question-card{padding:16px}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="video-badge">VIDEO 5</div>
+  <h1>Synapsis: Autoevaluacion</h1>
+  <p>Comprueba lo que has aprendido sobre el sistema de aprendizaje continuo de Claude</p>
+</header>
+
+<div class="progress-container">
+  <strong>Tu progreso</strong>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+  <div class="progress-text"><span id="answered">0 de 8 respondidas</span><span id="percentage">0%</span></div>
+</div>
+
+<form id="quizForm">
+
+<div class="question-card" id="q1">
+  <span class="question-number">1</span>
+  <span class="question-text">Cuales son las 4 capas de Synapsis?</span>
+  <div class="options">
+    <div class="option"><input type="radio" name="q1" id="q1a" value="a"><label for="q1a">Hardware, software, red y usuario</label></div>
+    <div class="option"><input type="radio" name="q1" id="q1b" value="b"><label for="q1b">Observaciones, Instincts, Skills/Rules y Operator State (memoria cruzada)</label></div>
+    <div class="option"><input type="radio" name="q1" id="q1c" value="c"><label for="q1c">Input, procesamiento, output y almacenamiento</label></div>
+    <div class="option"><input type="radio" name="q1" id="q1d" value="d"><label for="q1d">Frontend, backend, base de datos y deploy</label></div>
+  </div>
+  <div class="feedback" id="f1"></div>
+</div>
+
+<div class="question-card" id="q2">
+  <span class="question-number">2</span>
+  <span class="question-text">Que es un instinct y como funciona el confidence score?</span>
+  <div class="options">
+    <div class="option"><input type="radio" name="q2" id="q2a" value="a"><label for="q2a">Un instinct es un error que Claude aprende a evitar; el score mide cuantas veces fallo</label></div>
+    <div class="option"><input type="radio" name="q2" id="q2b" value="b"><label for="q2b">Un instinct es un patron recurrente validado; el confidence score (0.0 a 1.0) sube con cada observacion que lo confirma</label></div>
+    <div class="option"><input type="radio" name="q2" id="q2c" value="c"><label for="q2c">Un instinct es una regla fija que nunca cambia; el score es siempre 1.0</label></div>
+    <div class="option"><input type="radio" name="q2" id="q2d" value="d"><label for="q2d">Un instinct es un plugin instalado manualmente; el score mide su velocidad</label></div>
+  </div>
+  <div class="feedback" id="f2"></div>
+</div>
+
+<div class="question-card" id="q3">
+  <span class="question-number">3</span>
+  <span class="question-text">Que comando ejecutas para ver los instincts maduros de tu sistema?</span>
+  <div class="options">
+    <div class="option"><input type="radio" name="q3" id="q3a" value="a"><label for="q3a">/system-status</label></div>
+    <div class="option"><input type="radio" name="q3" id="q3b" value="b"><label for="q3b">/instinct-status</label></div>
+    <div class="option"><input type="radio" name="q3" id="q3c" value="c"><label for="q3c">/show-instincts</label></div>
+    <div class="option"><input type="radio" name="q3" id="q3d" value="d"><label for="q3d">/list-all</label></div>
+  </div>
+  <div class="feedback" id="f3"></div>
+</div>
+
+<div class="question-card" id="q4">
+  <span class="question-number">4</span>
+  <span class="question-text">Que hace el comando /evolve en Synapsis?</span>
+  <div class="options">
+    <div class="option"><input type="radio" name="q4" id="q4a" value="a"><label for="q4a">Actualiza Claude a la ultima version</label></div>
+    <div class="option"><input type="radio" name="q4" id="q4b" value="b"><label for="q4b">Analiza instincts maduros y los clusteriza en skills, commands, reglas pasivas o enrichments</label></div>
+    <div class="option"><input type="radio" name="q4" id="q4c" value="c"><label for="q4c">Borra todos los instincts obsoletos</label></div>
+    <div class="option"><input type="radio" name="q4" id="q4d" value="d"><label for="q4d">Reinicia el sistema Synapsis desde cero</label></div>
+  </div>
+  <div class="feedback" id="f4"></div>
+</div>
+
+<div class="question-card" id="q5">
+  <span class="question-number">5</span>
+  <span class="question-text">Cuantas observaciones aproximadamente necesita un instinct para alcanzar un confidence de 0.70?</span>
+  <div class="options">
+    <div class="option"><input type="radio" name="q5" id="q5a" value="a"><label for="q5a">1-2 observaciones</label></div>
+    <div class="option"><input type="radio" name="q5" id="q5b" value="b"><label for="q5b">6-10 observaciones</label></div>
+    <div class="option"><input type="radio" name="q5" id="q5c" value="c"><label for="q5c">50-100 observaciones</label></div>
+    <div class="option"><input type="radio" name="q5" id="q5d" value="d"><label for="q5d">Solo 3 observaciones</label></div>
+  </div>
+  <div class="feedback" id="f5"></div>
+</div>
+
+<div class="question-card" id="q6">
+  <span class="question-number">6</span>
+  <span class="question-text">Que es una regla pasiva y cual es un ejemplo?</span>
+  <div class="options">
+    <div class="option"><input type="radio" name="q6" id="q6a" value="a"><label for="q6a">Una regla que se aplica silenciosamente en cada sesion sin que el usuario la invoque. Ejemplo: generar siempre un HTML twin de cada entregable</label></div>
+    <div class="option"><input type="radio" name="q6" id="q6b" value="b"><label for="q6b">Una regla que solo se activa cuando Claude esta en modo pasivo</label></div>
+    <div class="option"><input type="radio" name="q6" id="q6c" value="c"><label for="q6c">Una regla que desactiva funciones de Claude para ahorrar tokens</label></div>
+    <div class="option"><input type="radio" name="q6" id="q6d" value="d"><label for="q6d">Una regla que solo aplica a proyectos antiguos</label></div>
+  </div>
+  <div class="feedback" id="f6"></div>
+</div>
+
+<div class="question-card" id="q7">
+  <span class="question-number">7</span>
+  <span class="question-text">Que hace el Skill Router en Synapsis?</span>
+  <div class="options">
+    <div class="option"><input type="radio" name="q7" id="q7a" value="a"><label for="q7a">Es un enrutador de red para conectar Claude a internet</label></div>
+    <div class="option"><input type="radio" name="q7" id="q7b" value="b"><label for="q7b">Lee el catalogo de skills dormantes, detecta la intencion del usuario y solo instala las skills que el proyecto necesita</label></div>
+    <div class="option"><input type="radio" name="q7" id="q7c" value="c"><label for="q7c">Instala automaticamente todas las skills disponibles en cada proyecto</label></div>
+    <div class="option"><input type="radio" name="q7" id="q7d" value="d"><label for="q7d">Es un dashboard para visualizar estadisticas de uso</label></div>
+  </div>
+  <div class="feedback" id="f7"></div>
+</div>
+
+<div class="question-card" id="q8">
+  <span class="question-number">8</span>
+  <span class="question-text">Cual es la maxima fundamental de Synapsis?</span>
+  <div class="options">
+    <div class="option"><input type="radio" name="q8" id="q8a" value="a"><label for="q8a">"Mas datos, mejores resultados"</label></div>
+    <div class="option"><input type="radio" name="q8" id="q8b" value="b"><label for="q8b">"No repetir lo mismo dos veces" — si algo se corrige o se repite, Synapsis lo captura para que no vuelva a pasar</label></div>
+    <div class="option"><input type="radio" name="q8" id="q8c" value="c"><label for="q8c">"La velocidad es lo primero"</label></div>
+    <div class="option"><input type="radio" name="q8" id="q8d" value="d"><label for="q8d">"Automatizar todo sin excepcion"</label></div>
+  </div>
+  <div class="feedback" id="f8"></div>
+</div>
+
+<button type="button" class="btn-check" id="checkBtn" onclick="checkAnswers()">Comprobar respuestas</button>
+</form>
+
+<div class="result-box" id="resultBox">
+  <h2>Resultado Final</h2>
+  <div class="score" id="finalScore">0/8</div>
+  <div class="message" id="resultMessage"></div>
+</div>
+
+<footer>Curso Claude 2026 — Next Gen AI Institute</footer>
+</div>
+
+<script>
+const answers={q1:'b',q2:'b',q3:'b',q4:'b',q5:'b',q6:'a',q7:'b',q8:'b'};
+const explanations={
+  q1:{correct:'Las 4 capas son: Observaciones (datos crudos), Instincts (patrones validados), Skills/Rules (automatizaciones maduras) y Operator State (memoria cruzada entre proyectos).',incorrect:'Las 4 capas de Synapsis son: Observaciones, Instincts, Skills/Rules y Operator State.'},
+  q2:{correct:'Un instinct es un patron recurrente observado y validado. Su confidence score va de 0.0 a 1.0 y sube cada vez que se confirma el patron.',incorrect:'Un instinct es un patron recurrente validado con un confidence score de 0.0 a 1.0 que sube con cada confirmacion.'},
+  q3:{correct:'El comando /instinct-status muestra todos los instincts aprendidos con su confidence score, scope y estado.',incorrect:'El comando correcto es /instinct-status para ver los instincts con su confidence score.'},
+  q4:{correct:'/evolve analiza instincts maduros (alto confidence) y los agrupa en skills, commands, reglas pasivas o enrichments reutilizables.',incorrect:'/evolve toma instincts maduros y los convierte en skills, commands, reglas pasivas o enrichments.'},
+  q5:{correct:'Un instinct necesita aproximadamente 6-10 observaciones confirmatorias para alcanzar un confidence de 0.70 y considerarse maduro.',incorrect:'Se necesitan entre 6 y 10 observaciones para que un instinct alcance 0.70 de confidence.'},
+  q6:{correct:'Una regla pasiva se aplica silenciosamente en cada sesion. Ejemplo: html-twin-on-deliverable genera un HTML de cada entregable automaticamente.',incorrect:'Las reglas pasivas se aplican automaticamente en cada sesion sin invocarlas. Ejemplo: generar HTML twin por entregable.'},
+  q7:{correct:'El Skill Router lee el catalogo, detecta la intencion del usuario y solo instala las skills necesarias para ese proyecto especifico.',incorrect:'El Skill Router matchea intencion con el catalogo de skills dormantes e instala solo las que el proyecto necesita.'},
+  q8:{correct:'La maxima de Synapsis es no repetir lo mismo dos veces: cada correccion o patron repetido se captura para evitar que vuelva a ocurrir.',incorrect:'La maxima es "no repetir lo mismo dos veces" — Synapsis captura correcciones y patrones para que no se repitan.'}
+};
+function checkAnswers(){
+  let score=0;const total=8;
+  for(let i=1;i<=total;i++){
+    const key='q'+i;const card=document.getElementById(key);const fb=document.getElementById('f'+i);
+    const selected=document.querySelector(`input[name="${key}"]:checked`);
+    if(!selected){fb.className='feedback show incorrect';fb.textContent='No seleccionaste ninguna opcion.';card.className='question-card incorrect';continue}
+    if(selected.value===answers[key]){score++;fb.className='feedback show correct';fb.textContent='Correcto. '+explanations[key].correct;card.className='question-card correct'}
+    else{fb.className='feedback show incorrect';fb.textContent='Incorrecto. '+explanations[key].incorrect;card.className='question-card incorrect'}
+  }
+  const pct=Math.round(score/total*100);
+  document.getElementById('progressBar').style.width=pct+'%';
+  document.getElementById('answered').textContent=score+' de '+total+' correctas';
+  document.getElementById('percentage').textContent=pct+'%';
+  const rb=document.getElementById('resultBox');rb.style.display='block';
+  document.getElementById('finalScore').textContent=score+'/'+total;
+  const msg=pct===100?'Perfecto! Dominas Synapsis por completo.':pct>=75?'Muy bien! Repasa las capas o comandos que fallaste.':pct>=50?'Bien, pero revisa las 4 capas y los comandos clave.':'Te recomendamos ver el video de nuevo antes de continuar.';
+  document.getElementById('resultMessage').textContent=msg;
+  document.getElementById('checkBtn').disabled=true;
+  rb.scrollIntoView({behavior:'smooth'});
+}
+document.querySelectorAll('input[type="radio"]').forEach(r=>r.addEventListener('change',()=>{
+  const total=8;let ans=0;for(let i=1;i<=total;i++){if(document.querySelector(`input[name="q${i}"]:checked`))ans++}
+  const pct=Math.round(ans/total*100);
+  document.getElementById('progressBar').style.width=pct+'%';
+  document.getElementById('answered').textContent=ans+' de '+total+' respondidas';
+  document.getElementById('percentage').textContent=pct+'%';
+}));
+</script>
+</body>
+</html>

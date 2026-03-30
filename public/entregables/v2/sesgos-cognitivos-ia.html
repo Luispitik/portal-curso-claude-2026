@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sesgos Cognitivos e IA | Controla tu Cabeza antes de Usar la Herramienta</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg-card: #12121a;
+    --bg-card-alt: #1a1a2e;
+    --accent: #6366f1;
+    --accent-light: #818cf8;
+    --accent-glow: rgba(99, 102, 241, 0.15);
+    --green: #10b981;
+    --green-glow: rgba(16, 185, 129, 0.15);
+    --amber: #f59e0b;
+    --amber-glow: rgba(245, 158, 11, 0.15);
+    --red: #ef4444;
+    --red-glow: rgba(239, 68, 68, 0.15);
+    --cyan: #06b6d4;
+    --cyan-glow: rgba(6, 182, 212, 0.15);
+    --purple: #a855f7;
+    --purple-glow: rgba(168, 85, 247, 0.15);
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --text-muted: #64748b;
+    --border: #1e293b;
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── Navigation ── */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(10, 10, 15, 0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .nav-brand {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--accent-light);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--text);
+    background: var(--accent-glow);
+  }
+
+  /* ── Sections ── */
+  .section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 5rem 2rem 3rem;
+  }
+
+  .section:first-of-type { padding-top: 7rem; }
+
+  .section-number {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent-light);
+    background: var(--accent-glow);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--text), var(--accent-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+
+  .subtitle {
+    font-size: 1.15rem;
+    color: var(--text-dim);
+    max-width: 700px;
+    margin-bottom: 2rem;
+  }
+
+  p { margin-bottom: 1rem; color: var(--text-dim); }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    margin-bottom: 1.25rem;
+    transition: border-color 0.3s;
+  }
+
+  .card:hover { border-color: var(--accent); }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-icon.accent { background: var(--accent-glow); }
+  .card-icon.green { background: var(--green-glow); }
+  .card-icon.amber { background: var(--amber-glow); }
+  .card-icon.red { background: var(--red-glow); }
+  .card-icon.cyan { background: var(--cyan-glow); }
+  .card-icon.purple { background: var(--purple-glow); }
+
+  /* ── Bias Block ── */
+  .bias-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 2rem;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .bias-block:hover { border-color: var(--accent); }
+
+  .bias-header {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.5rem 1.75rem;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bias-number {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .bias-header-content { flex: 1; }
+  .bias-header-content h3 { font-size: 1.15rem; margin-bottom: 0.3rem; }
+  .bias-header-content p { font-size: 0.9rem; margin-bottom: 0; }
+
+  .bias-body {
+    padding: 1.5rem 1.75rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .bias-section h4 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.6rem;
+  }
+
+  .bias-section p { font-size: 0.92rem; margin-bottom: 0; }
+
+  .bias-section.manifestation h4 { color: var(--red); }
+  .bias-section.deactivation h4 { color: var(--green); }
+
+  .deactivation-question {
+    background: var(--green-glow);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 0.95rem;
+    color: var(--text);
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .bias-footer {
+    padding: 0.75rem 1.75rem;
+    background: var(--bg-card-alt);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .bias-footer .tag { margin: 0; }
+
+  /* ── Conversation Examples ── */
+  .convo {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+
+  .convo-header {
+    padding: 0.75rem 1.25rem;
+    background: var(--bg-card-alt);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+  }
+
+  .convo-body { padding: 1.25rem; }
+
+  .msg {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    align-items: flex-start;
+  }
+
+  .msg:last-child { margin-bottom: 0; }
+
+  .msg-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .msg-avatar.human { background: var(--accent); color: white; }
+  .msg-avatar.ai { background: var(--green); color: white; }
+  .msg-avatar.brain { background: var(--purple); color: white; }
+
+  .msg-bubble {
+    background: var(--bg-card-alt);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    max-width: 85%;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text-dim);
+  }
+
+  .msg-bubble strong { color: var(--text); }
+  .msg-bubble .highlight { color: var(--accent-light); font-weight: 600; }
+  .msg-bubble .warn { color: var(--amber); font-weight: 600; }
+  .msg-bubble .good { color: var(--green); font-weight: 600; }
+  .msg-bubble .bad { color: var(--red); font-weight: 600; }
+
+  /* ── Comparison ── */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .compare-col { padding: 1.5rem; border-radius: var(--radius); }
+
+  .compare-col.bad {
+    background: var(--red-glow);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+
+  .compare-col.good {
+    background: var(--green-glow);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+
+  .compare-col h3 { font-size: 1rem; margin-bottom: 1rem; }
+  .compare-col.bad h3 { color: var(--red); }
+  .compare-col.good h3 { color: var(--green); }
+
+  .compare-col ul { list-style: none; padding: 0; }
+
+  .compare-col li {
+    padding: 0.4rem 0;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .compare-col.bad li::before { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+  .compare-col.good li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+  /* ── Callout ── */
+  .callout {
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius);
+    margin: 1.5rem 0;
+    border-left: 3px solid;
+  }
+
+  .callout.info { background: var(--accent-glow); border-color: var(--accent); }
+  .callout.warn { background: var(--amber-glow); border-color: var(--amber); }
+  .callout.tip { background: var(--green-glow); border-color: var(--green); }
+  .callout.danger { background: var(--red-glow); border-color: var(--red); }
+
+  .callout p { margin: 0; font-size: 0.95rem; }
+  .callout strong { color: var(--text); }
+
+  /* ── Tags ── */
+  .tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-right: 0.4rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .tag.accent { background: var(--accent-glow); color: var(--accent-light); }
+  .tag.green { background: var(--green-glow); color: var(--green); }
+  .tag.amber { background: var(--amber-glow); color: var(--amber); }
+  .tag.red { background: var(--red-glow); color: var(--red); }
+  .tag.purple { background: var(--purple-glow); color: var(--purple); }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--purple-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero h1 { font-size: clamp(2.2rem, 6vw, 3.5rem); position: relative; }
+  .hero .subtitle { margin: 0 auto 2rem; position: relative; }
+
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .hero-meta-item {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .hero-meta-item strong {
+    color: var(--text-dim);
+    display: block;
+    font-size: 1.4rem;
+  }
+
+  /* ── System 1/2 Diagram ── */
+  .system-diagram {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    align-items: stretch;
+  }
+
+  .system-box {
+    padding: 1.75rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+
+  .system-box.s1 {
+    background: var(--red-glow);
+    border-color: rgba(239, 68, 68, 0.25);
+  }
+
+  .system-box.s2 {
+    background: var(--green-glow);
+    border-color: rgba(16, 185, 129, 0.25);
+  }
+
+  .system-box h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .system-box.s1 h3 { color: var(--red); }
+  .system-box.s2 h3 { color: var(--green); }
+
+  .system-box .label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .system-box.s1 .label { color: var(--red); }
+  .system-box.s2 .label { color: var(--green); }
+
+  .system-box ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .system-box li {
+    padding: 0.35rem 0;
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .system-box.s1 li::before { content: '⚡'; position: absolute; left: 0; font-size: 0.75rem; }
+  .system-box.s2 li::before { content: '🎯'; position: absolute; left: 0; font-size: 0.75rem; }
+
+  .system-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--text-muted);
+    writing-mode: horizontal-tb;
+  }
+
+  /* ── Data Stat ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .stat {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-number.red { color: var(--red); }
+  .stat-number.amber { color: var(--amber); }
+  .stat-number.accent { color: var(--accent-light); }
+
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* ── Checklist Card ── */
+  .checklist-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    margin: 1.5rem 0;
+  }
+
+  .checklist-card h3 { margin-bottom: 1rem; }
+
+  .checklist-item {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .checklist-item:last-child { border-bottom: none; }
+
+  .checklist-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .checklist-text {
+    font-size: 0.92rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .checklist-text strong { color: var(--text); }
+
+  /* ── Divider ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 3rem 0;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  /* ── Source reference ── */
+  .source-ref {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .source-ref a {
+    color: var(--accent-light);
+    text-decoration: none;
+    opacity: 0.7;
+  }
+
+  .source-ref a:hover { opacity: 1; text-decoration: underline; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .compare-grid { grid-template-columns: 1fr; }
+    .system-diagram { grid-template-columns: 1fr; }
+    .system-arrow { writing-mode: horizontal-tb; transform: rotate(90deg); padding: 0.5rem; }
+    .bias-body { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero-meta { gap: 1rem; }
+    .section { padding: 3rem 1.25rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- NAV -->
+<!-- ════════════════════════════════════════════════════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">Sesgos Cognitivos e IA</div>
+    <ul class="nav-links">
+      <li><a href="#por-que">Por que importa</a></li>
+      <li><a href="#sistema12">Sistema 1 y 2</a></li>
+      <li><a href="#sesgos">Los 8 sesgos</a></li>
+      <li><a href="#tarjeta">Tarjeta anti-sesgos</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ════════════════════════════════════════════════════════ -->
+<header class="hero">
+  <h1>Controla tu cabeza antes de usar la herramienta</h1>
+  <p class="subtitle">
+    Tu cerebro tiene atajos que te funcionan en el dia a dia. Pero cuando interactuas con IA, esos mismos atajos te sabotean. Antes de aprender a preguntar, aprende a pensar.
+  </p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <strong>8</strong> sesgos clave
+    </div>
+    <div class="hero-meta-item">
+      <strong>8</strong> preguntas de desactivacion
+    </div>
+    <div class="hero-meta-item">
+      <strong>2</strong> sistemas de pensamiento
+    </div>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- POR QUE IMPORTA -->
+<!-- ════════════════════════════════════════════════════════ -->
+<section class="section" id="por-que">
+  <span class="section-number">La base</span>
+  <h2>Por que tu cabeza importa mas que la herramienta</h2>
+  <p class="subtitle">La mayoria de cursos de IA te ensenan a escribir mejores prompts. Pero el problema no esta en como escribes. Esta en como piensas ANTES de escribir.</p>
+
+  <div class="stat-grid">
+    <div class="stat">
+      <div class="stat-number red">78%</div>
+      <div class="stat-label">de usuarios aceptan respuestas de IA sin cuestionarlas</div>
+      <div class="source-ref"><a href="https://academic.oup.com/idpl/article/14/4/299/7925747" target="_blank">Oxford Academic, 2024</a></div>
+    </div>
+    <div class="stat">
+      <div class="stat-number amber">4 pts</div>
+      <div class="stat-label">de sobreestimacion media de competencia al usar IA</div>
+      <div class="source-ref"><a href="https://www.aalto.fi/en/news/ai-use-makes-us-overestimate-our-cognitive-performance" target="_blank">Aalto University, 2025</a></div>
+    </div>
+    <div class="stat">
+      <div class="stat-number accent">&lt;50%</div>
+      <div class="stat-label">de acierto cuando la IA da informacion incorrecta (peor que sin IA)</div>
+      <div class="source-ref"><a href="https://www.sciencedirect.com/science/article/pii/S1877050925030042" target="_blank">ScienceDirect, 2025</a></div>
+    </div>
+  </div>
+
+  <div class="callout danger">
+    <p><strong>El dato que nadie espera:</strong> Saber mas sobre IA NO te protege de estos sesgos. De hecho, las personas con mayor experiencia en IA son las que MAS sobreestiman sus resultados. Lo que protege no es el conocimiento tecnico, sino la capacidad de observar tu propio pensamiento.</p>
+  </div>
+
+  <h3>Que son los sesgos cognitivos</h3>
+  <p>Son atajos mentales (heuristicos) que tu cerebro usa para tomar decisiones rapidas con poca energia. Funcionan bien para el 90% de situaciones cotidianas: elegir que comer, cruzar una calle, decidir si confias en alguien.</p>
+  <p>Pero cuando interactuas con una IA que responde de forma fluida, convincente y con tono de experto, esos mismos atajos se convierten en trampas. <strong>Tu cerebro trata la respuesta de la IA como si viniera de un experto humano, y desactiva tu capacidad critica.</strong></p>
+
+  <div class="compare-grid">
+    <div class="compare-col bad">
+      <h3>Cuando los sesgos te controlan</h3>
+      <ul>
+        <li>Aceptas la primera respuesta porque suena bien</li>
+        <li>Preguntas para confirmar lo que ya crees</li>
+        <li>Das contexto incompleto sin darte cuenta</li>
+        <li>No exploras alternativas diferentes</li>
+        <li>Crees que sabes del tema porque la IA te informo</li>
+        <li>Sigues iterando sobre una idea mala por inercia</li>
+      </ul>
+    </div>
+    <div class="compare-col good">
+      <h3>Cuando tu controlas los sesgos</h3>
+      <ul>
+        <li>Cuestionas antes de aceptar, siempre</li>
+        <li>Pides a la IA que desmonte tu propia idea</li>
+        <li>Revisas que datos le das y cuales te faltan</li>
+        <li>Pides enfoques radicalmente distintos</li>
+        <li>Verificas que puedes explicar sin la IA delante</li>
+        <li>Empiezas de cero cuando el camino no funciona</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SISTEMA 1 / SISTEMA 2 -->
+<!-- ════════════════════════════════════════════════════════ -->
+<section class="section" id="sistema12">
+  <span class="section-number">El marco mental</span>
+  <h2>System 1 y System 2: como piensa tu cerebro</h2>
+  <p class="subtitle">Daniel Kahneman descubrio que tenemos dos sistemas de pensamiento. Cuando usamos IA, activamos el equivocado.</p>
+
+  <div class="system-diagram">
+    <div class="system-box s1">
+      <span class="label">Sistema 1 — Rapido e intuitivo</span>
+      <h3>El piloto automatico</h3>
+      <ul>
+        <li>Decide en milisegundos, sin esfuerzo</li>
+        <li>Se basa en patrones, emociones, atajos</li>
+        <li>No verifica, no duda, no analiza</li>
+        <li>Perfecto para: cruzar la calle, leer caras</li>
+        <li>Peligroso para: evaluar respuestas de IA</li>
+      </ul>
+      <p style="margin-top: 1rem; margin-bottom: 0; font-size: 0.85rem;"><strong style="color: var(--red);">Asi usamos la IA normalmente:</strong> Un prompt, acepto la respuesta, copio y pego.</p>
+    </div>
+
+    <div class="system-arrow">→</div>
+
+    <div class="system-box s2">
+      <span class="label">Sistema 2 — Lento y deliberado</span>
+      <h3>El pensador critico</h3>
+      <ul>
+        <li>Requiere esfuerzo consciente y energia</li>
+        <li>Analiza, compara, verifica, cuestiona</li>
+        <li>Detecta errores, busca alternativas</li>
+        <li>Perfecto para: decisiones importantes</li>
+        <li>Necesario para: trabajar bien con IA</li>
+      </ul>
+      <p style="margin-top: 1rem; margin-bottom: 0; font-size: 0.85rem;"><strong style="color: var(--green);">Asi deberiamos usar la IA:</strong> Defino objetivo, doy contexto, itero, valido, cuestiono.</p>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <p><strong>La trampa:</strong> La IA esta disenada para sonar convincente. Eso activa tu Sistema 1, que dice "suena bien, acepto". Cada sesgo que vas a ver a continuacion es tu Sistema 1 tomando el control cuando deberia estar al mando tu Sistema 2.</p>
+  </div>
+
+  <div class="convo">
+    <div class="convo-header">Sistema 1 vs Sistema 2 en accion</div>
+    <div class="convo-body">
+      <div class="msg">
+        <div class="msg-avatar human">Tu</div>
+        <div class="msg-bubble"><span class="bad">Sistema 1:</span> "Hazme un plan de marketing"<br><br><span class="good">Sistema 2:</span> "Tengo una tienda online de ropa sostenible con 200 clientes, un presupuesto de 500 euros al mes y el 70% de mis ventas vienen de Instagram. <span class="highlight">Antes de darme un plan, dime que informacion necesitas de mi que no te he dado.</span>"</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- LOS 8 SESGOS -->
+<!-- ════════════════════════════════════════════════════════ -->
+<section class="section" id="sesgos">
+  <span class="section-number">Los 8 sesgos</span>
+  <h2>Los 8 sesgos que te sabotean al usar IA</h2>
+  <p class="subtitle">Cada sesgo incluye: que es, como te afecta al usar IA y una pregunta concreta para desactivarlo. Aprende a reconocerlos y tendras el 80% del trabajo hecho.</p>
+
+  <!-- ── SESGO 1: Automation Bias ── -->
+  <div class="bias-block">
+    <div class="bias-header">
+      <div class="bias-number" style="background: var(--red-glow); color: var(--red);">1</div>
+      <div class="bias-header-content">
+        <h3>Sesgo de automatizacion (Automation Bias)</h3>
+        <p>Tendencia a aceptar automaticamente lo que produce un sistema automatizado, sin verificacion critica. Con IA, es devastador porque las respuestas suenan persuasivas y humanas.</p>
+      </div>
+    </div>
+    <div class="bias-body">
+      <div class="bias-section manifestation">
+        <h4>Como te afecta con IA</h4>
+        <p>Aceptas la primera respuesta de Claude o ChatGPT como si fuera correcta. No contrastas. Copias y pegas sin adaptar. Piensas: "si la IA lo dice con tanta seguridad, sera verdad". Un estudio encontro que el 78% de usuarios caen en esto.</p>
+      </div>
+      <div class="bias-section deactivation">
+        <h4>Pregunta de desactivacion</h4>
+        <div class="deactivation-question">"Si esta respuesta me la diera un companero de trabajo, la aceptaria sin mas o le pediria que me lo justifique?"</div>
+      </div>
+    </div>
+    <div class="bias-footer">
+      <span class="tag red">Critico</span>
+      <span>Se contrarresta con: Validar siempre (los 3 filtros)</span>
+    </div>
+  </div>
+
+  <!-- ── SESGO 2: Confirmacion ── -->
+  <div class="bias-block">
+    <div class="bias-header">
+      <div class="bias-number" style="background: var(--amber-glow); color: var(--amber);">2</div>
+      <div class="bias-header-content">
+        <h3>Sesgo de confirmacion</h3>
+        <p>Buscar, interpretar y recordar selectivamente la informacion que confirma lo que ya crees. Con IA, es especialmente peligroso porque puedes formular prompts que fuercen la respuesta que quieres oir.</p>
+      </div>
+    </div>
+    <div class="bias-body">
+      <div class="bias-section manifestation">
+        <h4>Como te afecta con IA</h4>
+        <p>"Dame argumentos para que mi idea funciona" en vez de "desmonta mi idea". Reformulas la pregunta hasta que la IA te da la razon. Ignoras las partes de la respuesta que no te gustan. Creas un loop: pregunta sesgada → respuesta alineada → te confirmas → preguntas mas sesgado aun.</p>
+      </div>
+      <div class="bias-section deactivation">
+        <h4>Pregunta de desactivacion</h4>
+        <div class="deactivation-question">"Estoy preguntando para descubrir la verdad o para confirmar lo que ya creo?"</div>
+      </div>
+    </div>
+    <div class="bias-footer">
+      <span class="tag amber">Frecuente</span>
+      <span>Se contrarresta con: Preguntas de desmontaje</span>
+    </div>
+  </div>
+
+  <!-- ── SESGO 3: Anclaje ── -->
+  <div class="bias-block">
+    <div class="bias-header">
+      <div class="bias-number" style="background: var(--accent-glow); color: var(--accent-light);">3</div>
+      <div class="bias-header-content">
+        <h3>Efecto ancla</h3>
+        <p>La primera informacion que recibes ancla todas tus decisiones posteriores. Con IA, la primera respuesta define el universo de posibilidades: si la IA dice "hay 3 opciones", dejas de buscar la cuarta.</p>
+      </div>
+    </div>
+    <div class="bias-body">
+      <div class="bias-section manifestation">
+        <h4>Como te afecta con IA</h4>
+        <p>La primera respuesta de la IA se convierte en el marco de toda la conversacion. Si sugiere un precio de 50 euros, todas las iteraciones orbitan alrededor de 50. Si propone 3 estrategias, ya no consideras la posibilidad de que haya una cuarta completamente diferente. Estudios demuestran que ni el Chain-of-Thought mitiga esto.</p>
+      </div>
+      <div class="bias-section deactivation">
+        <h4>Pregunta de desactivacion</h4>
+        <div class="deactivation-question">"Estoy iterando sobre la primera respuesta o he explorado enfoques completamente diferentes?"</div>
+      </div>
+    </div>
+    <div class="bias-footer">
+      <span class="tag accent">Sutil</span>
+      <span>Se contrarresta con: Pedir 3 enfoques radicalmente distintos</span>
+    </div>
+  </div>
+
+  <!-- ── SESGO 4: Autoridad ── -->
+  <div class="bias-block">
+    <div class="bias-header">
+      <div class="bias-number" style="background: var(--purple-glow); color: var(--purple);">4</div>
+      <div class="bias-header-content">
+        <h3>Sesgo de autoridad</h3>
+        <p>Atribuir mayor credibilidad a una fuente percibida como experta. Los LLMs hablan con un tono tan fluido y seguro que tu cerebro los trata como un experto humano.</p>
+      </div>
+    </div>
+    <div class="bias-body">
+      <div class="bias-section manifestation">
+        <h4>Como te afecta con IA</h4>
+        <p>"La IA sabe mas que yo de esto." Pero la IA no tiene acceso a TU contexto especifico: tus numeros, tu equipo, tu mercado. Cuanto mas natural suena la IA, mas confias sin verificar. Los investigadores llaman a esto "la paradoja de la automatizacion cognitiva": cuanto mejor se comunica la IA, peor piensas tu.</p>
+      </div>
+      <div class="bias-section deactivation">
+        <h4>Pregunta de desactivacion</h4>
+        <div class="deactivation-question">"Aceptaria esto si me lo dijera un becario muy elocuente en vez de una IA?"</div>
+      </div>
+    </div>
+    <div class="bias-footer">
+      <span class="tag purple">Inconsciente</span>
+      <span>Se contrarresta con: La IA es copiloto, no oraculo</span>
+    </div>
+  </div>
+
+  <!-- ── SESGO 5: Dunning-Kruger Inverso ── -->
+  <div class="bias-block">
+    <div class="bias-header">
+      <div class="bias-number" style="background: var(--red-glow); color: var(--red);">5</div>
+      <div class="bias-header-content">
+        <h3>Dunning-Kruger inverso (Ilusion de conocimiento)</h3>
+        <p>Al usar IA, sobreestimas tu propia competencia. La IA te da una respuesta completa y tu cerebro la registra como "conocimiento propio". Peor aun: los mas experimentados con IA son los que MAS sobreestiman.</p>
+      </div>
+    </div>
+    <div class="bias-body">
+      <div class="bias-section manifestation">
+        <h4>Como te afecta con IA</h4>
+        <p>Crees que sabes de un tema porque la IA te dio una respuesta convincente. Presentas el output de la IA como conocimiento propio sin haberlo procesado realmente. Dices "he investigado el tema" cuando en realidad le preguntaste a ChatGPT una vez con un solo prompt. Estudio de Aalto University: los usuarios mejoraron 3 puntos pero creyeron mejorar 7.</p>
+      </div>
+      <div class="bias-section deactivation">
+        <h4>Pregunta de desactivacion</h4>
+        <div class="deactivation-question">"Podria defender esta idea en una reunion sin la IA delante? Entiendo realmente por que funciona, no solo que funciona?"</div>
+      </div>
+    </div>
+    <div class="bias-footer">
+      <span class="tag red">Contraintuitivo</span>
+      <span>Se contrarresta con: Test del cafe (explicar sin notas)</span>
+    </div>
+  </div>
+
+  <!-- ── SESGO 6: Cognitive Offloading ── -->
+  <div class="bias-block">
+    <div class="bias-header">
+      <div class="bias-number" style="background: var(--amber-glow); color: var(--amber);">6</div>
+      <div class="bias-header-content">
+        <h3>Descarga cognitiva (Cognitive Offloading)</h3>
+        <p>Delegar el esfuerzo de pensar a un sistema externo. Con IA, el riesgo es dejar de pensar por completo: que la maquina piense por ti en vez de pensar contigo.</p>
+      </div>
+    </div>
+    <div class="bias-body">
+      <div class="bias-section manifestation">
+        <h4>Como te afecta con IA</h4>
+        <p>"Hazme un plan de negocio" sin haber pensado tu primero que quieres, para quien o con que recursos. Usas la IA como sustituto de tu pensamiento en vez de como amplificador. La investigacion muestra que la descarga cognitiva distorsiona el pensamiento critico e incrementa la exposicion a informacion sesgada.</p>
+      </div>
+      <div class="bias-section deactivation">
+        <h4>Pregunta de desactivacion</h4>
+        <div class="deactivation-question">"He pensado yo ANTES de preguntar, o estoy pidiendo que la IA piense por mi?"</div>
+      </div>
+    </div>
+    <div class="bias-footer">
+      <span class="tag amber">Habitual</span>
+      <span>Se contrarresta con: Definir objetivo claro ANTES de abrir la IA</span>
+    </div>
+  </div>
+
+  <!-- ── SESGO 7: Disponibilidad ── -->
+  <div class="bias-block">
+    <div class="bias-header">
+      <div class="bias-number" style="background: var(--cyan-glow); color: var(--cyan);">7</div>
+      <div class="bias-header-content">
+        <h3>Heuristico de disponibilidad</h3>
+        <p>Sobrevalorar la informacion que recuerdas mas facilmente, generalmente la mas reciente o la mas impactante emocionalmente. Al dar contexto a la IA, le das lo que tienes fresco, no lo que es relevante.</p>
+      </div>
+    </div>
+    <div class="bias-body">
+      <div class="bias-section manifestation">
+        <h4>Como te afecta con IA</h4>
+        <p>Si la semana pasada un cliente se quejo, inflas ese problema al dar contexto. Ignoras datos de los ultimos 6 meses que cuentan una historia diferente. Le das a la IA lo emocional y reciente en vez de lo representativo y completo. El resultado: la IA trabaja con un mapa distorsionado de tu realidad.</p>
+      </div>
+      <div class="bias-section deactivation">
+        <h4>Pregunta de desactivacion</h4>
+        <div class="deactivation-question">"Le estoy dando a la IA los datos mas RELEVANTES o solo los que tengo mas frescos en la cabeza?"</div>
+      </div>
+    </div>
+    <div class="bias-footer">
+      <span class="tag cyan">Sutil</span>
+      <span>Se contrarresta con: Dar contexto con datos, no con impresiones</span>
+    </div>
+  </div>
+
+  <!-- ── SESGO 8: Sunk Cost ── -->
+  <div class="bias-block">
+    <div class="bias-header">
+      <div class="bias-number" style="background: var(--accent-glow); color: var(--accent-light);">8</div>
+      <div class="bias-header-content">
+        <h3>Aversion a la perdida / Coste hundido</h3>
+        <p>Resistencia a abandonar una idea o enfoque en el que ya has invertido tiempo. Con IA, esto se traduce en seguir iterando sobre algo mediocre en vez de empezar de cero.</p>
+      </div>
+    </div>
+    <div class="bias-body">
+      <div class="bias-section manifestation">
+        <h4>Como te afecta con IA</h4>
+        <p>Llevas 15 mensajes refinando una idea que no termina de funcionar. En vez de borrar y empezar con un enfoque distinto, sigues parcheando. "Ya he invertido mucho en este prompt." Pero iterar no es insistir en lo mismo: a veces la mejor iteracion es empezar de cero.</p>
+      </div>
+      <div class="bias-section deactivation">
+        <h4>Pregunta de desactivacion</h4>
+        <div class="deactivation-question">"Si empezara esta conversacion desde cero, elegiria el mismo enfoque?"</div>
+      </div>
+    </div>
+    <div class="bias-footer">
+      <span class="tag accent">Emocional</span>
+      <span>Se contrarresta con: Saber cuando descartar y empezar de nuevo</span>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <p><strong>Importante:</strong> Estos sesgos no son defectos. Son el funcionamiento normal de un cerebro humano. El problema no es tenerlos — todos los tenemos. El problema es no reconocerlos cuando aparecen. La metacognicion (pensar sobre como piensas) es tu mejor herramienta.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- TARJETA ANTI-SESGOS -->
+<!-- ════════════════════════════════════════════════════════ -->
+<section class="section" id="tarjeta">
+  <span class="section-number">Herramienta practica</span>
+  <h2>Tu tarjeta anti-sesgos</h2>
+  <p class="subtitle">Antes de cada sesion de trabajo con IA, repasa estas 8 preguntas. Tenlas a mano. Son tu sistema de defensa contra tu propio cerebro.</p>
+
+  <div class="checklist-card" style="border-color: var(--accent);">
+    <h3>Las 8 preguntas para antes, durante y despues</h3>
+
+    <div class="checklist-item">
+      <div class="checklist-icon" style="background: var(--red-glow); color: var(--red);">1</div>
+      <div class="checklist-text"><strong>Antes de aceptar:</strong> "Si esto me lo dijera un companero, le pediria que lo justifique?"</div>
+    </div>
+
+    <div class="checklist-item">
+      <div class="checklist-icon" style="background: var(--amber-glow); color: var(--amber);">2</div>
+      <div class="checklist-text"><strong>Antes de preguntar:</strong> "Pregunto para descubrir o para confirmar lo que ya creo?"</div>
+    </div>
+
+    <div class="checklist-item">
+      <div class="checklist-icon" style="background: var(--accent-glow); color: var(--accent-light);">3</div>
+      <div class="checklist-text"><strong>Despues de iterar:</strong> "He explorado enfoques completamente distintos o sigo orbitando la primera idea?"</div>
+    </div>
+
+    <div class="checklist-item">
+      <div class="checklist-icon" style="background: var(--purple-glow); color: var(--purple);">4</div>
+      <div class="checklist-text"><strong>Cuando suena demasiado bien:</strong> "Aceptaria esto de un becario elocuente?"</div>
+    </div>
+
+    <div class="checklist-item">
+      <div class="checklist-icon" style="background: var(--red-glow); color: var(--red);">5</div>
+      <div class="checklist-text"><strong>Antes de usar el resultado:</strong> "Podria defender esto en una reunion sin la IA delante?"</div>
+    </div>
+
+    <div class="checklist-item">
+      <div class="checklist-icon" style="background: var(--amber-glow); color: var(--amber);">6</div>
+      <div class="checklist-text"><strong>Al abrir la IA:</strong> "He pensado yo antes de preguntar, o quiero que piense por mi?"</div>
+    </div>
+
+    <div class="checklist-item">
+      <div class="checklist-icon" style="background: var(--cyan-glow); color: var(--cyan);">7</div>
+      <div class="checklist-text"><strong>Al dar contexto:</strong> "Estoy dando los datos relevantes o solo los que tengo mas frescos?"</div>
+    </div>
+
+    <div class="checklist-item">
+      <div class="checklist-icon" style="background: var(--accent-glow); color: var(--accent-light);">8</div>
+      <div class="checklist-text"><strong>Si llevas 10+ mensajes atascado:</strong> "Si empezara de cero, elegiria el mismo enfoque?"</div>
+    </div>
+  </div>
+
+  <div class="convo">
+    <div class="convo-header">Las preguntas en accion: una sesion real</div>
+    <div class="convo-body">
+      <div class="msg">
+        <div class="msg-avatar brain">🧠</div>
+        <div class="msg-bubble"><span class="highlight">Antes de abrir la IA, pienso:</span> Mi problema es que las propuestas comerciales me llevan 4 horas cada una. Quiero bajarlo a 1 hora. Tengo una plantilla base y 3 clientes tipo. <em>(Pregunta 6: he pensado antes de preguntar ✓)</em></div>
+      </div>
+      <div class="msg">
+        <div class="msg-avatar human">Tu</div>
+        <div class="msg-bubble">Mis propuestas comerciales me llevan 4 horas. Tengo 3 perfiles de cliente y una plantilla base. <span class="highlight">Antes de darme una solucion, dime que informacion necesitas que no te he dado, y dime 3 motivos por los que mi proceso actual podria ser ineficiente.</span></div>
+      </div>
+      <div class="msg">
+        <div class="msg-avatar ai">IA</div>
+        <div class="msg-bubble"><strong>Necesito saber:</strong> que porcentaje de la propuesta es personalizado vs. estandar, donde pierdes mas tiempo (investigacion, redaccion, formato), y cuantas propuestas envias al mes. <strong>3 posibles ineficiencias:</strong> 1) Probablemente reescribes secciones que podrian ser modulares. 2) Si investigas cada cliente desde cero, no estas reutilizando inteligencia previa. 3) Puede que el cuello de botella no sea escribir sino decidir que incluir...</div>
+      </div>
+      <div class="msg">
+        <div class="msg-avatar brain">🧠</div>
+        <div class="msg-bubble"><span class="warn">Compruebo mis sesgos:</span> Mi primera reaccion es "no, el problema es la redaccion". Pero la IA sugiere que podria ser la decision de contenido. <em>(Pregunta 2: estoy confirmando o descubriendo? Voy a explorar su hipotesis antes de descartarla.)</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout tip">
+    <p><strong>La conexion con el framework:</strong> Las 8 preguntas anti-sesgos son la preparacion mental para el framework de trabajo con IA. Primero limpias tu pensamiento. Despues aplicas: Objetivo claro → Contexto real → Iterar con preguntas → Validar → Accion. Sin lo primero, lo segundo no funciona.</p>
+  </div>
+
+  <!-- Summary table -->
+  <h3 style="margin-top: 2rem;">Mapa completo: sesgo → trampa → antidoto</h3>
+  <div style="overflow-x: auto; margin: 1.5rem 0;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem;">
+      <thead>
+        <tr style="border-bottom: 2px solid var(--border);">
+          <th style="padding: 0.75rem; text-align: left; color: var(--text-muted); font-weight: 600;">#</th>
+          <th style="padding: 0.75rem; text-align: left; color: var(--text-muted); font-weight: 600;">Sesgo</th>
+          <th style="padding: 0.75rem; text-align: left; color: var(--text-muted); font-weight: 600;">Trampa con IA</th>
+          <th style="padding: 0.75rem; text-align: left; color: var(--text-muted); font-weight: 600;">Pregunta de desactivacion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.65rem 0.75rem; color: var(--red); font-weight: 700;">1</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text);">Automatizacion</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text-dim);">Aceptar sin cuestionar</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text-dim); font-style: italic;">"Lo aceptaria de un companero?"</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.65rem 0.75rem; color: var(--amber); font-weight: 700;">2</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text);">Confirmacion</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text-dim);">Buscar que te den la razon</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text-dim); font-style: italic;">"Descubrir o confirmar?"</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.65rem 0.75rem; color: var(--accent-light); font-weight: 700;">3</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text);">Anclaje</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text-dim);">Orbitar la primera respuesta</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text-dim); font-style: italic;">"He explorado enfoques distintos?"</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.65rem 0.75rem; color: var(--purple); font-weight: 700;">4</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text);">Autoridad</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text-dim);">"La IA sabe mas que yo"</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text-dim); font-style: italic;">"Y si fuera un becario elocuente?"</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.65rem 0.75rem; color: var(--red); font-weight: 700;">5</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text);">Dunning-Kruger inverso</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text-dim);">Creer que sabes porque te lo dijo la IA</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text-dim); font-style: italic;">"Lo defiendo sin la IA delante?"</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.65rem 0.75rem; color: var(--amber); font-weight: 700;">6</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text);">Descarga cognitiva</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text-dim);">Que la IA piense por ti</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text-dim); font-style: italic;">"He pensado antes de preguntar?"</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 0.65rem 0.75rem; color: var(--cyan); font-weight: 700;">7</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text);">Disponibilidad</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text-dim);">Contexto sesgado por lo reciente</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text-dim); font-style: italic;">"Doy datos relevantes o frescos?"</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.65rem 0.75rem; color: var(--accent-light); font-weight: 700;">8</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text);">Coste hundido</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text-dim);">No soltar una idea que no funciona</td>
+          <td style="padding: 0.65rem 0.75rem; color: var(--text-dim); font-style: italic;">"Desde cero, elegiria este enfoque?"</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- RESUMEN -->
+<!-- ════════════════════════════════════════════════════════ -->
+<section class="section">
+  <span class="section-number">Resumen</span>
+  <h2>El mensaje clave</h2>
+
+  <div class="card" style="text-align: center; padding: 2.5rem; border-color: var(--accent);">
+    <div style="font-size: 1.3rem; color: var(--text); font-weight: 700; margin-bottom: 1.5rem; line-height: 1.4;">
+      La IA no falla porque sea mala.<br>
+      Falla porque tu cerebro la usa mal.
+    </div>
+    <div style="font-size: 1rem; color: var(--text-dim); max-width: 650px; margin: 0 auto; line-height: 1.7;">
+      <p>Los mismos atajos mentales que te hacen eficiente en tu dia a dia son los que te sabotean al usar IA. La solucion no es mas conocimiento tecnico. Es mas autoconciencia.</p>
+      <p style="margin-bottom: 0;"><strong style="color: var(--text);">Primero controla tu cabeza. Despues, usa la herramienta.</strong></p>
+    </div>
+    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+      <span class="tag purple">RECONOCER SESGOS</span>
+      <span style="color: var(--text-muted); margin: 0 0.5rem;">→</span>
+      <span class="tag accent">PREGUNTAS DE DESACTIVACION</span>
+      <span style="color: var(--text-muted); margin: 0 0.5rem;">→</span>
+      <span class="tag green">FRAMEWORK DE TRABAJO</span>
+      <span style="color: var(--text-muted); margin: 0 0.5rem;">→</span>
+      <span class="tag amber">RESULTADOS REALES</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ════════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <p>Sesgos Cognitivos e IA &mdash; Material de formacion</p>
+  <p style="margin-top: 0.5rem;">NorteIA / SalgadoIA &mdash; 2026</p>
+  <p style="margin-top: 0.75rem; font-size: 0.75rem; color: var(--text-muted);">Basado en investigacion de: Aalto University (2025), Oxford Academic (2024), DeBiasMe/arXiv (2025), PNAS (2025), ScienceDirect (2025)</p>
+</footer>
+
+<!-- Smooth scroll -->
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(l => {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+
+</body>
+</html>

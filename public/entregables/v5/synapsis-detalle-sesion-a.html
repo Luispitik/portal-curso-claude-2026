@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Synapsis 3.2 en Profundidad | Tu Sistema de Aprendizaje Continuo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#1a1a2e;--accent:#e94560;--accent2:#0f3460;--bg:#0d0d1a;--card:#16162a;--card2:#1e1e38;--text:#e0e0e0;--text2:#a0a0b8;--border:#2a2a4a;--success:#2ecc71;--warning:#f39c12;--code-bg:#0a0a18;--green:#10b981;--green-glow:rgba(16,185,129,0.12);--red-glow:rgba(233,69,96,0.1);--amber-glow:rgba(243,156,18,0.1);--blue-glow:rgba(15,52,96,0.3);--purple:#a855f7;--purple-glow:rgba(168,85,247,0.12);--cyan:#06b6d4;--cyan-glow:rgba(6,182,212,0.12)}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh}
+a{color:var(--accent);text-decoration:none}
+.header{background:linear-gradient(135deg,var(--primary) 0%,#1a0a2e 50%,var(--primary) 100%);padding:3rem 2rem;text-align:center;border-bottom:3px solid var(--purple);position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(168,85,247,0.08) 0%,transparent 60%);animation:pulse 8s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.header .badge{display:inline-block;background:var(--purple);color:#fff;padding:0.3rem 1rem;border-radius:20px;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:1rem}
+.header h1{font-size:2.2rem;font-weight:800;margin-bottom:0.5rem;background:linear-gradient(90deg,#fff,#d8b4fe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header .subtitle{font-size:1.05rem;color:var(--text2);max-width:650px;margin:0 auto}
+.header .section-num{font-size:4rem;font-weight:900;color:rgba(168,85,247,0.15);position:absolute;top:1rem;right:2rem}
+.container{max-width:900px;margin:0 auto;padding:2rem 1.5rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2rem;margin-bottom:2rem;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.3)}
+.card h2{font-size:1.4rem;margin-bottom:1rem;color:#fff;display:flex;align-items:center;gap:0.7rem}
+.card h2 .num{background:var(--purple);color:#fff;width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:700;flex-shrink:0}
+.card h3{font-size:1.1rem;color:var(--purple);margin:1.5rem 0 0.7rem}
+.card p,.card li{color:var(--text2);font-size:0.95rem}
+.card ul{list-style:none;padding-left:0}
+.card ul li{padding:0.3rem 0;padding-left:1.3rem;position:relative}
+.card ul li::before{content:'';position:absolute;left:0;top:0.7rem;width:6px;height:6px;border-radius:50%;background:var(--purple)}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:0.88rem}
+th{background:rgba(168,85,247,0.2);color:#fff;padding:0.7rem 0.8rem;text-align:left;font-weight:600}
+td{padding:0.6rem 0.8rem;border-bottom:1px solid var(--border);color:var(--text2)}
+tr:hover td{background:rgba(168,85,247,0.05)}
+th:first-child{border-radius:8px 0 0 0}
+th:last-child{border-radius:0 8px 0 0}
+.callout{background:var(--blue-glow);border-left:4px solid var(--accent2);border-radius:0 8px 8px 0;padding:1rem 1.5rem;margin:1rem 0}
+.callout.warning{border-left-color:var(--accent);background:var(--red-glow)}
+.callout.success{border-left-color:var(--success);background:var(--green-glow)}
+.callout.purple{border-left-color:var(--purple);background:var(--purple-glow)}
+.callout.cyan{border-left-color:var(--cyan);background:var(--cyan-glow)}
+.callout strong{color:#fff}
+.callout p{color:var(--text2);font-size:0.92rem;margin:0}
+.prompt-box{background:var(--code-bg);border:1px solid var(--border);border-radius:8px;padding:1rem 1.2rem;margin:1rem 0;position:relative;font-family:'Cascadia Code','Fira Code',monospace;font-size:0.85rem;color:#c8d6e5;white-space:pre-wrap;line-height:1.6;overflow-x:auto}
+.prompt-box .copy-btn{position:absolute;top:0.5rem;right:0.5rem;background:var(--purple);color:#fff;border:none;padding:0.3rem 0.8rem;border-radius:6px;font-size:0.75rem;cursor:pointer;opacity:0.8;transition:opacity .2s}
+.prompt-box .copy-btn:hover{opacity:1}
+.prompt-box .copy-btn.copied{background:var(--success)}
+.flow-v{margin:1.5rem 0}
+.flow-v-step{display:flex;gap:1.25rem;align-items:flex-start;position:relative}
+.flow-v-marker{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:40px}
+.flow-v-dot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;flex-shrink:0;color:#fff}
+.flow-v-line{width:2px;flex-grow:1;min-height:20px;background:var(--border)}
+.flow-v-content{flex:1;padding-bottom:1.5rem}
+.flow-v-content h4{color:#fff;font-size:0.95rem;margin-bottom:0.3rem}
+.flow-v-content p{font-size:0.88rem;margin-bottom:0}
+.layer-card{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:1.25rem;margin:0.75rem 0;border-left:4px solid}
+.layer-card h4{color:#fff;font-size:0.95rem;margin-bottom:0.4rem}
+.layer-card p{font-size:0.88rem;color:var(--text2);margin:0}
+.layer-card .file{font-family:'Cascadia Code','Fira Code',monospace;font-size:0.8rem;color:var(--purple);display:block;margin-top:0.3rem}
+.cmd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin:1.5rem 0}
+.cmd-card{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center}
+.cmd-card .cmd{font-family:'Cascadia Code','Fira Code',monospace;font-size:0.95rem;color:var(--purple);font-weight:700;margin-bottom:0.5rem}
+.cmd-card p{font-size:0.82rem;color:var(--text2);margin:0}
+.checklist{list-style:none;padding:0}
+.checklist li{display:flex;align-items:center;gap:0.8rem;padding:0.7rem 1rem;margin:0.4rem 0;background:var(--card2);border-radius:8px;cursor:pointer;transition:background .2s;user-select:none}
+.checklist li:hover{background:rgba(168,85,247,0.15)}
+.checklist li .check{width:22px;height:22px;border:2px solid var(--purple);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.checklist li.checked .check{background:var(--purple);border-color:var(--purple)}
+.checklist li.checked .check::after{content:'\2713';color:#fff;font-size:0.8rem;font-weight:700}
+.checklist li.checked span{text-decoration:line-through;color:var(--text2)}
+.tarea{border-left:4px solid var(--purple);background:var(--card);border-radius:0 12px 12px 0;padding:1.5rem 2rem;margin:2rem 0}
+.tarea h2{color:var(--purple);font-size:1.3rem;margin-bottom:0.8rem}
+.tarea ol{padding-left:1.2rem;margin-top:0.5rem}
+.tarea ol li{margin:0.4rem 0;color:var(--text2);font-size:0.95rem}
+.footer{text-align:center;padding:2rem;color:var(--text2);font-size:0.85rem;border-top:1px solid var(--border);margin-top:3rem}
+.footer strong{color:var(--purple)}
+.conf-bar{height:8px;border-radius:4px;background:var(--border);margin-top:0.3rem;position:relative;overflow:hidden}
+.conf-bar .fill{height:100%;border-radius:4px;transition:width 0.5s}
+.conf-bar .fill.low{background:var(--accent);width:30%}
+.conf-bar .fill.med{background:var(--warning);width:60%}
+.conf-bar .fill.high{background:var(--green);width:85%}
+.conf-bar .fill.max{background:var(--purple);width:95%}
+@media(max-width:768px){
+  .header h1{font-size:1.6rem}
+  .header .section-num{font-size:2.5rem;top:0.5rem;right:1rem}
+  .container{padding:1rem}
+  .card{padding:1.2rem}
+  table{font-size:0.78rem}
+  th,td{padding:0.5rem}
+  .cmd-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="section-num">SA</span>
+  <span class="badge">Sesion Avanzada</span>
+  <h1>Synapsis 3.2: Tu Sistema de Aprendizaje Continuo</h1>
+  <p class="subtitle">El sistema que observa como trabajas, detecta patrones y convierte tu experiencia en procedimientos reutilizables. Automaticamente.</p>
+</div>
+
+<div class="container">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 1. QUE ES SYNAPSIS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="card">
+    <h2><span class="num">1</span> Que es Synapsis (y que NO es)</h2>
+    <p>En la seccion 5 viste que Synapsis detecta patrones y crea instincts. Hoy vamos a abrir el capo y ver como funciona por dentro, que archivos lo componen, y como operarlo dia a dia.</p>
+
+    <div class="callout purple">
+      <p><strong>En una frase:</strong> Synapsis es un observador pasivo que mira cada sesion de trabajo, captura los patrones que repites, les asigna un nivel de confianza, y cuando estan maduros los convierte en skills o reglas que Claude aplica automaticamente.</p>
+    </div>
+
+    <h3>Lo que SI es</h3>
+    <ul>
+      <li>Un sistema de <strong>aprendizaje continuo</strong> que mejora con cada sesion</li>
+      <li>Un <strong>observador pasivo</strong> — no interrumpe, no pregunta, solo mira</li>
+      <li>Un <strong>generador de skills</strong> a partir de patrones reales de trabajo</li>
+      <li>Un <strong>cerebro operativo</strong> que recuerda decisiones entre proyectos</li>
+    </ul>
+
+    <h3>Lo que NO es</h3>
+    <ul>
+      <li>NO es magia — necesita 2-3 sesiones minimo para empezar a detectar patrones</li>
+      <li>NO toma decisiones por ti — sugiere, tu apruebas</li>
+      <li>NO funciona offline — necesita que trabajes con Claude para observar</li>
+      <li>NO es un plugin externo — esta integrado en tu sistema de skills</li>
+    </ul>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 2. ARQUITECTURA: LAS 4 CAPAS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="card">
+    <h2><span class="num">2</span> Arquitectura: las 4 capas del sistema</h2>
+    <p>Synapsis no es un solo archivo. Es un sistema de 4 capas que trabajan juntas. Cada capa tiene su archivo y su funcion:</p>
+
+    <div class="layer-card" style="border-color:var(--accent)">
+      <h4>Capa 1: Memoria Operativa (Operator State)</h4>
+      <p>Las decisiones estrategicas que aplican a TODOS tus proyectos: tu stack, tech retirada, lecciones aprendidas, milestones pendientes. Claude lo lee al iniciar CADA sesion.</p>
+      <span class="file">~/.claude/skills/_operator-state.json</span>
+    </div>
+
+    <div class="layer-card" style="border-color:var(--purple)">
+      <h4>Capa 2: Skill Router (Orquestador)</h4>
+      <p>El cerebro que detecta que tipo de proyecto tienes, recomienda skills, las instala, y captura decisiones nuevas. Es la interfaz entre tu y el sistema.</p>
+      <span class="file">~/.claude/skills/skill-router/SKILL.md</span>
+    </div>
+
+    <div class="layer-card" style="border-color:var(--cyan)">
+      <h4>Capa 3: Biblioteca + Catalogo + Reglas</h4>
+      <p>La coleccion de skills dormantes (se activan por proyecto), el indice para buscarlas, los proyectos registrados, y las reglas pasivas que se aplican solas.</p>
+      <span class="file">~/.claude/skills/_library/ + _catalog.json + _projects.json + _passive-rules.json</span>
+    </div>
+
+    <div class="layer-card" style="border-color:var(--green)">
+      <h4>Capa 4: Aprendizaje Continuo (Synapsis)</h4>
+      <p>El observador que captura patrones, los convierte en instincts con confidence score, y los evoluciona en skills cuando maduran.</p>
+      <span class="file">~/.claude/skills/norteia-continuous-learning/SKILL.md</span>
+    </div>
+
+    <div class="callout">
+      <p><strong>Analogia:</strong> Es como una empresa. La Capa 1 es la direccion (decisiones estrategicas). La Capa 2 es el manager (asigna recursos). La Capa 3 es el almacen (herramientas disponibles). La Capa 4 es el becario observador que documenta procesos.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 3. EL CICLO DE VIDA DE UN INSTINCT -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="card">
+    <h2><span class="num">3</span> El ciclo de vida: de observacion a skill</h2>
+    <p>Este es el flujo completo. Cada patron que repites sigue este camino:</p>
+
+    <div class="flow-v">
+      <div class="flow-v-step">
+        <div class="flow-v-marker">
+          <div class="flow-v-dot" style="background:var(--accent2)">1</div>
+          <div class="flow-v-line"></div>
+        </div>
+        <div class="flow-v-content">
+          <h4>Observacion</h4>
+          <p>Tu trabajas normalmente. Synapsis observa cada accion: que archivos editas, que comandos usas, que patrones sigues, como corriges a Claude. No interfiere. Solo mira.</p>
+        </div>
+      </div>
+      <div class="flow-v-step">
+        <div class="flow-v-marker">
+          <div class="flow-v-dot" style="background:var(--warning)">2</div>
+          <div class="flow-v-line"></div>
+        </div>
+        <div class="flow-v-content">
+          <h4>Deteccion de patron</h4>
+          <p>Despues de 2-3 sesiones, Synapsis detecta repeticiones: "este usuario siempre pide conventional commits", "siempre usa Tailwind con shadcn", "siempre verifica auth en API routes".</p>
+        </div>
+      </div>
+      <div class="flow-v-step">
+        <div class="flow-v-marker">
+          <div class="flow-v-dot" style="background:var(--purple)">3</div>
+          <div class="flow-v-line"></div>
+        </div>
+        <div class="flow-v-content">
+          <h4>Instinct (patron atomico)</h4>
+          <p>El patron se guarda como "instinct": una regla atomica con nombre, descripcion, y <strong>confidence score</strong> de 0 a 1. Cuantas mas veces se repite, mas sube la confianza.</p>
+        </div>
+      </div>
+      <div class="flow-v-step">
+        <div class="flow-v-marker">
+          <div class="flow-v-dot" style="background:var(--green)">4</div>
+          <div class="flow-v-line"></div>
+        </div>
+        <div class="flow-v-content">
+          <h4>Maduracion</h4>
+          <p>El instinct acumula evidencia. Si el usuario confirma el patron (+0.05), sube. Si lo contradice (-0.10), baja. Cuando llega a 0.7+, esta listo para evolucionar.</p>
+        </div>
+      </div>
+      <div class="flow-v-step">
+        <div class="flow-v-marker">
+          <div class="flow-v-dot" style="background:var(--accent)">5</div>
+        </div>
+        <div class="flow-v-content">
+          <h4>Evolucion → Skill / Regla pasiva</h4>
+          <p>Con <strong>/evolve</strong>, Synapsis agrupa instincts relacionados y propone: convertirlos en una skill (procedimiento completo), una regla pasiva (se aplica sola), o un comando (accion invocable).</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>Confidence score: como madura un instinct</h3>
+    <table>
+      <tr><th>Observaciones</th><th>Confidence</th><th>Estado</th><th>Ejemplo</th></tr>
+      <tr>
+        <td>1-2</td><td>0.30</td>
+        <td>Semilla — demasiado pronto para actuar</td>
+        <td><div class="conf-bar"><div class="fill low"></div></div></td>
+      </tr>
+      <tr>
+        <td>3-5</td><td>0.50</td>
+        <td>Tendencia — parece un patron pero puede ser coincidencia</td>
+        <td><div class="conf-bar"><div class="fill med"></div></div></td>
+      </tr>
+      <tr>
+        <td>6-10</td><td>0.70</td>
+        <td>Patron — listo para evolucionar si quieres</td>
+        <td><div class="conf-bar"><div class="fill high"></div></div></td>
+      </tr>
+      <tr>
+        <td>11+</td><td>0.85+</td>
+        <td>Validado — Synapsis lo aplica o sugiere con alta confianza</td>
+        <td><div class="conf-bar"><div class="fill max"></div></div></td>
+      </tr>
+    </table>
+
+    <div class="callout success">
+      <p><strong>Dato real:</strong> En mi sistema, "api-jwt-auth-required" tiene confidence 0.95. Eso significa que en practicamente todos mis proyectos, Claude aplica autenticacion JWT en API routes automaticamente, sin que yo se lo pida. Porque Synapsis lo aprendio observandome.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 4. LOS ARCHIVOS POR DENTRO -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="card">
+    <h2><span class="num">4</span> Los archivos por dentro: que contiene cada uno</h2>
+
+    <h3>_operator-state.json — Tu memoria estrategica</h3>
+    <p>Este archivo lo lee Claude al iniciar CADA sesion. Contiene:</p>
+    <table>
+      <tr><th>Seccion</th><th>Que guarda</th><th>Ejemplo real</th></tr>
+      <tr><td><strong>operator</strong></td><td>Tu nombre, marcas, idioma</td><td>Luis Salgado, norteia/salgadoia, es-ES</td></tr>
+      <tr><td><strong>stackDecisions.active</strong></td><td>Tu stack tecnologico validado</td><td>Next.js 16, Supabase, Vercel, Prisma...</td></tr>
+      <tr><td><strong>stackDecisions.retired</strong></td><td>Tech que ya no usas + warn</td><td>n8n (solo emergencias cliente)</td></tr>
+      <tr><td><strong>connectors</strong></td><td>MCPs activos / situacionales / eliminados</td><td>keep: 10, situational: 2, removed: 3</td></tr>
+      <tr><td><strong>strategicDecisions</strong></td><td>Decisiones historicas con fecha</td><td>8 decisiones: v3 adopted, n8n retired...</td></tr>
+      <tr><td><strong>crossProjectMemory</strong></td><td>Lecciones que aplican a todo</td><td>"Leads van a Mission Control repo"</td></tr>
+      <tr><td><strong>pendingMilestones</strong></td><td>Roadmap futuro del sistema</td><td>v4.0 Marketplace + Semver</td></tr>
+    </table>
+
+    <h3>_catalog.json — El indice de skills</h3>
+    <p>Un JSON con las 41 skills disponibles. Cada skill tiene:</p>
+    <div class="prompt-box">{
+  "id": "salgadoia-nextjs-pro",
+  "name": "Next.js Pro Patterns",
+  "description": "Next.js 16, Server Components, Tailwind, Vercel",
+  "tags": ["nextjs", "react", "tailwind", "vercel"],
+  "triggers": ["crear web", "next.js", "landing"],
+  "category": "web-dev"
+}</div>
+    <p>Los <strong>triggers</strong> son las palabras clave que el router usa para autodetectar que skill recomendar cuando describes una tarea.</p>
+
+    <h3>_projects.json — Tus proyectos conocidos</h3>
+    <p>Registro de todos los proyectos con los que has trabajado. Incluye:</p>
+    <ul>
+      <li><strong>15 proyectos activos</strong> con nombre, ruta, categoria y skills instaladas</li>
+      <li><strong>7 templates</strong> para crear proyectos nuevos (landing, web, SaaS, formacion...)</li>
+      <li>Historial de clonaciones (<code>clonedFrom</code>) para heredar configuracion</li>
+    </ul>
+
+    <h3>_passive-rules.json — Las reglas que se aplican solas</h3>
+    <p>16 reglas tecnicas que Claude aplica AUTOMATICAMENTE sin que las invoques. Cada regla tiene un trigger (patron que detecta en tu trabajo) y una inyeccion (instrucciones que aplica).</p>
+
+    <table>
+      <tr><th>Regla</th><th>Se activa cuando...</th><th>Que hace</th><th>Prioridad</th></tr>
+      <tr><td><strong>security-on-env</strong></td><td>Tocas un archivo .env</td><td>Verifica que esta en .gitignore, que no hay secrets expuestos</td><td style="color:var(--accent)">Critica</td></tr>
+      <tr><td><strong>api-jwt-auth-required</strong></td><td>Creas una API route</td><td>Exige JWT auth para datos sensibles</td><td style="color:var(--accent)">Critica</td></tr>
+      <tr><td><strong>html-twin-on-deliverable</strong></td><td>Generas DOCX/PPTX/PDF</td><td>Crea automaticamente un HTML visual equivalente</td><td style="color:var(--warning)">Alta</td></tr>
+      <tr><td><strong>nextjs-on-routing</strong></td><td>Editas page.tsx/layout.tsx</td><td>Aplica patrones Next.js 16 (params como Promise)</td><td style="color:var(--warning)">Alta</td></tr>
+      <tr><td><strong>vercel-security-headers</strong></td><td>Tocas vercel.json</td><td>Anade headers de seguridad (CSP, HSTS...)</td><td style="color:var(--warning)">Alta</td></tr>
+      <tr><td><strong>deploy-url-no-hardcode</strong></td><td>Detecta URL de Vercel hardcoded</td><td>Fuerza usar NEXT_PUBLIC_APP_URL</td><td style="color:var(--warning)">Alta</td></tr>
+    </table>
+    <p style="font-size:0.82rem;color:var(--text2)">Estas son 6 de las 16 reglas activas. El resto cubren Supabase, Prisma, Stripe, docx, SEO, y cache de Windows.</p>
+
+    <div class="callout cyan">
+      <p><strong>Como se crearon:</strong> Algunas las cree manualmente (como html-twin). Otras las genero Synapsis automaticamente cuando detecto que siempre pedia lo mismo (como api-jwt-auth-required). Con /evolve puedes ver cuales sugiere crear nuevas.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 5. EL SKILL ROUTER -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="card">
+    <h2><span class="num">5</span> El Skill Router: tu launcher inteligente</h2>
+    <p>El router es la puerta de entrada al sistema. Cuando dices "launcher" o "skills", se activa y te ofrece:</p>
+
+    <div class="prompt-box">Tienes 3 opciones:
+
+[1] Skills on Demand — Launcher con proyectos y skills
+    → Detecta tu proyecto, sugiere skills, instala lo que necesitas
+
+[2] Skill Picker — Elige skills manualmente
+    → Te muestra el catalogo completo por categorias
+
+[3] Freestyle — Claude vanilla
+    → Sin sistema, sin skills, sin reglas</div>
+
+    <h3>Si eliges [1] Launcher con proyecto existente:</h3>
+    <ol class="step-list" style="list-style:none;padding:0;counter-reset:steps">
+      <li style="padding:0.5rem 0 0.5rem 2.5rem;position:relative;border-bottom:1px solid var(--border);counter-increment:steps;font-size:0.92rem;color:var(--text2)"><span style="position:absolute;left:0;top:0.5rem;width:24px;height:24px;border-radius:6px;background:var(--purple);color:#fff;font-size:0.75rem;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>Detecta CLAUDE.md en tu carpeta → sabe que proyecto es</li>
+      <li style="padding:0.5rem 0 0.5rem 2.5rem;position:relative;border-bottom:1px solid var(--border);counter-increment:steps;font-size:0.92rem;color:var(--text2)"><span style="position:absolute;left:0;top:0.5rem;width:24px;height:24px;border-radius:6px;background:var(--purple);color:#fff;font-size:0.75rem;font-weight:700;display:flex;align-items:center;justify-content:center">2</span>Hace inventario de skills instaladas en .claude/commands/</li>
+      <li style="padding:0.5rem 0 0.5rem 2.5rem;position:relative;border-bottom:1px solid var(--border);counter-increment:steps;font-size:0.92rem;color:var(--text2)"><span style="position:absolute;left:0;top:0.5rem;width:24px;height:24px;border-radius:6px;background:var(--purple);color:#fff;font-size:0.75rem;font-weight:700;display:flex;align-items:center;justify-content:center">3</span>Cruza con Synapsis: hay instincts nuevos relevantes?</li>
+      <li style="padding:0.5rem 0 0.5rem 2.5rem;position:relative;border-bottom:1px solid var(--border);counter-increment:steps;font-size:0.92rem;color:var(--text2)"><span style="position:absolute;left:0;top:0.5rem;width:24px;height:24px;border-radius:6px;background:var(--purple);color:#fff;font-size:0.75rem;font-weight:700;display:flex;align-items:center;justify-content:center">4</span>Te da un "Skill Fitness Report": que tienes, que te falta, que sugiere</li>
+      <li style="padding:0.5rem 0 0.5rem 2.5rem;position:relative;font-size:0.92rem;color:var(--text2)"><span style="position:absolute;left:0;top:0.5rem;width:24px;height:24px;border-radius:6px;background:var(--purple);color:#fff;font-size:0.75rem;font-weight:700;display:flex;align-items:center;justify-content:center">5</span>Tu decides: instalar sugeridas, actualizar una, limpiar las que no usas, o seguir como esta</li>
+    </ol>
+
+    <h3>Si eliges [1] con proyecto nuevo:</h3>
+    <p>Te ofrece 7 templates precargados con skills:</p>
+    <table>
+      <tr><th>Template</th><th>Skills que instala</th><th>Te pregunta</th></tr>
+      <tr><td><strong>A. Landing page</strong></td><td>landing-builder, content-engine, nextjs-pro, brand-engine</td><td>Nombre, URL, que vendes, publico</td></tr>
+      <tr><td><strong>B. Web corporativa</strong></td><td>nextjs-pro, ux-designer, content-engine, brand-engine, security</td><td>Empresa, sector, paginas</td></tr>
+      <tr><td><strong>C. SaaS app</strong></td><td>saas-dev, nextjs-pro, security, ux-designer, e2e-testing</td><td>Nombre, problema, monetizacion</td></tr>
+      <tr><td><strong>D. Curso/Formacion</strong></td><td>formaciones, sales-pipeline, slides, word</td><td>Tematica, publico, FUNDAE?</td></tr>
+      <tr><td><strong>E. Contenido</strong></td><td>content-engine, video-suite, brand-engine, research</td><td>Marca, pilares, plataformas</td></tr>
+      <tr><td><strong>F. Cliente nuevo</strong></td><td>sales-pipeline, contracts, research</td><td>Organizacion, contacto, servicio</td></tr>
+      <tr><td><strong>G. Libre</strong></td><td>(vacio — tu eliges)</td><td>Descripcion del proyecto</td></tr>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 6. COMANDOS CLAVE -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="card">
+    <h2><span class="num">6</span> Los 10 comandos que necesitas conocer</h2>
+    <p>Estos son los comandos para operar Synapsis dia a dia. No necesitas memorizarlos todos, pero si saber que existen.</p>
+
+    <div class="cmd-grid">
+      <div class="cmd-card">
+        <div class="cmd">/system-status</div>
+        <p>Dashboard completo: skills activas, instincts, reglas pasivas, observaciones, proyectos. Tu "cuadro de mando".</p>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd">/instinct-status</div>
+        <p>Lista todos los instincts detectados con su confidence score, scope y veces detectado.</p>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd">/evolve</div>
+        <p>Agrupa instincts maduros y propone crear skills, reglas o comandos nuevos. El "upgrade" del sistema.</p>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd">/promote</div>
+        <p>Sube un instinct de scope proyecto a scope global. Aplica a TODOS tus proyectos.</p>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd">/passive-status</div>
+        <p>Muestra las 16 reglas pasivas activas, cuales se activan mas y cuales nunca se han usado.</p>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd">/analyze-observations</div>
+        <p>Analiza las observaciones de Synapsis y sugiere instincts, skills y reglas nuevas.</p>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd">/projects</div>
+        <p>Lista proyectos conocidos con conteo de instincts y observaciones por proyecto.</p>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd">/session-end</div>
+        <p>Cierra sesion documentando lo hecho, lo pendiente y las decisiones. Guarda en memoria.</p>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd">/instinct-export</div>
+        <p>Exporta instincts a fichero para backup o compartir con otro sistema.</p>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd">/instinct-import</div>
+        <p>Importa instincts desde fichero con control de scope (proyecto o global).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 7. TIMELINE REAL -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="card">
+    <h2><span class="num">7</span> Que esperar: timeline realista</h2>
+    <p>Synapsis no da resultados inmediatos. Necesita observarte trabajar. Este es el timeline real:</p>
+
+    <table>
+      <tr><th>Cuando</th><th>Que pasa</th><th>Que haces tu</th></tr>
+      <tr>
+        <td><strong>Semana 1</strong></td>
+        <td>Synapsis observa. Captura primeras observaciones. Ningun instinct todavia.</td>
+        <td>Trabaja normalmente. No fuerces nada.</td>
+      </tr>
+      <tr>
+        <td><strong>Semana 2</strong></td>
+        <td>5-10 instincts detectados, la mayoria con confidence baja (0.3-0.5).</td>
+        <td>Ejecuta /instinct-status para ver que ha detectado.</td>
+      </tr>
+      <tr>
+        <td><strong>Semana 3</strong></td>
+        <td>Instincts maduran. Algunos llegan a 0.7+. /evolve empieza a sugerir.</td>
+        <td>Prueba /evolve. Decide si las sugerencias tienen sentido.</td>
+      </tr>
+      <tr>
+        <td><strong>Semana 4</strong></td>
+        <td>2-3 skills auto-generadas. Primeras reglas pasivas activas.</td>
+        <td>Valida: las reglas aplican? Las skills funcionan?</td>
+      </tr>
+      <tr>
+        <td><strong>Mes 2+</strong></td>
+        <td>Sistema maduro. El /system-status muestra un ecosistema real.</td>
+        <td>Crece organicamente. Cada proyecto nuevo hereda el sistema.</td>
+      </tr>
+    </table>
+
+    <div class="callout warning">
+      <p><strong>Error comun:</strong> "Instale Synapsis hace 2 dias y no tiene instincts." Normal. Necesita 6-10 observaciones del mismo patron para crear un instinct con confianza minima. Trabaja 2-3 sesiones reales y vuelve a mirar.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 8. EJEMPLO REAL EN VIVO -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="card">
+    <h2><span class="num">8</span> Ejemplo real: mi sistema hoy</h2>
+    <p>Estos son los numeros reales de mi sistema a marzo 2026:</p>
+
+    <table>
+      <tr><th>Metrica</th><th>Valor</th></tr>
+      <tr><td>Skills en biblioteca</td><td><strong>42 dormantes</strong> (se instalan por proyecto)</td></tr>
+      <tr><td>Skills archivadas</td><td><strong>31</strong> (retiradas pero recuperables)</td></tr>
+      <tr><td>Proyectos activos</td><td><strong>15</strong> (webs, SaaS, formaciones, clientes)</td></tr>
+      <tr><td>Templates de proyecto</td><td><strong>7</strong> (landing, web, SaaS, curso, contenido, cliente, libre)</td></tr>
+      <tr><td>Reglas pasivas</td><td><strong>16</strong> (se aplican automaticamente)</td></tr>
+      <tr><td>Decisiones estrategicas</td><td><strong>8</strong> (cambios de stack, retiros, upgrades)</td></tr>
+      <tr><td>Skills globales (siempre activas)</td><td><strong>5</strong> (router, learning, researcher, self-healer, instincts)</td></tr>
+    </table>
+
+    <p>Esto no se construyo en un dia. Se construyo trabajando normalmente durante semanas, dejando que Synapsis observara, y ejecutando /evolve cuando habia instincts maduros. <strong>Es crecimiento organico, no configuracion de golpe.</strong></p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- CHECKLIST -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="card">
+    <h2><span class="num">&#10003;</span> Checklist de la sesion</h2>
+    <ul class="checklist">
+      <li onclick="toggleCheck(this)"><div class="check"></div><span>Entiendo las 4 capas del sistema (operator state, router, biblioteca, learning)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check"></div><span>Se que es un instinct y como funciona el confidence score</span></li>
+      <li onclick="toggleCheck(this)"><div class="check"></div><span>Conozco el ciclo: observacion → instinct → evolve → skill/regla</span></li>
+      <li onclick="toggleCheck(this)"><div class="check"></div><span>Se usar /system-status, /instinct-status, /evolve, /passive-status</span></li>
+      <li onclick="toggleCheck(this)"><div class="check"></div><span>Entiendo el Skill Router (launcher, templates, health check)</span></li>
+      <li onclick="toggleCheck(this)"><div class="check"></div><span>Tengo expectativas realistas (2-3 semanas para primeros resultados)</span></li>
+    </ul>
+  </div>
+
+  <!-- TAREA -->
+  <div class="tarea">
+    <h2>TAREA: Activa y explora tu sistema</h2>
+    <ol>
+      <li>Ejecuta <strong>/system-status</strong> en Claude Code. Es tu dashboard. Captura de pantalla y compartela en Skool.</li>
+      <li>Ejecuta <strong>/instinct-status</strong>. Si no tienes instincts, trabaja 2-3 sesiones reales y vuelve.</li>
+      <li>Si tienes instincts con confidence 0.7+, ejecuta <strong>/evolve</strong> y mira que sugiere.</li>
+      <li><strong>Bonus:</strong> Ejecuta <strong>/passive-status</strong> para ver que reglas se aplican automaticamente en tu sistema.</li>
+    </ol>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>Curso Claude AI 2026</strong> &mdash; Next Gen AI Institute &mdash; Luis-Angel
+  <p style="margin-top:0.5rem;font-size:0.75rem">Skills on Demand v3.2 &mdash; Basado en ECC v2.1 (Everything Claude Code)</p>
+</div>
+
+<script>
+function toggleCheck(el){el.classList.toggle('checked')}
+function copyPrompt(btn){
+  const box=btn.parentElement;
+  const text=box.textContent.replace('Copiar','').replace('Copiado','').trim();
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='Copiado';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='Copiar';btn.classList.remove('copied')},2000);
+  });
+}
+</script>
+</body>
+</html>
