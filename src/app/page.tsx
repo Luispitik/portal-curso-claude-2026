@@ -7,10 +7,6 @@ import { ProgressBar } from "@/components/ProgressBar";
 
 export default function Home() {
   const sections = getAllSections();
-  const completedCount = sections.filter(
-    (s) => s.frontmatter.status === "completo"
-  ).length;
-
   return (
     <>
       <Navigation />
@@ -32,9 +28,9 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Progress */}
+        {/* Course map */}
         <section className="mb-12">
-          <ProgressBar completedSections={completedCount} />
+          <ProgressBar />
         </section>
 
         {/* Sections by block */}
