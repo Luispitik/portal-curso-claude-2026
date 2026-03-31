@@ -9,7 +9,7 @@ export const SITE = {
   ],
   badge: "Next Gen AI Institute",
   sections: {
-    total: 6,
+    total: 7,
     blocks: [
       {
         label: "Fundamentos",
@@ -25,7 +25,7 @@ export const SITE = {
       },
       {
         label: "Practica",
-        sections: ["v6-sesion-en-vivo"],
+        sections: ["v6-caso-en-vivo", "v7-automatiza-tareas"],
       },
     ],
   },
@@ -38,6 +38,7 @@ export const SECTION_TYPE_LABELS: Record<string, string> = {
   sistema: "Sistema",
   avanzado: "Avanzado",
   proyecto: "Proyecto",
+  bonus: "Bonus",
 };
 
 export const SECTION_TYPE_COLORS: Record<string, string> = {
@@ -47,4 +48,5 @@ export const SECTION_TYPE_COLORS: Record<string, string> = {
   sistema: "bg-accent",
   avanzado: "bg-purple-600",
   proyecto: "bg-accent",
+  bonus: "bg-cyan-600",
 };

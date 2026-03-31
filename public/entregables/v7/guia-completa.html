@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V7 — Guia Completa: Automatiza tus Tareas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>:root{--bg:#0d0d1a;--bg2:#16162a;--card:#1e1e38;--accent:#e94560;--accent2:#0f3460;--success:#2ecc71;--warning:#f39c12;--text:#e0e0e0;--text2:#a0a0b8;--border:#2a2a4a;--r:12px;--mw:900px}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}.container{max-width:var(--mw);margin:0 auto;padding:2rem 1.5rem}.hero{text-align:center;padding:3rem 2rem;background:linear-gradient(135deg,var(--accent2) 0%,var(--bg) 100%);border-bottom:3px solid var(--accent)}.badge{display:inline-block;background:var(--accent);color:#fff;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.3rem 1rem;border-radius:20px;margin-bottom:1rem}.section-number{font-size:5rem;font-weight:800;color:var(--accent);opacity:.2;line-height:1}.hero h1{font-size:2rem;font-weight:700;margin:.5rem 0}.hero .subtitle{color:var(--text2);font-size:1.1rem}.meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1rem;font-size:.85rem;color:var(--text2)}.toc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;margin:2rem 0}.toc h3{font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text2);margin-bottom:1rem}.toc ol{list-style:none;counter-reset:toc}.toc li{counter-increment:toc;margin-bottom:.5rem}.toc li::before{content:counter(toc) ".";color:var(--accent);font-weight:600;margin-right:.5rem}.toc a{color:var(--text);text-decoration:none}.toc a:hover{color:var(--accent)}.step{margin:2.5rem 0;padding:2rem;background:var(--bg2);border-radius:var(--r);border-left:4px solid var(--accent)}.step-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}.step-num{width:36px;height:36px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0}.step h2{font-size:1.3rem;font-weight:700}.step p{margin:.8rem 0;color:var(--text2)}.step ul,.step ol{margin:.8rem 0 .8rem 1.5rem;color:var(--text2)}.step li{margin-bottom:.4rem}.step strong{color:var(--text)}.callout{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.5rem;margin:1rem 0}.callout.tip{border-left:4px solid var(--success)}.callout.important{border-left:4px solid var(--accent)}.callout.warning{border-left:4px solid var(--warning)}.ct{font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}.callout.tip .ct{color:var(--success)}.callout.important .ct{color:var(--accent)}.callout.warning .ct{color:var(--warning)}.prompt-box{background:#0a0a14;border:1px solid var(--border);border-radius:var(--r);margin:1rem 0;overflow:hidden}.prompt-header{display:flex;justify-content:space-between;align-items:center;padding:.6rem 1rem;background:var(--card);border-bottom:1px solid var(--border);font-size:.8rem;color:var(--text2)}.prompt-header .label{font-weight:600;text-transform:uppercase;letter-spacing:.05em}.btn-copy{background:var(--accent2);color:var(--text);border:none;padding:.3rem .8rem;border-radius:6px;cursor:pointer;font-size:.75rem;font-family:inherit;transition:background .2s}.btn-copy:hover{background:var(--accent)}.btn-copy.copied{background:var(--success)}.prompt-body{padding:1rem;font-size:.9rem;line-height:1.6;white-space:pre-wrap;color:var(--text2)}.task-box{background:linear-gradient(135deg,rgba(233,69,96,.1) 0%,rgba(15,52,96,.1) 100%);border:2px solid var(--accent);border-radius:var(--r);padding:1.5rem;margin:2rem 0}.task-box h3{color:var(--accent);font-size:1rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.8rem}.task-box ol{margin-left:1.2rem}.task-box li{margin-bottom:.5rem;color:var(--text2)}table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}th{background:var(--card);color:var(--text);text-align:left;padding:.8rem 1rem;border-bottom:2px solid var(--accent);font-weight:600}td{padding:.7rem 1rem;border-bottom:1px solid var(--border);color:var(--text2)}tr:hover td{background:var(--card)}.takeaways{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;margin:2rem 0}.takeaways h3{font-size:1rem;margin-bottom:1rem;color:var(--accent)}.takeaways li{margin-bottom:.6rem;padding-left:.5rem;color:var(--text2)}.takeaways li::marker{color:var(--accent)}.section-nav{display:flex;justify-content:space-between;margin:3rem 0 1rem;padding-top:2rem;border-top:1px solid var(--border)}.nav-btn{color:var(--text2);text-decoration:none;padding:.6rem 1.2rem;border:1px solid var(--border);border-radius:8px;font-size:.9rem;transition:all .2s}.nav-btn:hover{border-color:var(--accent);color:var(--accent)}footer{text-align:center;padding:2rem;color:var(--text2);font-size:.8rem;border-top:1px solid var(--border);margin-top:2rem}@media print{body{background:#fff;color:#1a1a2e}.hero{background:none}.step{border-left-color:#1a1a2e;background:#f5f5f5}.btn-copy{display:none}.prompt-body{background:#f0f0f0;color:#333}}@media(max-width:640px){.hero h1{font-size:1.5rem}.section-number{font-size:3rem}.step{padding:1.2rem}.meta{flex-direction:column;gap:.5rem}}</style>
+</head>
+<body>
+<div class="hero"><span class="badge">Video 7 - Bonus</span><div class="section-number">07</div><h1>Automatiza tus Tareas</h1><p class="subtitle">Tareas programadas, hooks y automatizaciones reales</p><div class="meta"><span>~10 min</span><span>Modulo 7 de 7</span></div></div>
+<div class="container">
+<nav class="toc"><h3>En esta guia</h3><ol>
+<li><a href="#paso1">Que son las tareas programadas</a></li>
+<li><a href="#paso2">Casos de uso reales</a></li>
+<li><a href="#paso3">Como configurarlas</a></li>
+<li><a href="#paso4">Tareas vs Hooks: cuando usar cada uno</a></li>
+<li><a href="#paso5">Combinando tareas + hooks + skills</a></li>
+<li><a href="#prompts">Prompts de esta seccion</a></li>
+<li><a href="#tarea">Tarea practica</a></li>
+</ol></nav>
+
+<div class="step" id="paso1"><div class="step-header"><div class="step-num">1</div><h2>Que son las tareas programadas</h2></div>
+<p>Las tareas programadas de Claude Code son <strong>agentes autonomos</strong> que ejecutan trabajo en segundo plano segun un horario que tu defines. Se configuran desde la seccion "Programar" del panel lateral de Claude Code.</p>
+<ul>
+<li>Se ejecutan <strong>solo con el ordenador encendido</strong></li>
+<li>Si el ordenador estaba apagado, se <strong>recuperan</strong> al encenderlo</li>
+<li>La primera vez piden <strong>permisos</strong> (puedes ponerlas en modo bypass)</li>
+<li><strong>Consumen tokens</strong> — son agentes reales, no simples scripts</li>
+</ul>
+<div class="callout important"><div class="ct">Diferencia clave</div><p>Las tareas programadas son como tener un empleado que viene cada dia a una hora concreta, hace su trabajo y se va. Tu solo revisas el resultado.</p></div></div>
+
+<div class="step" id="paso2"><div class="step-header"><div class="step-num">2</div><h2>Casos de uso reales</h2></div>
+<p>Ejemplos concretos del video, en produccion:</p>
+<table>
+<tr><th>Tarea</th><th>Frecuencia</th><th>Que hace</th></tr>
+<tr><td><strong>Blog autopublicable</strong></td><td>Semanal</td><td>Genera borrador del blog, audita SEO, publica automaticamente</td></tr>
+<tr><td><strong>Gemini Notes</strong></td><td>Cada hora</td><td>Lee emails de reuniones, procesa notas, genera informe accionable, actualiza CRM</td></tr>
+<tr><td><strong>Newsletter</strong></td><td>Viernes</td><td>Barrido de sesiones de la semana, selecciona hallazgos, genera articulo</td></tr>
+<tr><td><strong>Content Engine</strong></td><td>Diario</td><td>Sube borradores de contenido para aprobacion al CRM</td></tr>
+<tr><td><strong>Follow-up leads</strong></td><td>Semanal</td><td>Evalua leads pendientes, genera borradores de email de seguimiento</td></tr>
+<tr><td><strong>SEO articles</strong></td><td>Configurable</td><td>Optimiza articulos existentes para posicionamiento</td></tr>
+</table></div>
+
+<div class="step" id="paso3"><div class="step-header"><div class="step-num">3</div><h2>Como configurarlas</h2></div>
+<ol>
+<li>Abre Claude Code y ve a la seccion <strong>"Programar"</strong> en el panel lateral</li>
+<li>Crea una nueva tarea con un <strong>nombre descriptivo</strong></li>
+<li>Define el <strong>prompt</strong> (que quieres que haga el agente)</li>
+<li>Configura la <strong>frecuencia</strong> (diario, semanal, cada X horas)</li>
+<li>La primera vez, <strong>acepta los permisos</strong></li>
+<li>Opcionalmente, pon en <strong>modo bypass</strong> para que no pregunte</li>
+</ol>
+<div class="callout warning"><div class="ct">Cuidado</div><p>El modo bypass significa que la tarea se ejecuta sin supervision. Solo activalo en tareas que hayas verificado que funcionan bien manualmente primero.</p></div></div>
+
+<div class="step" id="paso4"><div class="step-header"><div class="step-num">4</div><h2>Tareas vs Hooks: cuando usar cada uno</h2></div>
+<table>
+<tr><th>Caracteristica</th><th>Tareas programadas</th><th>Hooks</th></tr>
+<tr><td><strong>Trigger</strong></td><td>Horario (cron)</td><td>Evento (pre/post tool use)</td></tr>
+<tr><td><strong>Consumo tokens</strong></td><td>Si (son agentes)</td><td>No necesariamente</td></tr>
+<tr><td><strong>Complejidad</strong></td><td>Alta (trabajo completo)</td><td>Baja (automatizacion puntual)</td></tr>
+<tr><td><strong>Ejemplo</strong></td><td>Genera newsletter semanal</td><td>Lint automatico al guardar</td></tr>
+<tr><td><strong>Analogia</strong></td><td>Empleado con horario</td><td>Flujo automatico (como n8n)</td></tr>
+</table>
+<div class="callout tip"><div class="ct">La combinacion ganadora</div><p>Las <strong>skills</strong> definen QUE hacer, los <strong>hooks</strong> disparan CUANDO hacerlo, y las <strong>tareas programadas</strong> lo ejecutan AUTOMATICAMENTE. Juntos, forman un sistema operativo completo.</p></div></div>
+
+<div class="step" id="paso5"><div class="step-header"><div class="step-num">5</div><h2>Combinando tareas + hooks + skills</h2></div>
+<p>El flujo completo para automatizar un proceso de negocio:</p>
+<ol>
+<li><strong>Identifica</strong> un proceso repetitivo (ej: follow-up de leads)</li>
+<li><strong>Crea la skill</strong> que define como hacerlo (lead-follow-up.md)</li>
+<li><strong>Configura un hook</strong> que la active ante ciertos eventos (nuevo email de lead)</li>
+<li><strong>Programa una tarea</strong> que la ejecute periodicamente (cada viernes, revisa pendientes)</li>
+<li><strong>Verifica manualmente</strong> las primeras ejecuciones</li>
+<li><strong>Activa bypass</strong> cuando estes seguro de que funciona</li>
+</ol></div>
+
+<div class="step" id="prompts" style="border-left-color:var(--accent2)"><div class="step-header"><div class="step-num" style="background:var(--accent2)">P</div><h2>Prompts de esta seccion</h2></div>
+<p><strong>Prompt 1: Identificar automatizaciones</strong></p>
+<div class="prompt-box"><div class="prompt-header"><span class="label">Prompt copiable</span><button class="btn-copy" onclick="copyPrompt(this)">Copiar</button></div>
+<div class="prompt-body">Analiza mi flujo de trabajo semanal. Quiero identificar que tareas podria automatizar con tareas programadas de Claude Code. Para cada una, dame:
+1. Nombre de la tarea
+2. Que hace exactamente
+3. Frecuencia recomendada (diaria, semanal, cada X horas)
+4. Skills necesarias
+5. Riesgo de automatizar sin supervision (bajo/medio/alto)
+
+Empieza preguntandome sobre mis procesos repetitivos.</div></div>
+
+<p><strong>Prompt 2: Crear tarea programada</strong></p>
+<div class="prompt-box"><div class="prompt-header"><span class="label">Prompt copiable</span><button class="btn-copy" onclick="copyPrompt(this)">Copiar</button></div>
+<div class="prompt-body">Quiero crear una tarea programada que [describe la tarea]. Necesito:
+1. El prompt completo para el agente
+2. La frecuencia optima (con expresion cron)
+3. Las skills que deberia tener instaladas
+4. Un checklist de verificacion antes de activar bypass
+5. Que podria fallar y como detectarlo</div></div>
+
+<p><strong>Prompt 3: Resumen semanal automatico</strong></p>
+<div class="prompt-box"><div class="prompt-header"><span class="label">Prompt copiable</span><button class="btn-copy" onclick="copyPrompt(this)">Copiar</button></div>
+<div class="prompt-body">Eres un agente de resumen semanal. Tu tarea es:
+1. Revisa las sesiones de Claude Code de esta semana
+2. Identifica los 5 hallazgos mas importantes
+3. Genera un articulo de 500 palabras maximo con los descubrimientos
+4. Formatealo como borrador de newsletter/blog
+5. Enviamelo como borrador de email a [tu email]
+
+Tono: practico, directo, con ejemplos concretos.</div></div></div>
+
+<div class="takeaways"><h3>Resumen: lo que debes recordar</h3><ol>
+<li><strong>Las tareas programadas son agentes autonomos</strong> con horario fijo</li>
+<li><strong>Necesitan el ordenador encendido</strong>, pero se recuperan si estaba apagado</li>
+<li><strong>Consumen tokens</strong> — son agentes reales, no scripts</li>
+<li><strong>Hooks no consumen tokens necesariamente</strong> — son automatizaciones ligeras</li>
+<li><strong>Skills + Hooks + Tareas</strong> = sistema operativo completo para tu negocio</li>
+</ol></div>
+
+<div class="task-box" id="tarea"><h3>Tarea practica del modulo</h3><ol>
+<li>Abre la seccion "Programar" de Claude Code</li>
+<li>Usa el <strong>Prompt 1</strong> para identificar 3 tareas automatizables</li>
+<li>Crea tu primera tarea programada con el <strong>Prompt 3</strong> (resumen semanal)</li>
+<li>Ejecutala manualmente para verificar que funciona</li>
+<li>Cuando estes satisfecho, activa el modo bypass</li>
+</ol></div>
+
+<nav class="section-nav">
+<a href="/secciones/v6-caso-en-vivo" class="nav-btn">&larr; V6: Caso en Vivo</a>
+<a href="/" class="nav-btn">Volver al indice</a>
+</nav></div>
+<footer>Curso Claude 2026 — De 0 a Sistema &middot; Next Gen AI Institute &middot; Luis Salgado &amp; Angel Aparicio</footer>
+<script>function copyPrompt(btn){var t=btn.closest('.prompt-box').querySelector('.prompt-body').textContent;navigator.clipboard.writeText(t).then(function(){btn.textContent='Copiado!';btn.classList.add('copied');setTimeout(function(){btn.textContent='Copiar';btn.classList.remove('copied')},2000)})}</script>
+</body></html>
