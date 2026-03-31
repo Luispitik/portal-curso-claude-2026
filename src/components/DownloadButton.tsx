@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
 interface DownloadButtonProps {
@@ -18,15 +17,13 @@ export function DownloadButton({
   type,
 }: DownloadButtonProps) {
   const [clicked, setClicked] = useState(false);
-  const router = useRouter();
 
   const handleClick = () => {
     setClicked(true);
     setTimeout(() => setClicked(false), 1500);
 
     if (type === "html") {
-      const viewerPath = file.replace("/entregables/", "/viewer/");
-      router.push(viewerPath);
+      window.location.href = file;
     } else {
       const link = document.createElement("a");
       link.href = file;
