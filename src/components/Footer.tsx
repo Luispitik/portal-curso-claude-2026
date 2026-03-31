@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SITE } from "@/lib/site-config";
 
 export function Footer() {
@@ -15,9 +16,16 @@ export function Footer() {
               </span>
             ))}
           </div>
-          <p className="text-xs text-text-secondary/60">
-            {SITE.badge} &middot; 2026
-          </p>
+          <div className="flex items-center gap-3 text-xs text-text-secondary/60">
+            <span>{SITE.badge} &middot; 2026</span>
+            <span>&middot;</span>
+            <Link
+              href="/privacidad"
+              className="hover:text-accent transition-colors"
+            >
+              Privacidad y Proteccion de Datos
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
