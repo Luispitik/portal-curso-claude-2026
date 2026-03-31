@@ -23,7 +23,9 @@ export function DownloadButton({
     setTimeout(() => setClicked(false), 1500);
 
     if (type === "html") {
-      window.location.href = file;
+      if (file.startsWith("/entregables/")) {
+        window.location.href = file;
+      }
     } else {
       const link = document.createElement("a");
       link.href = file;
